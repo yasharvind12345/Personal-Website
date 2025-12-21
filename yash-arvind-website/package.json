@@ -1,7 +1,6 @@
 {
   "name": "yash-arvind-website",
   "version": "1.0.0",
-  "description": "Personal website for Yash Arvind - Fintech & AI Builder",
   "private": true,
   "scripts": {
     "dev": "next dev",

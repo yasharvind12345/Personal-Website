@@ -1,0 +1,83 @@
+{
+  /**
+   * ===========================================================================
+   * TYPESCRIPT CONFIGURATION
+   * ===========================================================================
+   * 
+   * This file tells TypeScript how to check your code for errors.
+   * The settings below are optimized for Next.js projects.
+   * 
+   * WHAT THIS DOES:
+   * - Catches coding errors before they reach production
+   * - Provides better code completion in your editor
+   * - Ensures type safety across your codebase
+   * 
+   * YOU GENERALLY DON'T NEED TO MODIFY THIS FILE
+   * unless you have specific TypeScript requirements.
+   */
+  "compilerOptions": {
+    // ---------------------------------------------------------------------------
+    // TARGET & MODULE SETTINGS
+    // ---------------------------------------------------------------------------
+    // These determine what JavaScript version the code compiles to
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+
+    // ---------------------------------------------------------------------------
+    // TYPE CHECKING (Keep these strict for better code quality)
+    // ---------------------------------------------------------------------------
+    "strict": true,                    // Enable all strict type checking
+    "noEmit": true,                    // Don't output JS files (Next.js handles this)
+    "esModuleInterop": true,           // Better compatibility with CommonJS modules
+    "skipLibCheck": true,              // Skip type checking of node_modules (faster builds)
+    "forceConsistentCasingInFileNames": true,  // Prevent case-sensitivity bugs
+
+    // ---------------------------------------------------------------------------
+    // JSX SETTINGS (For React components)
+    // ---------------------------------------------------------------------------
+    "jsx": "preserve",                 // Let Next.js handle JSX compilation
+    "incremental": true,               // Faster subsequent builds
+
+    // ---------------------------------------------------------------------------
+    // PATH ALIASES
+    // ---------------------------------------------------------------------------
+    // This lets you use "@/components" instead of "../../components"
+    // Makes imports cleaner and easier to read
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]                   // Example: import { Button } from "@/components/Button"
+    },
+
+    // ---------------------------------------------------------------------------
+    // NEXT.JS PLUGIN
+    // ---------------------------------------------------------------------------
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+
+    // ---------------------------------------------------------------------------
+    // RESOLVE JSON MODULES
+    // ---------------------------------------------------------------------------
+    // Allows importing JSON files directly
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "allowJs": true
+  },
+
+  // ---------------------------------------------------------------------------
+  // FILES TO INCLUDE/EXCLUDE
+  // ---------------------------------------------------------------------------
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

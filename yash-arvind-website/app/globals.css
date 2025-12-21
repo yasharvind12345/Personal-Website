@@ -1,0 +1,359 @@
+/**
+ * =============================================================================
+ * GLOBAL STYLESHEET
+ * =============================================================================
+ * 
+ * This file contains all global CSS styles for the website.
+ * It's imported in the root layout and applies to every page.
+ * 
+ * STRUCTURE:
+ * 1. Tailwind imports (required)
+ * 2. Font imports (Google Fonts)
+ * 3. CSS Custom Properties (variables)
+ * 4. Base element styles
+ * 5. Utility classes
+ * 6. Custom components
+ */
+
+/* ---------------------------------------------------------------------------
+   TAILWIND CSS IMPORTS
+   These three directives include Tailwind's base, component, and utility styles
+--------------------------------------------------------------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   GOOGLE FONTS IMPORTS
+   Loading custom fonts for the site's typography
+   - Instrument Serif: Elegant display font for headings
+   - General Sans: Clean sans-serif for body text (via Fontshare)
+   - JetBrains Mono: Monospace font for code/technical content
+--------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* Fontshare doesn't have a direct CSS import, so we use a fallback system font approach */
+/* The "General Sans" font would need to be self-hosted or use a similar alternative */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ---------------------------------------------------------------------------
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   These define the core design tokens used throughout the site.
+   Change these to update colors, spacing, and other values globally.
+--------------------------------------------------------------------------- */
+:root {
+  /* -------------------------------------------------------------------------
+     COLOR VARIABLES
+     These create the dark, sophisticated fintech aesthetic
+  ------------------------------------------------------------------------- */
+  
+  /* Background colors (dark theme) */
+  --color-bg-primary: #0a0a0b;      /* Main page background */
+  --color-bg-secondary: #0f0f10;    /* Section backgrounds */
+  --color-bg-tertiary: #151517;     /* Card backgrounds */
+  --color-bg-hover: #1a1a1d;        /* Hover states */
+  
+  /* Text colors */
+  --color-text-primary: #fafafa;    /* Main headings */
+  --color-text-secondary: #a1a1aa;  /* Body text */
+  --color-text-muted: #71717a;      /* Subtle text */
+  
+  /* Accent color (gold/amber) */
+  --color-accent: #fbbf24;          /* Primary accent */
+  --color-accent-hover: #f59e0b;    /* Accent hover state */
+  --color-accent-muted: rgba(251, 191, 36, 0.1); /* Subtle accent background */
+  
+  /* Border colors */
+  --color-border: #27272a;          /* Default borders */
+  --color-border-hover: #3f3f46;    /* Hover borders */
+  
+  /* -------------------------------------------------------------------------
+     TYPOGRAPHY VARIABLES
+  ------------------------------------------------------------------------- */
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  /* -------------------------------------------------------------------------
+     SPACING & SIZING
+  ------------------------------------------------------------------------- */
+  --header-height: 4rem;            /* Navigation bar height */
+  --container-max: 1280px;          /* Maximum content width */
+  --section-padding: 6rem;          /* Vertical section spacing */
+  
+  /* -------------------------------------------------------------------------
+     ANIMATION TIMING
+  ------------------------------------------------------------------------- */
+  --transition-fast: 150ms;
+  --transition-base: 200ms;
+  --transition-slow: 300ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   BASE ELEMENT STYLES
+   These apply default styles to HTML elements
+--------------------------------------------------------------------------- */
+@layer base {
+  /* Ensure smooth scrolling for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Set up the dark theme body */
+  body {
+    @apply bg-void-950 text-steel-100 antialiased;
+    font-family: var(--font-sans);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-blend-mode: overlay;
+    background-size: 200px;
+  }
+  
+  /* Remove default focus outline, add custom one */
+  *:focus {
+    @apply outline-none;
+  }
+  
+  /* Custom focus ring for accessibility */
+  *:focus-visible {
+    @apply ring-2 ring-accent-400 ring-offset-2 ring-offset-void-950;
+  }
+  
+  /* Heading styles */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply text-steel-50 tracking-tight;
+  }
+  
+  /* Link styles */
+  a {
+    @apply text-steel-100 transition-colors duration-200;
+  }
+  
+  a:hover {
+    @apply text-accent-400;
+  }
+  
+  /* Selection highlight */
+  ::selection {
+    @apply bg-accent-400/20 text-accent-300;
+  }
+  
+  /* Scrollbar styling (WebKit browsers) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-void-900;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-steel-700 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-steel-600;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   CUSTOM UTILITY CLASSES
+   Reusable utility classes for common patterns
+--------------------------------------------------------------------------- */
+@layer utilities {
+  /* Container with max-width and padding */
+  .container-custom {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Section padding for consistent vertical rhythm */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+  
+  /* Gradient text effect */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-steel-100 via-accent-300 to-steel-100;
+  }
+  
+  /* Accent gradient text */
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-400 to-accent-300;
+  }
+  
+  /* Glow effect for accent elements */
+  .glow {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+  }
+  
+  .glow-lg {
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.2);
+  }
+  
+  /* Border gradient effect */
+  .border-gradient {
+    @apply relative;
+  }
+  
+  .border-gradient::before {
+    content: '';
+    @apply absolute inset-0 rounded-lg p-px;
+    background: linear-gradient(135deg, var(--color-accent) 0%, transparent 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  
+  /* Hide scrollbar but allow scrolling */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Animation delay utilities */
+  .animation-delay-100 { animation-delay: 100ms; }
+  .animation-delay-200 { animation-delay: 200ms; }
+  .animation-delay-300 { animation-delay: 300ms; }
+  .animation-delay-400 { animation-delay: 400ms; }
+  .animation-delay-500 { animation-delay: 500ms; }
+  .animation-delay-600 { animation-delay: 600ms; }
+  .animation-delay-700 { animation-delay: 700ms; }
+  .animation-delay-800 { animation-delay: 800ms; }
+}
+
+/* ---------------------------------------------------------------------------
+   CUSTOM COMPONENT STYLES
+   Styles for specific UI components
+--------------------------------------------------------------------------- */
+@layer components {
+  /* Card component with subtle border and hover effect */
+  .card {
+    @apply bg-void-800/50 border border-steel-800/50 rounded-xl p-6;
+    @apply transition-all duration-300;
+    @apply hover:border-steel-700/50 hover:bg-void-700/50;
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Button base styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3;
+    @apply font-medium text-sm tracking-wide;
+    @apply transition-all duration-200;
+    @apply rounded-lg;
+  }
+  
+  /* Primary button (accent colored) */
+  .btn-primary {
+    @apply btn;
+    @apply bg-accent-400 text-void-950;
+    @apply hover:bg-accent-300 hover:shadow-glow;
+  }
+  
+  /* Secondary button (outline) */
+  .btn-secondary {
+    @apply btn;
+    @apply border border-steel-700 text-steel-100;
+    @apply hover:border-accent-400 hover:text-accent-400;
+  }
+  
+  /* Ghost button (no background) */
+  .btn-ghost {
+    @apply btn;
+    @apply text-steel-400;
+    @apply hover:text-accent-400 hover:bg-void-700;
+  }
+  
+  /* Tag/badge component */
+  .tag {
+    @apply inline-flex items-center px-3 py-1;
+    @apply text-xs font-mono font-medium tracking-wider uppercase;
+    @apply bg-void-800 text-steel-400;
+    @apply border border-steel-800 rounded-full;
+  }
+  
+  /* Accent tag variant */
+  .tag-accent {
+    @apply tag;
+    @apply bg-accent-400/10 text-accent-400 border-accent-400/20;
+  }
+  
+  /* Section heading with decorative line */
+  .section-heading {
+    @apply flex items-center gap-4 mb-12;
+  }
+  
+  .section-heading::after {
+    content: '';
+    @apply flex-1 h-px bg-gradient-to-r from-steel-800 to-transparent;
+  }
+  
+  /* Stat/metric display */
+  .stat {
+    @apply flex flex-col;
+  }
+  
+  .stat-value {
+    @apply font-display text-4xl md:text-5xl text-steel-50;
+  }
+  
+  .stat-label {
+    @apply font-mono text-xs uppercase tracking-wider text-steel-500 mt-1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   PAGE TRANSITION ANIMATIONS
+   These create smooth transitions between page loads
+--------------------------------------------------------------------------- */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+
+/* ---------------------------------------------------------------------------
+   RESPONSIVE ADJUSTMENTS
+   Fine-tune styles for different screen sizes
+--------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  :root {
+    --section-padding: 4rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   PRINT STYLES
+   Optimize the page for printing (if someone prints your portfolio)
+--------------------------------------------------------------------------- */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}

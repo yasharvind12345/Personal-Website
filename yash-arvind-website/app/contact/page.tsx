@@ -50,7 +50,7 @@ import { Button } from '@/components/ui/Button';
 
 const contactInfo = {
   // Primary email address
-  email: 'yash@example.com', // UPDATE THIS
+  email: 'yasharvind12345@gmail.com', // UPDATE THIS
   
   // Response time expectation
   responseTime: '24-48 hours',

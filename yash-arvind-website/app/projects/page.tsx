@@ -32,6 +32,7 @@ const allVentures = [
     tags: ['Swift', 'iOS', 'Leadership', 'GTM Strategy', 'Product Management'],
     status: 'active' as const,
     icon: <Smartphone size={24} />,
+    externalUrl: 'https://apps.apple.com/us/app/flux-student-startup-network/id6742727564',
     metrics: [
       { label: 'Team Size', value: '6 Engineers' },
       { label: 'Platform', value: 'iOS Native' },

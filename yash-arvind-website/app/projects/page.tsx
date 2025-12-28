@@ -6,68 +6,42 @@ import {
   Smartphone,
   Package,
   Wallet,
-  Shield,
-  BarChart3,
-  LineChart,
-  Target,
   ArrowRight,
 } from 'lucide-react';
 
 import { Section, ProjectCard, Tag, Button } from '@/components';
 
-// Featured technology ventures
-const featuredVentures = [
+// All ventures and projects
+const allVentures = [
   {
     title: 'TAM',
     description: 'AI Financial Due Diligence Platform',
-    longDescription: `Built for PE, IB, and Corp Dev use cases. Uses LangChain and agentic AI to parse complex financial documents, automate red-flag detection, and generate comprehensive PDF & Excel reports. Python/FastAPI backend with React analytics frontend.`,
-    tags: ['LangChain', 'Python', 'FastAPI', 'React', 'NLP'],
+    longDescription: 'Leveraged LangChain and agentic AI to develop an end-to-end financial due diligence tool, automating data extraction, analysis, and report generation. Integrated natural language processing (NLP) to parse complex financial documents, identifying key risks and opportunities with enhanced accuracy. Created a full-stack analytics platform with Python/FastAPI backend and React frontend, featuring interactive financial visualizations and automated report generation (PDF/Excel).',
+    tags: ['LangChain', 'Python', 'FastAPI', 'React', 'NLP', 'Agentic AI'],
     status: 'active' as const,
-    featured: true,
     icon: <Bot size={24} />,
     metrics: [
-      { label: 'Target Users', value: 'PE/IB' },
-      { label: 'Tech', value: 'Agentic AI' },
+      { label: 'Target', value: 'PE/IB/Corp Dev' },
+      { label: 'Stack', value: 'Full-Stack' },
     ],
   },
   {
     title: 'Flux',
     description: 'Professional Networking App',
-    longDescription: `iOS app with swipe-based matching for professional networking. Led a cross-functional team of 6 engineers. Developed GTM strategy and executed campus rollout. Built with Swift for native iOS experience.`,
-    tags: ['Swift', 'iOS', 'Leadership', 'GTM Strategy'],
+    longDescription: 'Designed and developed the MVP using Swift, implementing custom UI for swipe-based matching and networking. Leading a cross-functional team of six (design, development, marketing) to launch the product across campus. Authored business plan including market sizing, financial projections, and GTM strategy for seed-stage investments.',
+    tags: ['Swift', 'iOS', 'Leadership', 'GTM Strategy', 'Product Management'],
     status: 'active' as const,
-    featured: true,
     icon: <Smartphone size={24} />,
     metrics: [
-      { label: 'Team Size', value: '6' },
-      { label: 'Platform', value: 'iOS' },
+      { label: 'Team Size', value: '6 Engineers' },
+      { label: 'Platform', value: 'iOS Native' },
     ],
   },
-];
-
-// Startup ventures
-const startupVentures = [
-  {
-    title: 'BoxMate',
-    description: 'Student Storage Marketplace',
-    longDescription: `On-demand storage platform for college students. Generated $10,000 in revenue within the first 2 weeks of launch. Implemented regression-based pricing optimization and demand forecasting with Python.`,
-    tags: ['Python', 'Pricing Optimization', 'Forecasting'],
-    status: 'completed' as const,
-    icon: <Package size={24} />,
-    metrics: [
-      { label: 'Revenue', value: '$10K' },
-      { label: 'Timeline', value: '2 weeks' },
-    ],
-  },
-];
-
-// Personal projects
-const personalProjects = [
   {
     title: 'AI Hedge Fund',
     description: 'Autonomous Trading System',
-    longDescription: `Building fully automated AI-agent-driven infrastructure with autonomous strategy execution, portfolio rebalancing, and risk controls. Managing $100K+ portfolio using n8n automation workflows, Python-based trading engine, and ML prediction models.`,
-    tags: ['n8n', 'Python', 'ML', 'Quantitative Finance'],
+    longDescription: 'Building fully automated AI-agent-driven infrastructure with autonomous strategy execution, portfolio rebalancing, and risk controls. Managing $100K+ portfolio using n8n automation workflows, Python-based trading engine, and ML prediction models. Implementing multi-layered risk management with position limits, stop-losses, and correlation monitoring.',
+    tags: ['n8n', 'Python', 'ML', 'Quantitative Finance', 'Risk Management'],
     status: 'in-progress' as const,
     icon: <Wallet size={24} />,
     metrics: [
@@ -75,29 +49,17 @@ const personalProjects = [
       { label: 'Status', value: 'Building' },
     ],
   },
-];
-
-// Hedge fund features
-const hedgeFundFeatures = [
   {
-    title: 'Autonomous Strategy Execution',
-    description: 'AI agents analyze market conditions and execute trades based on predefined strategies without human intervention.',
-    icon: Bot,
-  },
-  {
-    title: 'Portfolio Rebalancing',
-    description: 'Automated systems continuously optimize portfolio allocation based on risk parameters and market opportunities.',
-    icon: BarChart3,
-  },
-  {
-    title: 'Risk Controls',
-    description: 'Multi-layered risk management with position limits, stop-losses, and correlation monitoring.',
-    icon: Shield,
-  },
-  {
-    title: 'Predictive Analytics',
-    description: 'Machine learning models for market forecasting, sentiment analysis, and opportunity identification.',
-    icon: LineChart,
+    title: 'BoxMate',
+    description: 'Student Storage Marketplace',
+    longDescription: 'Led branding, platform design, and customer outreach strategies to grow the user base. Successfully generated $10,000 in revenue within the first 2 weeks of operations. Performed regression analysis to optimize pricing strategy and built forecasting model using Python to predict demand.',
+    tags: ['Python', 'Pricing Optimization', 'Forecasting', 'Operations', 'Growth'],
+    status: 'completed' as const,
+    icon: <Package size={24} />,
+    metrics: [
+      { label: 'Revenue', value: '$10K in 2 weeks' },
+      { label: 'Status', value: 'Completed' },
+    ],
   },
 ];
 
@@ -109,20 +71,20 @@ const expertiseAreas = [
       'Financial statement analysis',
       'Red-flag identification',
       'Balance sheet deep-dives',
-      'Background checks',
+      'Background checks & IAR reports',
     ],
   },
   {
-    category: 'Valuation',
+    category: 'Valuation & Modeling',
     skills: [
       'DCF modeling',
       'Comparable company analysis',
-      'Precedent transactions',
+      'Financial projections',
       'LBO analysis basics',
     ],
   },
   {
-    category: 'Analytics',
+    category: 'Data & Analytics',
     skills: [
       'Predictive modeling',
       'Revenue forecasting',
@@ -131,15 +93,23 @@ const expertiseAreas = [
     ],
   },
   {
-    category: 'Reporting',
+    category: 'Automation',
     skills: [
-      'Automated PDF generation',
-      'Excel financial models',
+      'Automated PDF/Excel generation',
+      'n8n workflow automation',
       'Dashboard creation',
-      'IPO advisory reports',
+      'NLP document parsing',
     ],
   },
 ];
+
+// Tech stack
+const techStack = {
+  languages: ['Python', 'SQL', 'R', 'Swift', 'TypeScript'],
+  frameworks: ['FastAPI', 'React', 'Next.js', 'LangChain', 'Pandas', 'NumPy', 'Scikit-learn'],
+  tools: ['Tableau', 'Excel', 'n8n', 'Git'],
+  specializations: ['Agentic AI', 'NLP', 'Quantitative Finance', 'ML/Predictive Analytics'],
+};
 
 // Animation variants
 const fadeUpVariants = {
@@ -171,7 +141,7 @@ export default function ProjectsPage() {
             className="max-w-3xl"
           >
             <motion.div variants={fadeUpVariants} custom={0}>
-              <Tag variant="accent" className="mb-6">Ventures</Tag>
+              <Tag variant="accent" className="mb-6">Ventures & Projects</Tag>
             </motion.div>
 
             <motion.h1
@@ -189,138 +159,20 @@ export default function ProjectsPage() {
               custom={0.2}
               className="text-xl text-steel-400 leading-relaxed"
             >
-              From AI-powered financial tools to quick-commerce startups—each venture
-              is built with a focus on real-world impact and sustainable growth.
+              From AI-powered financial tools to automated trading systems—each venture
+              is built with a focus on real-world impact and execution.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* FEATURED VENTURES */}
+      {/* ALL VENTURES */}
       <Section
-        heading="Featured Ventures"
-        subheading="Technology-driven solutions for complex problems"
+        heading="Ventures & Projects"
+        subheading="Technology-driven solutions with measurable impact"
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {featuredVentures.map((venture, index) => (
-            <motion.div
-              key={venture.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <ProjectCard {...venture} />
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      {/* PERSONAL PROJECTS */}
-      <Section
-        heading="Personal Projects"
-        subheading="Building with real capital and automation infrastructure"
-        className="bg-void-900/50"
-      >
-        <div className="grid grid-cols-1 gap-8">
-          {personalProjects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <ProjectCard {...project} />
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Hedge Fund Features */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-          {hedgeFundFeatures.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={feature.title}
-                className="p-6 rounded-xl bg-void-800/30 border border-steel-800/30 hover:border-steel-700/50 transition-all group"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="p-3 bg-accent-400/10 rounded-lg w-fit mb-4 group-hover:bg-accent-400/20 transition-colors">
-                  <Icon className="w-6 h-6 text-accent-400" />
-                </div>
-                <h3 className="font-display text-xl text-steel-50 mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-steel-400 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Technical Architecture */}
-        <motion.div
-          className="p-8 rounded-xl bg-gradient-to-br from-void-800/80 to-void-900/80 border border-accent-400/20 mt-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-accent-400/10 rounded-lg">
-              <Target className="w-5 h-5 text-accent-400" />
-            </div>
-            <h3 className="font-display text-xl text-steel-50">
-              Technical Infrastructure
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <h4 className="text-sm font-mono uppercase tracking-wider text-steel-500 mb-3">
-                Data Layer
-              </h4>
-              <ul className="space-y-2 text-sm text-steel-400">
-                <li>• Real-time market data feeds</li>
-                <li>• Historical price databases</li>
-                <li>• Alternative data sources</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-mono uppercase tracking-wider text-steel-500 mb-3">
-                Execution Layer
-              </h4>
-              <ul className="space-y-2 text-sm text-steel-400">
-                <li>• n8n automation workflows</li>
-                <li>• Python-based trading engine</li>
-                <li>• Broker API integrations</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-mono uppercase tracking-wider text-steel-500 mb-3">
-                Intelligence Layer
-              </h4>
-              <ul className="space-y-2 text-sm text-steel-400">
-                <li>• ML prediction models</li>
-                <li>• Strategy optimization</li>
-                <li>• Risk monitoring agents</li>
-              </ul>
-            </div>
-          </div>
-        </motion.div>
-      </Section>
-
-      {/* STARTUP VENTURES */}
-      <Section
-        heading="Startup Ventures"
-        subheading="Businesses with real revenue and market validation"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {startupVentures.map((venture, index) => (
+          {allVentures.map((venture, index) => (
             <motion.div
               key={venture.title}
               initial={{ opacity: 0, y: 20 }}
@@ -337,7 +189,7 @@ export default function ProjectsPage() {
       {/* FINANCIAL EXPERTISE */}
       <Section
         heading="Financial Expertise"
-        subheading="Core competencies developed through experience and study"
+        subheading="Core competencies developed through experience and execution"
         className="bg-void-900/50"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -369,9 +221,10 @@ export default function ProjectsPage() {
         </div>
       </Section>
 
-      {/* TOOLS & TECHNOLOGIES */}
-      <Section heading="Tools & Technologies">
+      {/* TECHNICAL STACK */}
+      <Section heading="Technical Stack">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Languages & Frameworks */}
           <motion.div
             className="p-6 rounded-xl bg-void-800/30 border border-steel-800/30"
             initial={{ opacity: 0, y: 20 }}
@@ -379,20 +232,39 @@ export default function ProjectsPage() {
             viewport={{ once: true }}
           >
             <h3 className="font-display text-xl text-steel-50 mb-4">
-              Analysis & Modeling
+              Languages & Frameworks
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'SQL', 'R', 'Tableau', 'Excel'].map((tool) => (
-                <span
-                  key={tool}
-                  className="px-3 py-1 text-sm font-mono bg-void-900/50 text-steel-400 rounded border border-steel-800/50"
-                >
-                  {tool}
-                </span>
-              ))}
+            <div className="space-y-4">
+              <div>
+                <p className="text-xs font-mono text-steel-500 uppercase tracking-wider mb-2">Languages</p>
+                <div className="flex flex-wrap gap-2">
+                  {techStack.languages.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-sm font-mono bg-void-900/50 text-steel-400 rounded border border-steel-800/50"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-mono text-steel-500 uppercase tracking-wider mb-2">Frameworks</p>
+                <div className="flex flex-wrap gap-2">
+                  {techStack.frameworks.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-sm font-mono bg-void-900/50 text-steel-400 rounded border border-steel-800/50"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
 
+          {/* Tools & Specializations */}
           <motion.div
             className="p-6 rounded-xl bg-void-800/30 border border-steel-800/30"
             initial={{ opacity: 0, y: 20 }}
@@ -401,17 +273,35 @@ export default function ProjectsPage() {
             transition={{ delay: 0.1 }}
           >
             <h3 className="font-display text-xl text-steel-50 mb-4">
-              Automation & AI
+              Tools & Specializations
             </h3>
-            <div className="flex flex-wrap gap-2">
-              {['LangChain', 'FastAPI', 'NLP', 'Agentic AI', 'React', 'Next.js', 'Swift'].map((tool) => (
-                <span
-                  key={tool}
-                  className="px-3 py-1 text-sm font-mono bg-void-900/50 text-steel-400 rounded border border-steel-800/50"
-                >
-                  {tool}
-                </span>
-              ))}
+            <div className="space-y-4">
+              <div>
+                <p className="text-xs font-mono text-steel-500 uppercase tracking-wider mb-2">Tools</p>
+                <div className="flex flex-wrap gap-2">
+                  {techStack.tools.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-sm font-mono bg-void-900/50 text-steel-400 rounded border border-steel-800/50"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-mono text-steel-500 uppercase tracking-wider mb-2">Specializations</p>
+                <div className="flex flex-wrap gap-2">
+                  {techStack.specializations.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-sm font-mono bg-void-900/50 text-steel-400 rounded border border-steel-800/50"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

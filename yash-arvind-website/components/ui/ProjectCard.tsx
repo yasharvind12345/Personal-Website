@@ -216,7 +216,7 @@ export function ProjectCard({
 
           {/* Extended Description (if provided) */}
           {longDescription && (
-            <p className="text-steel-500 text-sm leading-relaxed mb-4 line-clamp-2">
+            <p className="text-steel-500 text-sm leading-relaxed mb-4">
               {longDescription}
             </p>
           )}

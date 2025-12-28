@@ -8,6 +8,7 @@ import {
   Bot,
   GraduationCap,
   Wallet,
+  Download,
 } from 'lucide-react';
 
 import { Section, Button, StatCard } from '@/components';
@@ -123,6 +124,14 @@ export default function HomePage() {
               <Button href="/trajectory" variant="secondary">
                 Experience
               </Button>
+              <a
+                href="/Yash_Arvind_Resume.pdf"
+                download
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-steel-700 text-steel-200 hover:border-accent-400 hover:text-accent-400 transition-all"
+              >
+                <Download size={16} />
+                Resume
+              </a>
             </motion.div>
 
             {/* Quick Stats Row */}

@@ -5,9 +5,7 @@ import {
   Bot,
   Smartphone,
   Package,
-  Truck,
   Wallet,
-  TrendingUp,
   Shield,
   BarChart3,
   LineChart,
@@ -22,9 +20,7 @@ const featuredVentures = [
   {
     title: 'TAM',
     description: 'AI Financial Due Diligence Platform',
-    longDescription: `Built for PE, IB, and Corp Dev use cases. Uses LangChain and agentic AI
-    to parse complex financial documents, automate red-flag detection, and generate
-    comprehensive PDF & Excel reports. Python/FastAPI backend with React analytics frontend.`,
+    longDescription: `Built for PE, IB, and Corp Dev use cases. Uses LangChain and agentic AI to parse complex financial documents, automate red-flag detection, and generate comprehensive PDF & Excel reports. Python/FastAPI backend with React analytics frontend.`,
     tags: ['LangChain', 'Python', 'FastAPI', 'React', 'NLP'],
     status: 'active' as const,
     featured: true,
@@ -35,26 +31,9 @@ const featuredVentures = [
     ],
   },
   {
-    title: 'AI Hedge Fund',
-    description: 'Autonomous Trading System',
-    longDescription: `Fully automated AI-agent-driven infrastructure with autonomous strategy
-    execution, portfolio rebalancing, and risk controls. Managing $100K+ portfolio with
-    Python-based trading engine and ML prediction models.`,
-    tags: ['Python', 'ML', 'Quantitative Finance', 'Risk Management'],
-    status: 'active' as const,
-    featured: true,
-    icon: <Wallet size={24} />,
-    metrics: [
-      { label: 'Portfolio', value: '$100K+' },
-      { label: 'Status', value: 'Active' },
-    ],
-  },
-  {
     title: 'Flux',
     description: 'Professional Networking App',
-    longDescription: `iOS app with swipe-based matching for professional networking.
-    Led a cross-functional team of 6 engineers. Developed GTM strategy and executed
-    campus rollout. Built with Swift for native iOS experience.`,
+    longDescription: `iOS app with swipe-based matching for professional networking. Led a cross-functional team of 6 engineers. Developed GTM strategy and executed campus rollout. Built with Swift for native iOS experience.`,
     tags: ['Swift', 'iOS', 'Leadership', 'GTM Strategy'],
     status: 'active' as const,
     featured: true,
@@ -71,9 +50,7 @@ const startupVentures = [
   {
     title: 'BoxMate',
     description: 'Student Storage Marketplace',
-    longDescription: `On-demand storage platform for college students. Generated $10,000
-    in revenue within the first 2 weeks of launch. Implemented regression-based pricing
-    optimization and demand forecasting with Python.`,
+    longDescription: `On-demand storage platform for college students. Generated $10,000 in revenue within the first 2 weeks of launch. Implemented regression-based pricing optimization and demand forecasting with Python.`,
     tags: ['Python', 'Pricing Optimization', 'Forecasting'],
     status: 'completed' as const,
     icon: <Package size={24} />,
@@ -82,18 +59,20 @@ const startupVentures = [
       { label: 'Timeline', value: '2 weeks' },
     ],
   },
+];
+
+// Personal projects
+const personalProjects = [
   {
-    title: 'Quicko',
-    description: 'Quick-Commerce Startup',
-    longDescription: `Registered company focused on 15-minute delivery for American
-    college towns. Inspired by Zepto/Blinkit model. Operations, logistics, and
-    unit-economics driven approach.`,
-    tags: ['Operations', 'Logistics', 'Unit Economics'],
+    title: 'AI Hedge Fund',
+    description: 'Autonomous Trading System',
+    longDescription: `Building fully automated AI-agent-driven infrastructure with autonomous strategy execution, portfolio rebalancing, and risk controls. Managing $100K+ portfolio using n8n automation workflows, Python-based trading engine, and ML prediction models.`,
+    tags: ['n8n', 'Python', 'ML', 'Quantitative Finance'],
     status: 'in-progress' as const,
-    icon: <Truck size={24} />,
+    icon: <Wallet size={24} />,
     metrics: [
-      { label: 'Model', value: 'Quick Commerce' },
-      { label: 'Delivery', value: '15 min' },
+      { label: 'Portfolio', value: '$100K+' },
+      { label: 'Status', value: 'Building' },
     ],
   },
 ];
@@ -237,13 +216,28 @@ export default function ProjectsPage() {
         </div>
       </Section>
 
-      {/* AI HEDGE FUND DEEP DIVE */}
+      {/* PERSONAL PROJECTS */}
       <Section
-        heading="AI Hedge Fund Infrastructure"
-        subheading="Autonomous investment systems built from the ground up"
+        heading="Personal Projects"
+        subheading="Building with real capital and automation infrastructure"
         className="bg-void-900/50"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 gap-8">
+          {personalProjects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <ProjectCard {...project} />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Hedge Fund Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {hedgeFundFeatures.map((feature, index) => {
             const Icon = feature.icon;
             return (
@@ -271,7 +265,7 @@ export default function ProjectsPage() {
 
         {/* Technical Architecture */}
         <motion.div
-          className="p-8 rounded-xl bg-gradient-to-br from-void-800/80 to-void-900/80 border border-accent-400/20"
+          className="p-8 rounded-xl bg-gradient-to-br from-void-800/80 to-void-900/80 border border-accent-400/20 mt-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -301,9 +295,9 @@ export default function ProjectsPage() {
                 Execution Layer
               </h4>
               <ul className="space-y-2 text-sm text-steel-400">
+                <li>• n8n automation workflows</li>
                 <li>• Python-based trading engine</li>
                 <li>• Broker API integrations</li>
-                <li>• Order management system</li>
               </ul>
             </div>
             <div>

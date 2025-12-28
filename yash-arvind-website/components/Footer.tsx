@@ -18,7 +18,7 @@
  */
 
 import Link from 'next/link';
-import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
+import { Linkedin, Mail, ArrowUpRight, Instagram } from 'lucide-react';
 
 /**
  * ---------------------------------------------------------------------------
@@ -31,25 +31,25 @@ import { Github, Linkedin, Mail, ArrowUpRight } from 'lucide-react';
 const footerLinks = [
   { href: '/', label: 'Home' },
   { href: '/projects', label: 'Ventures' },
-  { href: '/finance', label: 'Finance' },
   { href: '/trajectory', label: 'Trajectory' },
+  { href: '/beyond', label: 'Outside the Screen' },
   { href: '/contact', label: 'Contact' },
 ];
 
-// Social media links (add your real URLs here)
+// Social media links
 const socialLinks = [
   {
-    href: 'https://github.com/yasharvind', // Replace with actual GitHub
-    label: 'GitHub',
-    icon: Github,
-  },
-  {
-    href: 'https://linkedin.com/in/yasharvind', // Replace with actual LinkedIn
+    href: 'https://www.linkedin.com/in/yash-arvind-294516218/',
     label: 'LinkedIn',
     icon: Linkedin,
   },
   {
-    href: 'mailto:yash@example.com', // Replace with actual email
+    href: 'https://www.instagram.com/__yash.a/',
+    label: 'Instagram',
+    icon: Instagram,
+  },
+  {
+    href: 'mailto:yasharvind12345@gmail.com',
     label: 'Email',
     icon: Mail,
   },

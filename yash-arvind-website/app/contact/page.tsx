@@ -298,6 +298,10 @@ export default function ContactPage() {
             </div>
           </motion.div>
 
+<<<<<<< HEAD
+=======
+         
+>>>>>>> 072efea (Update contact page with new social links and centered layout)
         </div>
       </Section>
     </main>

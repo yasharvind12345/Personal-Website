@@ -121,11 +121,11 @@ export function Navigation() {
             */}
             <Link
               href="/"
-              className="relative z-10 font-display text-xl md:text-2xl text-steel-50 hover:text-accent-400 transition-colors"
+              className="relative z-10 font-display text-xl md:text-2xl hover:text-accent-400 transition-colors"
             >
               {/* First name with accent color on first letter */}
-              <span className="text-accent-400">Y</span>ash
-              <span className="text-steel-400 font-normal"> Arvind</span>
+              <span className="text-accent-400">Y</span><span className="text-steel-50">ash</span>
+              <span className="text-steel-50 font-normal"> Arvind</span>
             </Link>
 
             {/* 

@@ -31,3 +31,4 @@ export { AnimatedText } from './ui/AnimatedText';
 export { Timeline } from './ui/Timeline';
 export { StatCard } from './ui/StatCard';
 export { ProjectCard } from './ui/ProjectCard';
+export { InteractiveBackground } from './ui/InteractiveBackground';

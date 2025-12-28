@@ -27,6 +27,7 @@ import './globals.css';
 // Import layout components
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
+import { InteractiveBackground } from '@/components/ui/InteractiveBackground';
 
 /**
  * ---------------------------------------------------------------------------
@@ -141,8 +142,11 @@ export default function RootLayout({
         - flex flex-col: Uses flexbox for layout (header, main, footer)
         - antialiased: Smooths font rendering
       */}
-      <body className="min-h-screen flex flex-col antialiased">
-        {/* 
+      <body className="min-h-screen flex flex-col antialiased relative">
+        {/* Interactive animated background */}
+        <InteractiveBackground />
+
+        {/*
           Skip to content link for accessibility
           Hidden by default, appears when focused with keyboard
         */}
@@ -152,19 +156,20 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        
-        {/* 
+
+        {/*
           Navigation component
           This appears at the top of every page
         */}
         <Navigation />
         
-        {/* 
+        {/*
           Main content area
           - flex-1: Takes up remaining space between nav and footer
           - id: Allows skip link to jump here
+          - relative z-10: Ensures content appears above background
         */}
-        <main id="main-content" className="flex-1">
+        <main id="main-content" className="flex-1 relative z-10">
           {children}
         </main>
         

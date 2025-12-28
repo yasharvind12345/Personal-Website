@@ -153,17 +153,17 @@ export default function TrajectoryPage() {
         Simple header introducing the page
       */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-24">
-        <div className="container">
+        <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-4xl mx-auto text-center"
           >
             {/* Page Label */}
             <motion.p
               variants={fadeInUp}
-              className="text-accent-400 font-mono text-sm uppercase tracking-wider mb-4"
+              className="text-accent-400 font-mono text-sm uppercase tracking-wider mb-4 text-center"
             >
               The Journey
             </motion.p>
@@ -171,7 +171,7 @@ export default function TrajectoryPage() {
             {/* Main Title */}
             <motion.h1
               variants={fadeInUp}
-              className="font-display text-4xl md:text-5xl lg:text-6xl text-steel-50 mb-6"
+              className="font-display text-4xl md:text-5xl lg:text-6xl text-steel-50 mb-6 text-center"
             >
               Trajectory
             </motion.h1>
@@ -179,7 +179,7 @@ export default function TrajectoryPage() {
             {/* Description */}
             <motion.p
               variants={fadeInUp}
-              className="text-steel-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
+              className="text-steel-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto text-center"
             >
               From AI-powered insurance systems to M&A due diligence.
               A path built on technical depth, financial acumen, and

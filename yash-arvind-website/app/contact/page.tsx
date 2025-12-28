@@ -27,11 +27,10 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Mail, 
-  Linkedin, 
-  Github, 
-  Twitter,
+import {
+  Mail,
+  Linkedin,
+  Instagram,
   Send,
   MapPin,
   Clock,
@@ -62,21 +61,15 @@ const contactInfo = {
   socials: [
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/yasharvind', // UPDATE THIS
+      url: 'https://www.linkedin.com/in/yash-arvind-294516218/',
       icon: <Linkedin className="w-5 h-5" />,
-      handle: '@yasharvind',
+      handle: 'yash-arvind-294516218',
     },
     {
-      name: 'GitHub',
-      url: 'https://github.com/yasharvind', // UPDATE THIS
-      icon: <Github className="w-5 h-5" />,
-      handle: '@yasharvind',
-    },
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/yasharvind', // UPDATE THIS
-      icon: <Twitter className="w-5 h-5" />,
-      handle: '@yasharvind',
+      name: 'Instagram',
+      url: 'https://www.instagram.com/__yash.a/',
+      icon: <Instagram className="w-5 h-5" />,
+      handle: '@__yash.a',
     },
   ],
 };
@@ -160,22 +153,22 @@ export default function ContactPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl"
+          className="max-w-3xl mx-auto text-center"
         >
           {/* Page label */}
           <span className="text-accent-400 text-sm font-mono tracking-wider uppercase mb-4 block">
             Contact
           </span>
-          
+
           {/* Main headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium text-steel-50 mb-6">
             Let's{' '}
             <span className="text-accent-400">connect</span>
           </h1>
-          
+
           {/* Subtitle */}
           <p className="text-lg text-steel-400 leading-relaxed">
-            Whether you're interested in collaborating, have an opportunity to discuss, 
+            Whether you're interested in collaborating, have an opportunity to discuss,
             or just want to chat about fintech and AI—I'd love to hear from you.
           </p>
         </motion.div>
@@ -185,28 +178,27 @@ export default function ContactPage() {
       {/* MAIN CONTENT */}
       {/* ================================================================== */}
       <Section className="pb-24">
-        <div className="grid lg:grid-cols-5 gap-12">
-          {/* Left Column - Contact Info (2 cols) */}
+        <div className="max-w-2xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-8"
+            className="space-y-8"
           >
             {/* Availability Status */}
             <Card variant="accent">
               <div className="flex items-start gap-4">
                 <div className={`
                   p-3 rounded-lg
-                  ${availability.status === 'open' 
-                    ? 'bg-green-500/10 text-green-400' 
+                  ${availability.status === 'open'
+                    ? 'bg-green-500/10 text-green-400'
                     : 'bg-amber-500/10 text-amber-400'
                   }
                 `}>
                   <MessageSquare className="w-5 h-5" />
                 </div>
-                <div>
+                <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-medium text-steel-50">Availability</h3>
                     <span className={`
@@ -232,7 +224,7 @@ export default function ContactPage() {
 
             {/* Direct Email */}
             <div>
-              <h3 className="text-sm font-medium text-steel-300 mb-4">
+              <h3 className="text-sm font-medium text-steel-300 mb-4 text-center">
                 Email Directly
               </h3>
               <a
@@ -242,51 +234,51 @@ export default function ContactPage() {
                 <div className="p-2 rounded-lg bg-accent-400/10 text-accent-400">
                   <Mail className="w-5 h-5" />
                 </div>
-                <div className="flex-1">
-                  <p className="text-steel-50 font-medium group-hover:text-accent-400 transition-colors">
+                <div className="flex-1 min-w-0">
+                  <p className="text-steel-50 font-medium group-hover:text-accent-400 transition-colors truncate">
                     {contactInfo.email}
                   </p>
                   <p className="text-xs text-steel-500">
                     Usually responds within {contactInfo.responseTime}
                   </p>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-steel-600 group-hover:text-accent-400 transition-colors" />
+                <ArrowUpRight className="w-4 h-4 text-steel-600 group-hover:text-accent-400 transition-colors flex-shrink-0" />
               </a>
             </div>
 
             {/* Social Links */}
             <div>
-              <h3 className="text-sm font-medium text-steel-300 mb-4">
+              <h3 className="text-sm font-medium text-steel-300 mb-4 text-center">
                 Connect on Social
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {contactInfo.socials.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 p-3 rounded-lg hover:bg-void-900/50 transition-colors"
+                    className="group flex items-center gap-3 p-4 rounded-lg bg-void-900/50 border border-void-800 hover:border-accent-400/30 transition-colors"
                   >
                     <div className="p-2 rounded-lg bg-void-800 text-steel-400 group-hover:text-accent-400 transition-colors">
                       {social.icon}
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <p className="text-steel-200 text-sm font-medium">
                         {social.name}
                       </p>
-                      <p className="text-xs text-steel-500">
+                      <p className="text-xs text-steel-500 truncate">
                         {social.handle}
                       </p>
                     </div>
-                    <ArrowUpRight className="w-4 h-4 text-steel-600 group-hover:text-accent-400 transition-colors" />
+                    <ArrowUpRight className="w-4 h-4 text-steel-600 group-hover:text-accent-400 transition-colors flex-shrink-0" />
                   </a>
                 ))}
               </div>
             </div>
 
             {/* Response Info */}
-            <div className="flex items-center gap-6 text-sm text-steel-500 pt-4 border-t border-void-800">
+            <div className="flex items-center justify-center gap-6 text-sm text-steel-500 pt-4 border-t border-void-800">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
                 <span>{contactInfo.timezone}</span>
@@ -297,7 +289,6 @@ export default function ContactPage() {
               </div>
             </div>
           </motion.div>
-
         </div>
       </Section>
     </main>

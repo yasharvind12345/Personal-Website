@@ -170,8 +170,8 @@ export default function BeyondPage() {
         =========================================================================
         Simple header introducing the page
       */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
-        <div className="container">
+      <section className="pt-24 pb-12 sm:pt-32 sm:pb-16 md:pt-40 md:pb-24">
+        <div className="container-custom">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -181,7 +181,7 @@ export default function BeyondPage() {
             {/* Page Label */}
             <motion.p
               variants={fadeInUp}
-              className="text-accent-400 font-mono text-sm uppercase tracking-wider mb-4"
+              className="text-accent-400 font-mono text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4"
             >
               Outside the Screen
             </motion.p>
@@ -189,7 +189,7 @@ export default function BeyondPage() {
             {/* Main Title */}
             <motion.h1
               variants={fadeInUp}
-              className="font-display text-4xl md:text-5xl lg:text-6xl text-steel-50 mb-6"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-steel-50 mb-4 sm:mb-6"
             >
               Beyond
             </motion.h1>
@@ -197,7 +197,7 @@ export default function BeyondPage() {
             {/* Description */}
             <motion.p
               variants={fadeInUp}
-              className="text-steel-400 text-lg md:text-xl leading-relaxed"
+              className="text-steel-400 text-base sm:text-lg md:text-xl leading-relaxed"
             >
               The discipline of a black belt. The teamwork of competitive sports.
               The purpose of giving back. Who I am when the laptop closes.
@@ -218,7 +218,7 @@ export default function BeyondPage() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
         >
           {athletics.map((sport) => (
             <motion.div key={sport.name} variants={fadeInUp}>
@@ -247,12 +247,12 @@ export default function BeyondPage() {
                 </span>
 
                 {/* Sport Name */}
-                <h3 className="font-display text-xl text-steel-50 mb-3">
+                <h3 className="font-display text-lg sm:text-xl text-steel-50 mb-3">
                   {sport.name}
                 </h3>
 
                 {/* Description */}
-                <p className="text-steel-400 text-sm leading-relaxed">
+                <p className="text-steel-400 text-sm sm:text-base leading-relaxed">
                   {sport.description}
                 </p>
               </Card>
@@ -286,15 +286,15 @@ export default function BeyondPage() {
 
             <div className="relative">
               {/* Header */}
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-14 h-14 rounded-xl bg-accent-400/20 flex items-center justify-center flex-shrink-0">
-                  <Heart className="w-7 h-7 text-accent-400" />
+              <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-accent-400/20 flex items-center justify-center flex-shrink-0">
+                  <Heart className="w-6 h-6 sm:w-7 sm:h-7 text-accent-400" />
                 </div>
                 <div>
-                  <h3 className="font-display text-2xl md:text-3xl text-steel-50 mb-2">
+                  <h3 className="font-display text-xl sm:text-2xl md:text-3xl text-steel-50 mb-2">
                     {socialImpact.title}
                   </h3>
-                  <p className="text-steel-400 leading-relaxed">
+                  <p className="text-steel-400 text-sm sm:text-base leading-relaxed">
                     {socialImpact.description}
                   </p>
                 </div>
@@ -303,31 +303,31 @@ export default function BeyondPage() {
               {/* Impact Metrics */}
               <motion.div
                 variants={fadeInUp}
-                className="grid grid-cols-3 gap-4 mb-8"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
               >
                 {socialImpact.impact.map((item) => (
                   <div
                     key={item.label}
                     className="text-center p-4 bg-void-950/50 rounded-lg"
                   >
-                    <div className="font-display text-2xl text-accent-400 mb-1">
+                    <div className="font-display text-2xl md:text-3xl text-accent-400 mb-1">
                       {item.metric}
                     </div>
-                    <div className="text-steel-500 text-sm">{item.label}</div>
+                    <div className="text-steel-500 text-xs sm:text-sm">{item.label}</div>
                   </div>
                 ))}
               </motion.div>
 
               {/* Details List */}
               <motion.div variants={fadeInUp}>
-                <h4 className="font-mono text-sm uppercase tracking-wider text-steel-500 mb-4">
+                <h4 className="font-mono text-xs sm:text-sm uppercase tracking-wider text-steel-500 mb-4">
                   What We Built
                 </h4>
                 <ul className="space-y-3">
                   {socialImpact.details.map((detail, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="w-1.5 h-1.5 rounded-full bg-accent-400 mt-2 flex-shrink-0" />
-                      <span className="text-steel-300">{detail}</span>
+                      <span className="text-steel-300 text-sm sm:text-base">{detail}</span>
                     </li>
                   ))}
                 </ul>
@@ -349,13 +349,13 @@ export default function BeyondPage() {
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
           variants={staggerContainer}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
         >
           {interests.map((interest) => (
             <motion.div key={interest.name} variants={fadeInUp}>
               <Card
                 variant="ghost"
-                className="text-center group hover:border-steel-700/50 transition-colors"
+                className="text-center group hover:border-steel-700/50 transition-colors h-full"
               >
                 {/* Icon */}
                 <div className="w-12 h-12 rounded-lg bg-steel-800/50 flex items-center justify-center mx-auto mb-4 group-hover:bg-steel-800 transition-colors">
@@ -363,12 +363,12 @@ export default function BeyondPage() {
                 </div>
 
                 {/* Name */}
-                <h3 className="font-display text-lg text-steel-50 mb-2">
+                <h3 className="font-display text-base sm:text-lg text-steel-50 mb-2">
                   {interest.name}
                 </h3>
 
                 {/* Description */}
-                <p className="text-steel-500 text-sm">{interest.description}</p>
+                <p className="text-steel-500 text-xs sm:text-sm">{interest.description}</p>
               </Card>
             </motion.div>
           ))}
@@ -382,7 +382,7 @@ export default function BeyondPage() {
         Personal values and approach to life
       */}
       <Section className="bg-void-900/30">
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -391,21 +391,21 @@ export default function BeyondPage() {
           >
             <motion.div
               variants={fadeInUp}
-              className="w-16 h-16 rounded-full bg-accent-400/10 flex items-center justify-center mx-auto mb-6"
+              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-accent-400/10 flex items-center justify-center mx-auto mb-4 sm:mb-6"
             >
-              <Lightbulb className="w-8 h-8 text-accent-400" />
+              <Lightbulb className="w-6 h-6 sm:w-8 sm:h-8 text-accent-400" />
             </motion.div>
 
             <motion.h2
               variants={fadeInUp}
-              className="font-display text-2xl md:text-3xl text-steel-50 mb-6"
+              className="font-display text-xl sm:text-2xl md:text-3xl text-steel-50 mb-4 sm:mb-6"
             >
               The Common Thread
             </motion.h2>
 
             <motion.p
               variants={fadeInUp}
-              className="text-steel-400 text-lg leading-relaxed"
+              className="text-steel-400 text-base sm:text-lg leading-relaxed"
             >
               Whether it&apos;s earning a black belt, building a STEM lab, or
               shipping code at midnight—the approach is the same. Show up.

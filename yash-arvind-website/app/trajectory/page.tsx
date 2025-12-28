@@ -26,7 +26,6 @@ import {
   GraduationCap,
   Briefcase,
   Award,
-  Medal,
   Bot,
   ChevronRight,
 } from 'lucide-react';
@@ -43,31 +42,22 @@ import { Section, Card, Timeline, Tag } from '@/components';
  */
 const careerTimeline = [
   {
-    year: '2024',
-    title: 'AI Development Intern',
-    subtitle: 'Synechron',
+    year: 'June 2025 - August 2025',
+    title: 'Mergers & Acquisitions Analyst Intern',
+    subtitle: 'Ernst & Young (EY) Consulting',
     description:
-      'Developed AI models that achieved 70% efficiency improvement in document processing. Built automated workflows using LangChain and Python for financial services clients.',
-    tags: ['Python', 'LangChain', 'AI/ML', 'Financial Services'],
+      'Prepared pre-acquisition financial due diligence reports (red flag reports) for real estate acquisition deals. Conducted thorough due diligence for buy/sell-side parties, from reading balance sheets to checking criminal records. Assisted in IPO advisory by preparing Independent Accountants Reports (IAR) based on forecast financial information.',
+    tags: ['M&A', 'Due Diligence', 'IPO Advisory', 'Financial Analysis'],
     highlight: true,
   },
   {
-    year: '2023',
-    title: 'Technology Analyst Intern',
-    subtitle: 'EY (Ernst & Young)',
+    year: 'July 2023 - August 2023',
+    title: 'AI Intern',
+    subtitle: 'Synechron Technologies',
     description:
-      'Worked on technology consulting projects for enterprise clients. Gained exposure to digital transformation initiatives and client-facing delivery.',
-    tags: ['Consulting', 'Tech Strategy', 'Enterprise'],
-    highlight: false,
-  },
-  {
-    year: '2022',
-    title: 'Product & Engineering Intern',
-    subtitle: 'Zendesk',
-    description:
-      'Contributed to product development and engineering initiatives. Worked with cross-functional teams on SaaS platform improvements.',
-    tags: ['SaaS', 'Product', 'Engineering'],
-    highlight: false,
+      'Developed an AI-powered cost estimator to streamline insurance claims, reducing manual processing time by 70%. Leveraged predictive analytics for accurate damage valuation. Trained ML model on 10k+ insurance claims data, improving prediction accuracy by 34%.',
+    tags: ['Python', 'AI/ML', 'Predictive Analytics', 'Insurance'],
+    highlight: true,
   },
 ];
 
@@ -79,56 +69,47 @@ const careerTimeline = [
  */
 const educationTimeline = [
   {
-    year: '2022 - Present',
+    year: 'September 2024 - December 2027',
     title: 'University of Wisconsin-Madison',
-    subtitle: 'B.S. Computer Science & Data Science',
+    subtitle: 'B.S. Data Science & Economics',
     description:
-      "Dean's List student with 3.8 GPA. Coursework in machine learning, algorithms, data structures, and quantitative methods. Active in entrepreneurship and finance communities.",
-    tags: ['3.8 GPA', "Dean's List", 'CS', 'Data Science'],
+      "Junior pursuing dual degree in Data Science and Economics. Dean's List student with 3.8 GPA. Coursework in machine learning, quantitative methods, financial modeling, and predictive analytics. Active in entrepreneurship and finance communities.",
+    tags: ['3.8 GPA', "Dean's List", 'Data Science', 'Economics'],
     highlight: true,
-  },
-  {
-    year: '2018 - 2022',
-    title: 'High School',
-    subtitle: 'STEM Focus',
-    description:
-      'Strong foundation in mathematics and computer science. Active in robotics competitions and technology clubs. National-level achievements in robotics.',
-    tags: ['STEM', 'Robotics', 'Mathematics'],
-    highlight: false,
   },
 ];
 
 /**
  * ---------------------------------------------------------------------------
- * AWARDS & ACHIEVEMENTS DATA
+ * KEY PROJECTS DATA
  * ---------------------------------------------------------------------------
- * Edit these to update recognition and honors
+ * Edit these to update major projects and ventures
  */
-const awards = [
+const projects = [
   {
-    title: 'World Robot Olympiad',
-    type: 'National Champion',
-    year: '2019',
+    title: 'TAM',
+    type: 'Financial AI Platform',
+    year: '2024',
     description:
-      'Won the national championship in the World Robot Olympiad, demonstrating advanced robotics engineering and problem-solving skills.',
+      'Leveraged LangChain and agentic AI to develop an end-to-end financial due diligence tool, automating data extraction, analysis, and report generation. Created a full-stack analytics platform with Python/FastAPI backend and React frontend.',
+    icon: Bot,
+    highlight: true,
+  },
+  {
+    title: 'Flux',
+    type: 'Campus Networking App',
+    year: '2024',
+    description:
+      'Designed and developed the MVP using Swift, implementing custom UI for swipe-based matching and networking. Leading a cross-functional team of six to launch the product across campus.',
     icon: Trophy,
     highlight: true,
   },
   {
-    title: 'FIRST Robotics Competition',
-    type: 'National Champion',
-    year: '2020',
+    title: 'BoxMate',
+    type: 'E-commerce Platform',
+    year: '2024',
     description:
-      'Led team to national victory in FIRST Robotics Competition, combining engineering, programming, and strategic thinking.',
-    icon: Medal,
-    highlight: true,
-  },
-  {
-    title: "Dean's List",
-    type: 'Academic Honor',
-    year: '2022-2024',
-    description:
-      'Consistently recognized for academic excellence at University of Wisconsin-Madison with a 3.8 GPA.',
+      'Led branding, platform design, and customer outreach strategies. Successfully generated $10,000 in revenue within the first 2 weeks of operations. Performed regression analysis to optimize pricing strategy.',
     icon: Award,
     highlight: false,
   },
@@ -177,7 +158,7 @@ export default function TrajectoryPage() {
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
-            className="max-w-3xl"
+            className="max-w-3xl mx-auto text-center"
           >
             {/* Page Label */}
             <motion.p
@@ -198,29 +179,29 @@ export default function TrajectoryPage() {
             {/* Description */}
             <motion.p
               variants={fadeInUp}
-              className="text-steel-400 text-lg md:text-xl leading-relaxed"
+              className="text-steel-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto"
             >
-              From robotics championships to Wall Street-adjacent AI systems.
-              A path built on technical depth, competitive drive, and
-              relentless execution.
+              From AI-powered insurance systems to M&A due diligence.
+              A path built on technical depth, financial acumen, and
+              entrepreneurial execution.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      {/* 
+      {/*
         =========================================================================
         CAREER EXPERIENCE SECTION
         =========================================================================
         Work history displayed in timeline format
       */}
       <Section id="career" heading="Experience" subheading="Professional Journey">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl mx-auto">
           <Timeline events={careerTimeline} />
         </div>
       </Section>
 
-      {/* 
+      {/*
         =========================================================================
         EDUCATION SECTION
         =========================================================================
@@ -232,66 +213,66 @@ export default function TrajectoryPage() {
         subheading="Academic Foundation"
         className="bg-void-900/30"
       >
-        <div className="max-w-3xl">
+        <div className="max-w-3xl mx-auto">
           <Timeline events={educationTimeline} />
         </div>
       </Section>
 
-      {/* 
+      {/*
         =========================================================================
-        AWARDS & RECOGNITION SECTION
+        KEY PROJECTS SECTION
         =========================================================================
-        Major achievements and honors
+        Major projects and ventures
       */}
       <Section
-        id="awards"
-        heading="Recognition"
-        subheading="Achievements & Awards"
+        id="projects"
+        heading="Key Projects"
+        subheading="Building Real-World Solutions"
       >
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
         >
-          {awards.map((award, index) => (
-            <motion.div key={award.title} variants={fadeInUp}>
+          {projects.map((project, index) => (
+            <motion.div key={project.title} variants={fadeInUp}>
               <Card
-                variant={award.highlight ? 'accent' : 'default'}
+                variant={project.highlight ? 'accent' : 'default'}
                 className="h-full"
               >
-                {/* Award Icon */}
+                {/* Project Icon */}
                 <div
                   className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
-                    award.highlight
+                    project.highlight
                       ? 'bg-accent-400/20 text-accent-400'
                       : 'bg-steel-800 text-steel-400'
                   }`}
                 >
-                  <award.icon className="w-6 h-6" />
+                  <project.icon className="w-6 h-6" />
                 </div>
 
-                {/* Award Type Badge */}
+                {/* Project Type Badge */}
                 <span
                   className={`inline-block font-mono text-xs uppercase tracking-wider mb-2 ${
-                    award.highlight ? 'text-accent-400' : 'text-steel-500'
+                    project.highlight ? 'text-accent-400' : 'text-steel-500'
                   }`}
                 >
-                  {award.type}
+                  {project.type}
                 </span>
 
-                {/* Award Title */}
+                {/* Project Title */}
                 <h3 className="font-display text-xl text-steel-50 mb-1">
-                  {award.title}
+                  {project.title}
                 </h3>
 
                 {/* Year */}
-                <p className="text-steel-500 text-sm mb-3">{award.year}</p>
+                <p className="text-steel-500 text-sm mb-3">{project.year}</p>
 
                 {/* Description */}
                 <p className="text-steel-400 text-sm leading-relaxed">
-                  {award.description}
+                  {project.description}
                 </p>
               </Card>
             </motion.div>
@@ -326,15 +307,18 @@ export default function TrajectoryPage() {
             >
               {[
                 'Python',
-                'TypeScript',
-                'React',
+                'SQL',
+                'R',
                 'LangChain',
+                'FastAPI',
+                'React',
+                'Financial Due Diligence',
+                'Valuation Modeling',
+                'Predictive Analytics',
                 'Machine Learning',
-                'Quantitative Finance',
-                'Financial Modeling',
-                'System Design',
-                'Technical Leadership',
-                'Problem Solving',
+                'NLP',
+                'Strategic Problem-Solving',
+                'Leadership',
               ].map((skill) => (
                 <Tag key={skill} variant="accent" size="md">
                   {skill}

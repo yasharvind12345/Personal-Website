@@ -28,6 +28,7 @@ import {
   Award,
   Bot,
   ChevronRight,
+  PhoneCall,
 } from 'lucide-react';
 
 // Import reusable components
@@ -86,6 +87,15 @@ const educationTimeline = [
  * Edit these to update major projects and ventures
  */
 const projects = [
+  {
+    title: 'AuraHealth',
+    type: 'Healthcare AI System',
+    year: '2025',
+    description:
+      'Developed an AI-powered healthcare assistant that automatically performs post-consultation follow-ups via phone calls using WebSockets, Twilio, and Gemini 2.5 Flash for real-time symptom triage.',
+    icon: PhoneCall,
+    highlight: true,
+  },
   {
     title: 'TAM',
     type: 'Financial AI Platform',
@@ -244,20 +254,18 @@ export default function TrajectoryPage() {
               >
                 {/* Project Icon */}
                 <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
-                    project.highlight
+                  className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${project.highlight
                       ? 'bg-accent-400/20 text-accent-400'
                       : 'bg-steel-800 text-steel-400'
-                  }`}
+                    }`}
                 >
                   <project.icon className="w-6 h-6" />
                 </div>
 
                 {/* Project Type Badge */}
                 <span
-                  className={`inline-block font-mono text-xs uppercase tracking-wider mb-2 ${
-                    project.highlight ? 'text-accent-400' : 'text-steel-500'
-                  }`}
+                  className={`inline-block font-mono text-xs uppercase tracking-wider mb-2 ${project.highlight ? 'text-accent-400' : 'text-steel-500'
+                    }`}
                 >
                   {project.type}
                 </span>

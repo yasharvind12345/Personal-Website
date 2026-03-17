@@ -9,6 +9,7 @@ import {
   GraduationCap,
   Wallet,
   Download,
+  PhoneCall,
 } from 'lucide-react';
 
 import { Section, Button, StatCard } from '@/components';
@@ -27,9 +28,9 @@ const keyStats = [
     description: "Dean's List, UW-Madison",
   },
   {
-    value: '2',
+    value: '3',
     label: 'Active Ventures',
-    description: 'TAM (AI Due Diligence) & AI Hedge Fund',
+    description: 'AuraHealth, TAM & AI Hedge Fund',
   },
 ];
 
@@ -212,9 +213,29 @@ export default function HomePage() {
       {/* WHAT I'M BUILDING SECTION */}
       <Section
         heading="What I'm Building"
-        subheading="AI systems at the intersection of finance and technology"
+        subheading="AI systems at the intersection of finance, healthcare, and technology"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* AuraHealth */}
+          <motion.div
+            className="group p-6 rounded-xl bg-void-800/30 border border-steel-800/30 hover:border-steel-700/50 transition-all"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="p-3 bg-accent-400/10 rounded-lg w-fit mb-4 group-hover:bg-accent-400/20 transition-colors">
+              <PhoneCall className="w-6 h-6 text-accent-400" />
+            </div>
+            <h3 className="font-display text-xl text-steel-50 mb-2">
+              AuraHealth
+            </h3>
+            <p className="text-sm text-accent-400 mb-3">AI Patient Follow-Up Agent</p>
+            <p className="text-steel-400 text-sm leading-relaxed">
+              Full-stack AI healthcare assistant with bidirectional voice streaming via WebSockets,
+              Twilio, and GenAI for automatic patient triage and post-consultation calls.
+            </p>
+          </motion.div>
+
           {/* TAM */}
           <motion.div
             className="group p-6 rounded-xl bg-void-800/30 border border-steel-800/30 hover:border-steel-700/50 transition-all"

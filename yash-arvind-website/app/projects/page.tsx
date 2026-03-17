@@ -7,12 +7,25 @@ import {
   Package,
   Wallet,
   ArrowRight,
+  PhoneCall,
 } from 'lucide-react';
 
 import { Section, ProjectCard, Tag, Button } from '@/components';
 
 // All ventures and projects
 const allVentures = [
+  {
+    title: 'AuraHealth',
+    description: 'AI Patient Follow-Up Agent',
+    longDescription: 'Developed an AI-powered healthcare assistant that automatically performs post-consultation follow-ups via phone calls. Built a full-stack system using FastAPI, Next.js, and WebSockets. Integrated Twilio for real-time bidirectional audio streaming, utilizing Google STT/TTS and Gemini 2.5 Flash for RAG-augmented symptom triage and doctor escalation.',
+    tags: ['FastAPI', 'Next.js', 'WebSockets', 'GenAI Voice', 'Twilio'],
+    status: 'active' as const,
+    icon: <PhoneCall size={24} />,
+    metrics: [
+      { label: 'Domain', value: 'Healthcare AI' },
+      { label: 'Stack', value: 'Full-Stack' },
+    ],
+  },
   {
     title: 'TAM',
     description: 'AI Financial Due Diligence Platform',

@@ -32,3 +32,8 @@ export { Timeline } from './ui/Timeline';
 export { StatCard } from './ui/StatCard';
 export { ProjectCard } from './ui/ProjectCard';
 export { InteractiveBackground } from './ui/InteractiveBackground';
+export { CursorGlow } from './ui/CursorGlow';
+export { TypewriterText } from './ui/TypewriterText';
+export { AnimatedStatBar } from './ui/AnimatedStatBar';
+export { ScrollReveal } from './ui/ScrollReveal';
+export { VideoPlayer } from './ui/VideoPlayer';

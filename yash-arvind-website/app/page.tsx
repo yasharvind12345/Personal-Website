@@ -10,9 +10,12 @@ import {
   Wallet,
   Download,
   PhoneCall,
+  Smartphone,
+  Eye,
+  Mic,
 } from 'lucide-react';
 
-import { Section, Button, StatCard } from '@/components';
+import { Section, Button, StatCard, TypewriterText, AnimatedStatBar } from '@/components';
 
 // Key statistics
 const keyStats = [
@@ -28,10 +31,22 @@ const keyStats = [
     description: "Dean's List, UW-Madison",
   },
   {
-    value: '3',
+    value: '2',
     label: 'Active Ventures',
-    description: 'AuraHealth, TAM & AI Hedge Fund',
+    description: 'TAM & Flux (since 2025)',
   },
+  {
+    value: '3',
+    label: 'Hackathon Wins',
+    description: 'CheeseHacks · MadData · CursorHacks',
+  },
+];
+
+// Typewriter phrases
+const heroSubtitles = [
+  'Building AI-driven financial systems.',
+  'Fintech founder. Data scientist. Builder.',
+  'Turning data into decisions.',
 ];
 
 // Animation variants
@@ -62,7 +77,6 @@ export default function HomePage() {
     <>
       {/* HERO SECTION */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Hero Content */}
         <div className="container-custom relative">
           <motion.div
             className="max-w-4xl"
@@ -71,11 +85,7 @@ export default function HomePage() {
             animate="visible"
           >
             {/* Status Badge */}
-            <motion.div
-              variants={fadeUpVariants}
-              custom={0}
-              className="mb-6"
-            >
+            <motion.div variants={fadeUpVariants} custom={0} className="mb-6">
               <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-void-800/80 border border-steel-800/50 text-sm">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
@@ -94,37 +104,26 @@ export default function HomePage() {
               <span className="text-accent-400">Yash</span> Arvind
             </motion.h1>
 
-            {/* Tagline */}
-            <motion.p
-              variants={fadeUpVariants}
-              custom={0.2}
-              className="text-xl md:text-2xl text-steel-400 mb-4 max-w-2xl leading-relaxed"
-            >
-              Building <span className="text-steel-200">AI-driven financial systems</span>.
+            {/* Tagline — Typewriter */}
+            <motion.p variants={fadeUpVariants} custom={0.2} className="text-xl md:text-2xl text-steel-400 mb-4 max-w-2xl leading-relaxed">
+              <TypewriterText phrases={heroSubtitles} className="text-steel-200" />
             </motion.p>
 
+            {/* Animated Stat Bar */}
+            <motion.div variants={fadeUpVariants} custom={0.25}>
+              <AnimatedStatBar />
+            </motion.div>
+
             {/* Description */}
-            <motion.p
-              variants={fadeUpVariants}
-              custom={0.3}
-              className="text-lg text-steel-500 mb-8 max-w-2xl leading-relaxed"
-            >
+            <motion.p variants={fadeUpVariants} custom={0.3} className="text-lg text-steel-500 mb-8 mt-6 max-w-2xl leading-relaxed">
               Data Science & Economics at UW-Madison. Managing a six-figure portfolio
               while building automated hedge fund infrastructure. Fintech-first, AI-native.
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div
-              variants={fadeUpVariants}
-              custom={0.4}
-              className="flex flex-wrap gap-4"
-            >
-              <Button href="/projects" icon={<ArrowRight size={16} />}>
-                View Ventures
-              </Button>
-              <Button href="/trajectory" variant="secondary">
-                Experience
-              </Button>
+            <motion.div variants={fadeUpVariants} custom={0.4} className="flex flex-wrap gap-4">
+              <Button href="/projects" icon={<ArrowRight size={16} />}>View Ventures</Button>
+              <Button href="/trajectory" variant="secondary">Experience</Button>
               <a
                 href="/Yash_Arvind_Resume.pdf"
                 download
@@ -135,36 +134,30 @@ export default function HomePage() {
               </a>
             </motion.div>
 
+            {/* Zendesk Incoming Callout */}
+            <motion.div variants={fadeUpVariants} custom={0.5} className="mt-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-void-800/60 border border-accent-400/20 text-sm">
+                <span>☀️</span>
+                <span className="text-steel-300">
+                  Incoming — <span className="text-accent-400 font-medium">Zendesk</span> · Business Operations & Revenue Optimization · Summer 2025
+                </span>
+              </div>
+            </motion.div>
+
             {/* Quick Stats Row */}
-            <motion.div
-              variants={fadeUpVariants}
-              custom={0.5}
-              className="mt-16 pt-8 border-t border-steel-800/50"
-            >
+            <motion.div variants={fadeUpVariants} custom={0.6} className="mt-12 pt-8 border-t border-steel-800/50">
               <div className="flex flex-wrap gap-x-12 gap-y-4">
                 <div>
-                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">
-                    Education
-                  </p>
-                  <p className="text-steel-200 mt-1">
-                    B.S. Data Science & Economics
-                  </p>
+                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">Education</p>
+                  <p className="text-steel-200 mt-1">B.S. Data Science & Economics</p>
                 </div>
                 <div>
-                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">
-                    Focus
-                  </p>
-                  <p className="text-steel-200 mt-1">
-                    Quantitative Finance · Agentic AI
-                  </p>
+                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">Focus</p>
+                  <p className="text-steel-200 mt-1">Quantitative Finance · Agentic AI</p>
                 </div>
                 <div>
-                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">
-                    Location
-                  </p>
-                  <p className="text-steel-200 mt-1">
-                    United States
-                  </p>
+                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">Location</p>
+                  <p className="text-steel-200 mt-1">United States</p>
                 </div>
               </div>
             </motion.div>
@@ -191,7 +184,7 @@ export default function HomePage() {
       {/* KEY STATS SECTION */}
       <Section className="bg-void-900/50">
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -210,100 +203,106 @@ export default function HomePage() {
         </motion.div>
       </Section>
 
-      {/* WHAT I'M BUILDING SECTION */}
+      {/* ACTIVE VENTURES */}
       <Section
-        heading="What I'm Building"
-        subheading="AI systems at the intersection of finance, healthcare, and technology"
+        heading="Active Ventures"
+        subheading="Building since 2025 — AI systems for finance and campus networking"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* AuraHealth */}
-          <motion.div
-            className="group p-6 rounded-xl bg-void-800/30 border border-steel-800/30 hover:border-steel-700/50 transition-all"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="p-3 bg-accent-400/10 rounded-lg w-fit mb-4 group-hover:bg-accent-400/20 transition-colors">
-              <PhoneCall className="w-6 h-6 text-accent-400" />
-            </div>
-            <h3 className="font-display text-xl text-steel-50 mb-2">
-              AuraHealth
-            </h3>
-            <p className="text-sm text-accent-400 mb-3">AI Patient Follow-Up Agent</p>
-            <p className="text-steel-400 text-sm leading-relaxed">
-              Full-stack AI healthcare assistant with bidirectional voice streaming via WebSockets,
-              Twilio, and GenAI for automatic patient triage and post-consultation calls.
-            </p>
-          </motion.div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* TAM */}
           <motion.div
-            className="group p-6 rounded-xl bg-void-800/30 border border-steel-800/30 hover:border-steel-700/50 transition-all"
+            className="group p-6 rounded-xl bg-void-800/30 border border-accent-400/20 hover:border-accent-400/40 transition-all relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="p-3 bg-accent-400/10 rounded-lg w-fit mb-4 group-hover:bg-accent-400/20 transition-colors">
-              <Bot className="w-6 h-6 text-accent-400" />
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-400/50 to-transparent" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-accent-400/10 rounded-lg group-hover:bg-accent-400/20 transition-colors">
+                <Bot className="w-6 h-6 text-accent-400" />
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-mono rounded-full border bg-green-500/10 text-green-400 border-green-500/20">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                </span>
+                Active
+              </span>
+              <span className="px-2 py-0.5 text-xs rounded-full border bg-amber-400/10 text-amber-400 border-amber-400/25">🥈 MadData 2026</span>
             </div>
-            <h3 className="font-display text-xl text-steel-50 mb-2">
-              TAM
-            </h3>
+            <h3 className="font-display text-xl text-steel-50 mb-1">TAM</h3>
             <p className="text-sm text-accent-400 mb-3">AI Financial Due Diligence Platform</p>
-            <p className="text-steel-400 text-sm leading-relaxed">
-              LangChain-powered agentic AI for PE, IB, and Corp Dev. Automates complex
-              financial document analysis with NLP.
+            <p className="text-steel-400 text-sm leading-relaxed mb-4">
+              Agentic AI platform automating financial due diligence for PE, IB, and Corp Dev.
+              Claude 4.5 Sonnet + Isolation Forest ML. Self-correcting extraction workflow.
+              Early interest from <span className="text-accent-400">American Family Insurance</span> and <span className="text-accent-400">EY</span>.
             </p>
+            <Link href="/projects" className="text-sm text-accent-400 hover:text-accent-300 transition-colors inline-flex items-center gap-1">
+              See full breakdown <ArrowRight size={14} />
+            </Link>
           </motion.div>
 
-          {/* AI Hedge Fund */}
+          {/* Flux */}
           <motion.div
-            className="group p-6 rounded-xl bg-void-800/30 border border-steel-800/30 hover:border-steel-700/50 transition-all"
+            className="group p-6 rounded-xl bg-void-800/30 border border-accent-400/20 hover:border-accent-400/40 transition-all relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <div className="p-3 bg-accent-400/10 rounded-lg w-fit mb-4 group-hover:bg-accent-400/20 transition-colors">
-              <Wallet className="w-6 h-6 text-accent-400" />
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-400/50 to-transparent" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-3 bg-accent-400/10 rounded-lg group-hover:bg-accent-400/20 transition-colors">
+                <Smartphone className="w-6 h-6 text-accent-400" />
+              </div>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-mono rounded-full border bg-green-500/10 text-green-400 border-green-500/20">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
+                </span>
+                Live on App Store
+              </span>
+              <span className="px-2 py-0.5 text-xs rounded-full border bg-emerald-400/10 text-emerald-400 border-emerald-400/25">4.8 ⭐</span>
             </div>
-            <h3 className="font-display text-xl text-steel-50 mb-2">
-              AI Hedge Fund
-            </h3>
-            <p className="text-sm text-accent-400 mb-3">Autonomous Trading System</p>
-            <p className="text-steel-400 text-sm leading-relaxed">
-              Fully automated strategy execution, portfolio rebalancing, and risk controls
-              powered by AI agents.
+            <h3 className="font-display text-xl text-steel-50 mb-1">Flux</h3>
+            <p className="text-sm text-accent-400 mb-3">Student Co-Founder Matching — iOS Native</p>
+            <p className="text-steel-400 text-sm leading-relaxed mb-4">
+              Professional networking app live on the App Store with a 4.8-star rating.
+              Leading a team of 6. Swipe-based matching for student entrepreneurs to find co-founders.
             </p>
+            <Link href="/projects" className="text-sm text-accent-400 hover:text-accent-300 transition-colors inline-flex items-center gap-1">
+              See reviews & details <ArrowRight size={14} />
+            </Link>
           </motion.div>
         </div>
 
-        {/* Additional context */}
+        {/* Recent Hackathon Highlights */}
         <motion.div
-          className="mt-8 p-6 rounded-xl bg-void-800/30 border border-steel-800/30"
+          className="mt-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-accent-400/10 rounded-lg">
-              <TrendingUp className="w-6 h-6 text-accent-400" />
-            </div>
-            <div>
-              <h3 className="font-display text-lg text-steel-50 mb-2">
-                Autonomous Financial Systems
-              </h3>
-              <p className="text-steel-400 text-sm leading-relaxed">
-                Building toward fully automated AI-agent-driven infrastructure with autonomous
-                strategy execution, portfolio rebalancing, and risk controls. Strong foundation
-                in financial due diligence, valuation, forecasting, and predictive analytics.
-              </p>
-            </div>
+          <p className="font-mono text-xs text-steel-500 uppercase tracking-wider mb-4">Recent Hackathon Projects (2026)</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { icon: PhoneCall, name: 'AuraHealth', desc: '🏆 Google Award — CheeseHacks', tag: 'Healthcare AI' },
+              { icon: Eye, name: 'EarningsLens', desc: '⚡ CursorHacks 2026', tag: 'Deception Detection' },
+              { icon: Mic, name: 'HelloNeighbour', desc: '⚡ ClaudeHacks 2026', tag: 'Voice Social' },
+            ].map(({ icon: Icon, name, desc, tag }) => (
+              <div key={name} className="p-4 rounded-lg bg-void-800/20 border border-steel-800/30 hover:border-steel-700/50 transition-colors">
+                <div className="flex items-center gap-3 mb-2">
+                  <Icon className="w-5 h-5 text-accent-400" />
+                  <h4 className="font-display text-base text-steel-50">{name}</h4>
+                </div>
+                <p className="text-xs text-accent-400 mb-1">{desc}</p>
+                <p className="text-xs text-steel-500">{tag}</p>
+              </div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Link to projects page */}
         <motion.div
           className="mt-8 flex justify-center"
           initial={{ opacity: 0 }}
@@ -312,7 +311,7 @@ export default function HomePage() {
           transition={{ delay: 0.3 }}
         >
           <Button href="/projects" variant="ghost" icon={<ArrowRight size={16} />}>
-            View All Ventures
+            View All Ventures & Projects
           </Button>
         </motion.div>
       </Section>
@@ -326,22 +325,14 @@ export default function HomePage() {
           viewport={{ once: true }}
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-accent-400/5 rounded-full blur-[80px]" />
-
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
             <div className="p-4 bg-accent-400/10 rounded-xl">
               <GraduationCap className="w-8 h-8 text-accent-400" />
             </div>
-
             <div className="flex-1">
-              <h3 className="font-display text-2xl text-steel-50 mb-2">
-                University of Wisconsin–Madison
-              </h3>
-              <p className="text-steel-300 mb-1">
-                B.S. in Data Science & Economics
-              </p>
-              <p className="text-steel-500 text-sm">
-                Junior (Sep 2024 – Dec 2027) · Dean's List · 3.8 GPA
-              </p>
+              <h3 className="font-display text-2xl text-steel-50 mb-2">University of Wisconsin–Madison</h3>
+              <p className="text-steel-300 mb-1">B.S. in Data Science & Economics</p>
+              <p className="text-steel-500 text-sm">Junior (Sep 2024 – Dec 2027) · Dean&apos;s List · 3.8 GPA</p>
             </div>
           </div>
         </motion.div>
@@ -349,21 +340,15 @@ export default function HomePage() {
 
       {/* CTA SECTION */}
       <Section className="text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <h2 className="font-display text-display-sm md:text-display-md text-steel-50 mb-4">
-            Let's Connect
+            Let&apos;s Connect
           </h2>
           <p className="text-steel-400 text-lg mb-8 max-w-xl mx-auto">
             Open to opportunities in fintech, quantitative finance, and AI systems.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/contact" icon={<ArrowRight size={16} />}>
-              Get in Touch
-            </Button>
+            <Button href="/contact" icon={<ArrowRight size={16} />}>Get in Touch</Button>
           </div>
         </motion.div>
       </Section>

@@ -28,6 +28,7 @@ import './globals.css';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { InteractiveBackground } from '@/components/ui/InteractiveBackground';
+import { CursorGlow } from '@/components/ui/CursorGlow';
 
 /**
  * ---------------------------------------------------------------------------
@@ -145,6 +146,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col antialiased relative">
         {/* Interactive animated background */}
         <InteractiveBackground />
+        <CursorGlow />
 
         {/*
           Skip to content link for accessibility

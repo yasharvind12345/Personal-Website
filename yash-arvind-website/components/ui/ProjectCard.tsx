@@ -4,17 +4,8 @@
  * =============================================================================
  * 
  * A card component specifically designed for showcasing projects and ventures.
- * Features image support, tech stack display, and action links.
- * 
- * USAGE EXAMPLE:
- * 
- * <ProjectCard
- *   title="TAM"
- *   description="AI Financial Due Diligence Platform"
- *   tags={['LangChain', 'Python', 'React']}
- *   href="/projects/tam"
- *   featured
- * />
+ * Features image support, tech stack display, action links, award badges,
+ * and animated pulse dot for active projects.
  */
 
 'use client';
@@ -29,6 +20,11 @@ import { ReactNode } from 'react';
  * TYPE DEFINITIONS
  * ---------------------------------------------------------------------------
  */
+interface AwardBadge {
+  label: string;
+  variant: 'gold' | 'green' | 'purple' | 'blue';
+}
+
 interface ProjectCardProps {
   title: string;                 // Project name
   description: string;           // Brief description
@@ -39,18 +35,24 @@ interface ProjectCardProps {
   githubUrl?: string;            // Link to GitHub repo
   imageUrl?: string;             // Project screenshot/image
   featured?: boolean;            // If true, uses larger/emphasized styling
-  status?: 'active' | 'completed' | 'in-progress';
+  status?: 'active' | 'completed' | 'in-progress' | 'hackathon';
   metrics?: {                    // Key metrics to display
     label: string;
     value: string;
   }[];
   icon?: ReactNode;              // Optional project icon
   className?: string;
+  awardBadges?: AwardBadge[];    // Award/recognition badges
+  ctaButton?: {                  // Optional CTA button
+    label: string;
+    url: string;
+  };
+  size?: 'default' | 'large' | 'compact'; // Card size variant
 }
 
 /**
  * ---------------------------------------------------------------------------
- * STATUS BADGE COMPONENT
+ * STATUS BADGE COMPONENT (with live pulse for active)
  * ---------------------------------------------------------------------------
  */
 function StatusBadge({ status }: { status: string }) {
@@ -59,16 +61,25 @@ function StatusBadge({ status }: { status: string }) {
       label: 'Active',
       classes: 'bg-green-500/10 text-green-400 border-green-500/20',
       dot: 'bg-green-500',
+      pulse: true,
     },
     completed: {
       label: 'Completed',
       classes: 'bg-steel-800/50 text-steel-400 border-steel-700/50',
       dot: 'bg-steel-500',
+      pulse: false,
     },
     'in-progress': {
       label: 'In Progress',
       classes: 'bg-accent-400/10 text-accent-400 border-accent-400/20',
       dot: 'bg-accent-400',
+      pulse: false,
+    },
+    hackathon: {
+      label: 'Hackathon',
+      classes: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+      dot: 'bg-purple-500',
+      pulse: false,
     },
   };
 
@@ -78,8 +89,33 @@ function StatusBadge({ status }: { status: string }) {
     <span
       className={`inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-mono rounded-full border ${config.classes}`}
     >
-      <span className={`w-1.5 h-1.5 rounded-full ${config.dot}`} />
+      <span className="relative flex h-1.5 w-1.5">
+        {config.pulse && (
+          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${config.dot} opacity-75`} />
+        )}
+        <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${config.dot}`} />
+      </span>
       {config.label}
+    </span>
+  );
+}
+
+/**
+ * ---------------------------------------------------------------------------
+ * AWARD BADGE COMPONENT
+ * ---------------------------------------------------------------------------
+ */
+function AwardBadgeTag({ badge }: { badge: AwardBadge }) {
+  const variantClasses = {
+    gold: 'bg-amber-400/10 text-amber-400 border-amber-400/25',
+    green: 'bg-emerald-400/10 text-emerald-400 border-emerald-400/25',
+    purple: 'bg-purple-400/10 text-purple-400 border-purple-400/25',
+    blue: 'bg-blue-400/10 text-blue-400 border-blue-400/25',
+  };
+
+  return (
+    <span className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full border ${variantClasses[badge.variant]}`}>
+      {badge.label}
     </span>
   );
 }
@@ -103,6 +139,9 @@ export function ProjectCard({
   metrics = [],
   icon,
   className = '',
+  awardBadges = [],
+  ctaButton,
+  size = 'default',
 }: ProjectCardProps) {
   /**
    * Card wrapper - either a link or a div
@@ -117,6 +156,8 @@ export function ProjectCard({
     }
     return <div>{children}</div>;
   };
+
+  const isCompact = size === 'compact';
 
   return (
     <motion.article
@@ -154,10 +195,10 @@ export function ProjectCard({
         )}
 
         {/* Card Content */}
-        <div className="p-6">
+        <div className={isCompact ? 'p-4 sm:p-5' : 'p-6'}>
           {/* Header: Status & Icon */}
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center gap-3">
+          <div className="flex items-start justify-between mb-3">
+            <div className="flex items-center gap-3 flex-wrap">
               {/* Project Icon */}
               {icon && (
                 <div className="p-2 bg-void-900/50 rounded-lg text-steel-400">
@@ -198,8 +239,17 @@ export function ProjectCard({
             </div>
           </div>
 
+          {/* Award Badges */}
+          {awardBadges.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {awardBadges.map((badge) => (
+                <AwardBadgeTag key={badge.label} badge={badge} />
+              ))}
+            </div>
+          )}
+
           {/* Title */}
-          <h3 className="font-display text-xl md:text-2xl text-steel-50 mb-2 group-hover:text-accent-400 transition-colors">
+          <h3 className={`font-display ${isCompact ? 'text-lg md:text-xl' : 'text-xl md:text-2xl'} text-steel-50 mb-2 group-hover:text-accent-400 transition-colors`}>
             {title}
             {href && (
               <ArrowUpRight
@@ -210,15 +260,29 @@ export function ProjectCard({
           </h3>
 
           {/* Description */}
-          <p className="text-steel-400 text-sm leading-relaxed mb-4">
+          <p className="text-steel-400 text-sm leading-relaxed mb-3">
             {description}
           </p>
 
           {/* Extended Description (if provided) */}
           {longDescription && (
-            <p className="text-steel-500 text-sm leading-relaxed mb-4">
+            <p className={`text-steel-500 text-sm leading-relaxed mb-4 ${isCompact ? 'line-clamp-3' : ''}`}>
               {longDescription}
             </p>
+          )}
+
+          {/* CTA Button */}
+          {ctaButton && (
+            <a
+              href={ctaButton.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 mb-4 text-sm font-medium rounded-lg bg-accent-400 text-void-950 hover:bg-accent-300 transition-colors"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {ctaButton.label}
+              <ExternalLink size={14} />
+            </a>
           )}
 
           {/* Metrics (if provided) */}

@@ -4,18 +4,15 @@
  * =============================================================================
  * 
  * This page showcases Yash's life outside of work and tech - athletics,
- * social impact initiatives, and personal interests.
+ * social impact initiatives, personal interests, and entrepreneurship community.
  * 
  * SECTIONS:
  * 1. Header - Page introduction
  * 2. Athletics - Sports and martial arts
  * 3. Social Impact - Community work and giving back
- * 4. Interests - Hobbies and personal pursuits
- * 
- * HOW TO CUSTOMIZE:
- * - Edit the athletics array to update sports activities
- * - Edit the socialImpact section to update community work
- * - Edit the interests array to update hobbies
+ * 4. Community & Entrepreneurship - Hackathon and startup community involvement
+ * 5. Interests - Hobbies and personal pursuits
+ * 6. Philosophy - Common thread
  */
 
 'use client';
@@ -34,6 +31,8 @@ import {
   Gamepad2,
   Camera,
   Mountain,
+  Rocket,
+  Zap,
 } from 'lucide-react';
 
 // Import reusable components
@@ -43,7 +42,6 @@ import { Section, Card, Tag } from '@/components';
  * ---------------------------------------------------------------------------
  * ATHLETICS DATA
  * ---------------------------------------------------------------------------
- * Edit these to update sports and physical activities
  */
 const athletics = [
   {
@@ -76,7 +74,6 @@ const athletics = [
  * ---------------------------------------------------------------------------
  * SOCIAL IMPACT DATA
  * ---------------------------------------------------------------------------
- * Edit this to update community work and social initiatives
  */
 const socialImpact = {
   title: 'STEM Lab in Rural India',
@@ -106,9 +103,28 @@ const socialImpact = {
 
 /**
  * ---------------------------------------------------------------------------
+ * COMMUNITY & ENTREPRENEURSHIP DATA
+ * ---------------------------------------------------------------------------
+ */
+const communityItems = [
+  {
+    title: 'Active Hackathon Builder',
+    description:
+      'Regular competitor and builder at UW-Madison and national hackathons. Built and shipped 3+ projects under hackathon conditions in 2025.',
+    icon: Zap,
+  },
+  {
+    title: 'Startup Community',
+    description:
+      'Actively engaged in UW-Madison\'s entrepreneurship ecosystem, co-founding ventures and mentoring early-stage founders.',
+    icon: Rocket,
+  },
+];
+
+/**
+ * ---------------------------------------------------------------------------
  * INTERESTS DATA
  * ---------------------------------------------------------------------------
- * Edit these to update hobbies and personal interests
  */
 const interests = [
   {
@@ -168,7 +184,6 @@ export default function BeyondPage() {
         =========================================================================
         HERO SECTION
         =========================================================================
-        Simple header introducing the page
       */}
       <section className="pt-24 pb-12 sm:pt-32 sm:pb-16 md:pt-40 md:pb-24">
         <div className="container-custom">
@@ -210,7 +225,6 @@ export default function BeyondPage() {
         =========================================================================
         ATHLETICS SECTION
         =========================================================================
-        Sports and martial arts achievements
       */}
       <Section id="athletics" heading="Athletics" subheading="Physical Discipline">
         <motion.div
@@ -265,7 +279,6 @@ export default function BeyondPage() {
         =========================================================================
         SOCIAL IMPACT SECTION
         =========================================================================
-        Community work and giving back
       */}
       <Section
         id="impact"
@@ -339,11 +352,49 @@ export default function BeyondPage() {
 
       {/* 
         =========================================================================
+        COMMUNITY & ENTREPRENEURSHIP SECTION
+        =========================================================================
+      */}
+      <Section
+        id="community"
+        heading="Community & Entrepreneurship"
+        subheading="Building Together"
+      >
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto"
+        >
+          {communityItems.map((item) => (
+            <motion.div key={item.title} variants={fadeInUp}>
+              <Card variant="default" className="h-full hover:border-accent-400/20 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-accent-400/10 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-6 h-6 text-accent-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-lg sm:text-xl text-steel-50 mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-steel-400 text-sm sm:text-base leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+      </Section>
+
+      {/* 
+        =========================================================================
         INTERESTS SECTION
         =========================================================================
-        Hobbies and personal pursuits
       */}
-      <Section id="interests" heading="Interests" subheading="What I Enjoy">
+      <Section id="interests" heading="Interests" subheading="What I Enjoy" className="bg-void-900/30">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -379,9 +430,8 @@ export default function BeyondPage() {
         =========================================================================
         PHILOSOPHY SECTION
         =========================================================================
-        Personal values and approach to life
       */}
-      <Section className="bg-void-900/30">
+      <Section>
         <div className="text-center max-w-3xl mx-auto px-4">
           <motion.div
             initial="hidden"

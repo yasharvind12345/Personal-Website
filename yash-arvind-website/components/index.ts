@@ -28,12 +28,15 @@ export { Card } from './ui/Card';
 export { Button } from './ui/Button';
 export { Tag } from './ui/Tag';
 export { AnimatedText } from './ui/AnimatedText';
-export { Timeline } from './ui/Timeline';
 export { StatCard } from './ui/StatCard';
 export { ProjectCard } from './ui/ProjectCard';
 export { InteractiveBackground } from './ui/InteractiveBackground';
 export { CursorGlow } from './ui/CursorGlow';
-export { TypewriterText } from './ui/TypewriterText';
-export { AnimatedStatBar } from './ui/AnimatedStatBar';
+export { ProofStrip } from './ui/ProofStrip';
+export { CountUp } from './ui/CountUp';
 export { ScrollReveal } from './ui/ScrollReveal';
 export { VideoPlayer } from './ui/VideoPlayer';
+
+// Work Components
+export { CaseStudyCard, HackathonCard, VentureCard } from './work/WorkCards';
+export { CaseStudyLayout } from './work/CaseStudyLayout';

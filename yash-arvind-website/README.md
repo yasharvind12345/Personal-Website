@@ -1,6 +1,6 @@
 # Yash Arvind - Personal Website
 
-A sophisticated, dark-themed personal website built for fintech/AI-focused professionals. Built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
+Personal site for Yash Arvind, product builder. Built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
 
 ## 🚀 Quick Start
 
@@ -27,48 +27,39 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ```
 yash-arvind-website/
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Homepage
-│   ├── projects/          # Ventures/projects page
-│   ├── finance/           # Finance systems page
-│   ├── trajectory/        # Career timeline page
-│   ├── beyond/            # Outside interests page
-│   ├── now/               # Current focus page
-│   ├── contact/           # Contact page
-│   ├── layout.tsx         # Root layout with nav/footer
-│   └── globals.css        # Global styles
-├── components/
-│   ├── Navigation.tsx     # Header navigation
-│   ├── Footer.tsx         # Site footer
-│   └── ui/                # Reusable UI components
-├── public/                # Static assets (add images here)
-├── tailwind.config.js     # Design system configuration
-└── package.json           # Dependencies
+├── content/               # ALL site copy and facts (single source of truth)
+│   ├── profile.ts         # Name, headline, contact, education, SEO, nav links
+│   ├── stats.ts           # Home proof strip + stat cards
+│   ├── caseStudies.ts     # /work/[slug] case studies
+│   ├── experience.ts      # Work experience
+│   ├── hackathons.ts      # Hackathons + recognition
+│   ├── ventures.ts        # Other projects
+│   ├── skills.ts          # Skill groups
+│   └── beyond.ts          # /beyond page
+├── app/                   # Next.js App Router pages
+│   ├── page.tsx           # Home
+│   ├── work/              # /work and /work/[slug] case studies
+│   ├── experience/        # Experience, education, recognition, skills
+│   ├── beyond/            # Outside interests
+│   ├── contact/           # Contact
+│   ├── opengraph-image.tsx, sitemap.ts, robots.ts
+│   └── layout.tsx         # Root layout, site-wide metadata
+├── components/            # Navigation, Footer, ui/, work/
+├── lib/                   # Metadata + OG image helpers
+└── public/                # Static assets (resume PDF, images, video)
 ```
+
+`/projects` and `/trajectory` redirect to `/work` and `/experience` (see `next.config.js`).
 
 ## ✏️ How to Customize
 
 ### Updating Your Information
 
-Each page file contains clearly marked sections for customization. Look for comments like:
+Edit the files in `content/`. Pages read from them, so each fact is a one-file edit.
+To add a case study, append an entry to `content/caseStudies.ts`; its page, OG image,
+and sitemap entry are generated automatically. Sections left empty are not rendered.
 
-```typescript
-// =============================================================================
-// YOUR DATA HERE - Edit this section
-// =============================================================================
-```
-
-### Key Files to Edit
-
-1. **`app/layout.tsx`** - Site title, meta description, navigation links
-2. **`app/page.tsx`** - Homepage hero, stats, featured projects
-3. **`app/projects/page.tsx`** - Your ventures and technical skills
-4. **`app/finance/page.tsx`** - Finance/trading systems details
-5. **`app/trajectory/page.tsx`** - Work experience, achievements, education
-6. **`app/beyond/page.tsx`** - Sports, hobbies, social impact
-7. **`app/now/page.tsx`** - Current focus and availability
-8. **`app/contact/page.tsx`** - Contact info and social links
-9. **`components/Footer.tsx`** - Social links and footer content
+To update the resume, replace `public/Yash_Arvind_Resume.pdf`.
 
 ### Updating Colors
 
@@ -120,18 +111,6 @@ vercel
 ### Other Platforms
 
 The site is a standard Next.js application and can be deployed to any platform that supports Node.js.
-
-## 📧 Contact Form Setup
-
-The contact form needs a backend service to actually send emails. Options:
-
-### Option 1: Formspree (Easiest)
-1. Sign up at [formspree.io](https://formspree.io)
-2. Create a new form
-3. Update `app/contact/page.tsx` with your form endpoint
-
-### Option 2: Custom API Route
-Create `app/api/contact/route.ts` with your email service (Resend, SendGrid, etc.)
 
 ## 🎨 Design System
 

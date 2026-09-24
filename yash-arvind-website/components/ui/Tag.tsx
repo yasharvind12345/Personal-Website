@@ -18,7 +18,7 @@
  * <Tag variant="success">Active</Tag>
  */
 
-'use client';
+
 
 import { ReactNode } from 'react';
 

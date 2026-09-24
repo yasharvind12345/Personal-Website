@@ -1,7 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { useEffect, useRef, type CSSProperties, type ReactNode } from 'react';
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -11,8 +10,12 @@ interface ScrollRevealProps {
 }
 
 /**
- * ScrollReveal - Wraps content with a scroll-triggered fade-up + translate animation.
- * Respects prefers-reduced-motion via Framer Motion's built-in support.
+ * Fades content in when it scrolls into view.
+ *
+ * The content is fully visible in the server HTML. It is only hidden by the
+ * `.js [data-reveal]` rule in globals.css, which applies once the inline script
+ * in layout.tsx confirms JavaScript is running, so crawlers, link previews and
+ * no-JS visitors always see it. Reduced-motion users skip the animation.
  */
 export function ScrollReveal({
   children,
@@ -20,19 +23,31 @@ export function ScrollReveal({
   delay = 0,
   staggerIndex = 0,
 }: ScrollRevealProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.dataset.revealed = '';
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '0px 0px -50px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const delayMs = Math.round((delay + staggerIndex * 0.08) * 1000);
+  const style = delayMs ? ({ '--reveal-delay': `${delayMs}ms` } as CSSProperties) : undefined;
+
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{
-        duration: 0.5,
-        delay: delay + staggerIndex * 0.08,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-    >
+    <div ref={ref} data-reveal="" className={className} style={style}>
       {children}
-    </motion.div>
+    </div>
   );
 }

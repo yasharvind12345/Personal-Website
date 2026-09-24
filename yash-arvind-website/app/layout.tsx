@@ -29,6 +29,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { InteractiveBackground } from '@/components/ui/InteractiveBackground';
 import { CursorGlow } from '@/components/ui/CursorGlow';
+import { profile, seo, siteUrl } from '@/content/profile';
 
 /**
  * ---------------------------------------------------------------------------
@@ -37,35 +38,27 @@ import { CursorGlow } from '@/components/ui/CursorGlow';
  * This object defines SEO metadata for the website.
  * It appears in search results and when sharing links on social media.
  * 
- * CUSTOMIZE THIS for your personal information!
+ * Copy comes from content/profile.ts. Pages override title/description
+ * with their own `metadata` export (see lib/metadata.ts).
  */
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+
   // The main title shown in browser tabs and search results
   title: {
-    default: 'Yash Arvind | Fintech & AI Builder',
+    default: seo.title,
     template: '%s | Yash Arvind', // For page-specific titles
   },
-  
+
   // Description shown in search results (keep under 160 characters)
-  description: 'Building AI-driven financial systems. UW-Madison Data Science & Economics student specializing in quantitative finance, agentic AI, and revenue optimization.',
-  
-  // Keywords for search engines (less important now but still useful)
-  keywords: [
-    'Yash Arvind',
-    'fintech',
-    'AI',
-    'quantitative finance',
-    'hedge fund',
-    'data science',
-    'UW-Madison',
-    'financial systems',
-    'agentic AI',
-  ],
-  
+  description: seo.description,
+  keywords: seo.keywords,
+
   // Author information
-  authors: [{ name: 'Yash Arvind' }],
-  creator: 'Yash Arvind',
-  
+  authors: [{ name: profile.name, url: siteUrl }],
+  creator: profile.name,
+  alternates: { canonical: '/' },
+
   // Robots configuration (allow search engines to index)
   robots: {
     index: true,
@@ -78,32 +71,27 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  
-  // Open Graph metadata (for social media sharing)
+
+  // Open Graph metadata (for social media sharing).
+  // The image comes from app/opengraph-image.tsx.
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Yash Arvind',
-    title: 'Yash Arvind | Fintech & AI Builder',
-    description: 'Building AI-driven financial systems. UW-Madison Data Science & Economics student.',
-    // Add your own OG image URL here
-    // images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+    siteName: profile.name,
+    url: '/',
+    title: seo.title,
+    description: seo.description,
   },
-  
+
   // Twitter card metadata
   twitter: {
     card: 'summary_large_image',
-    title: 'Yash Arvind | Fintech & AI Builder',
-    description: 'Building AI-driven financial systems. UW-Madison Data Science & Economics student.',
-    // Add your Twitter handle
-    // creator: '@yasharvind',
+    title: seo.title,
+    description: seo.description,
   },
-  
-  // Favicon and icons
+
   icons: {
-    icon: '/favicon.ico',
-    // Add more icon sizes for different devices
-    // apple: '/apple-touch-icon.png',
+    icon: '/favicon.svg',
   },
 };
 
@@ -136,7 +124,12 @@ export default function RootLayout({
   return (
     // The html tag with lang attribute for accessibility
     // 'dark' class enables dark mode (configured in tailwind.config.js)
-    <html lang="en" className="dark">
+    // suppressHydrationWarning: the inline script below adds a `js` class before hydration
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        {/* Lets CSS hide scroll-reveal content only when JS is running (see globals.css) */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       {/* 
         Body setup:
         - min-h-screen: Ensures the body takes at least the full viewport height

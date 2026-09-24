@@ -13,7 +13,7 @@
  * - Backdrop blur effect for modern look
  * 
  * HOW TO MODIFY:
- * - Edit the `navLinks` array to add/remove navigation items
+ * - Edit `navLinks` in content/profile.ts to add/remove navigation items
  * - Adjust colors in the className attributes
  * - Modify animations in the mobile menu
  */
@@ -25,29 +25,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-
-/**
- * ---------------------------------------------------------------------------
- * NAVIGATION LINKS CONFIGURATION
- * ---------------------------------------------------------------------------
- * Edit this array to add, remove, or reorder navigation items.
- * Each item needs:
- * - href: The URL path (must match your page routes)
- * - label: The text displayed in the navigation
- */
-const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/projects', label: 'Ventures' },
-  { href: '/trajectory', label: 'Trajectory' },
-  { href: '/beyond', label: 'Outside the Screen' },
-  { href: '/contact', label: 'Contact' },
-];
+import { navLinks, profile } from '@/content/profile';
 
 /**
  * ---------------------------------------------------------------------------
  * NAVIGATION COMPONENT
  * ---------------------------------------------------------------------------
  */
+
+function isActiveLink(pathname: string, href: string) {
+  return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function Navigation() {
   // State to track if mobile menu is open
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -113,7 +102,7 @@ export function Navigation() {
             : 'bg-transparent'
         }`}
       >
-        <nav className="container-custom">
+        <nav className="container-custom" aria-label="Main">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* 
               Logo/Name Link
@@ -121,7 +110,8 @@ export function Navigation() {
             */}
             <Link
               href="/"
-              className="relative z-10 font-display text-xl md:text-2xl hover:text-accent-400 transition-colors"
+              className="relative z-10 font-display text-xl md:text-2xl hover:text-accent-400 transition-colors rounded-md"
+              aria-label="Yash Arvind, home"
             >
               {/* First name with accent color on first letter */}
               <span className="text-accent-400">Y</span><span className="text-steel-50">ash</span>
@@ -135,12 +125,13 @@ export function Navigation() {
             <div className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => {
                 // Check if this link is the current page
-                const isActive = pathname === link.href;
+                const isActive = isActiveLink(pathname, link.href);
                 
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
+                    aria-current={isActive ? 'page' : undefined}
                     className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-lg ${
                       isActive
                         ? 'text-accent-400'
@@ -173,7 +164,7 @@ export function Navigation() {
               aria-expanded={isMenuOpen}
             >
               {/* Animate between hamburger and X icons */}
-              <AnimatePresence mode="wait">
+              <AnimatePresence mode="wait" initial={false}>
                 {isMenuOpen ? (
                   <motion.div
                     key="close"
@@ -226,17 +217,18 @@ export function Navigation() {
               Slides in from the right side
             */}
             <motion.nav
+              aria-label="Mobile"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 w-80 bg-void-900 border-l border-steel-800 z-40 md:hidden"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-void-900 border-l border-steel-800 z-40 md:hidden"
             >
               <div className="flex flex-col h-full pt-24 pb-8 px-6">
                 {/* Navigation Links */}
                 <div className="flex-1 space-y-2">
                   {navLinks.map((link, index) => {
-                    const isActive = pathname === link.href;
+                    const isActive = isActiveLink(pathname, link.href);
                     
                     return (
                       <motion.div
@@ -247,6 +239,7 @@ export function Navigation() {
                       >
                         <Link
                           href={link.href}
+                          aria-current={isActive ? 'page' : undefined}
                           className={`block px-4 py-3 text-lg font-medium rounded-lg transition-colors ${
                             isActive
                               ? 'bg-accent-400/10 text-accent-400'
@@ -271,10 +264,10 @@ export function Navigation() {
                 >
                   <p className="text-sm text-steel-500 mb-2">Get in touch</p>
                   <a
-                    href="mailto:yash@example.com"
+                    href={`mailto:${profile.email}`}
                     className="text-steel-300 hover:text-accent-400 transition-colors"
                   >
-                    yash@example.com
+                    {profile.email}
                   </a>
                 </motion.div>
               </div>

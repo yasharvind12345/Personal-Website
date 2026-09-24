@@ -54,6 +54,17 @@ const nextConfig = {
   // },
 
   // -----------------------------------------------------------------------------
+  // REDIRECTS
+  // -----------------------------------------------------------------------------
+  // Old routes from the previous site structure, kept so existing links work.
+  async redirects() {
+    return [
+      { source: '/projects', destination: '/work', permanent: true },
+      { source: '/trajectory', destination: '/experience', permanent: true },
+    ];
+  },
+
+  // -----------------------------------------------------------------------------
   // HEADERS (Security)
   // -----------------------------------------------------------------------------
   // Add security headers to protect your site

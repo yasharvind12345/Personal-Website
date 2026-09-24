@@ -1,356 +1,194 @@
-'use client';
+import type { CSSProperties } from 'react';
+import type { Metadata } from 'next';
+import { ArrowRight, Download, GraduationCap } from 'lucide-react';
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
 import {
-  ArrowRight,
-  TrendingUp,
-  Bot,
-  GraduationCap,
-  Wallet,
-  Download,
-  PhoneCall,
-  Smartphone,
-  Eye,
-  Mic,
-} from 'lucide-react';
+  Section,
+  Button,
+  StatCard,
+  ProofStrip,
+  ScrollReveal,
+  CaseStudyCard,
+  HackathonCard,
+} from '@/components';
+import { profile, education, seo } from '@/content/profile';
+import { proofStrip, homeStatCards } from '@/content/stats';
+import { caseStudies, featuredSlugs, getCaseStudy } from '@/content/caseStudies';
+import { hackathons } from '@/content/hackathons';
 
-import { Section, Button, StatCard, TypewriterText, AnimatedStatBar } from '@/components';
-
-// Key statistics
-const keyStats = [
-  {
-    value: '$100K+',
-    label: 'Portfolio Under Management',
-    description: 'Personal investment portfolio with automated systems',
-    highlight: true,
-  },
-  {
-    value: '3.8',
-    label: 'GPA',
-    description: "Dean's List, UW-Madison",
-  },
-  {
-    value: '2',
-    label: 'Active Ventures',
-    description: 'TAM & Flux (since 2025)',
-  },
-  {
-    value: '3',
-    label: 'Hackathon Wins',
-    description: 'CheeseHacks · MadData · CursorHacks',
-  },
-];
-
-// Typewriter phrases
-const heroSubtitles = [
-  'Building AI-driven financial systems.',
-  'Fintech founder. Data scientist. Builder.',
-  'Turning data into decisions.',
-];
-
-// Animation variants
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (delay: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      delay,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  }),
+export const metadata: Metadata = {
+  title: { absolute: seo.title },
+  alternates: { canonical: '/' },
 };
 
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+const heroDelay = (ms: number) => ({ '--hero-delay': `${ms}ms` }) as CSSProperties;
+
+const featured = featuredSlugs.flatMap((slug) => getCaseStudy(slug) ?? []);
+const secondaryHackathons = hackathons.filter((h) => !h.href);
+const mirofish = caseStudies.find((study) => study.slug === 'mirofish');
 
 export default function HomePage() {
   return (
     <>
-      {/* HERO SECTION */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="container-custom relative">
-          <motion.div
-            className="max-w-4xl"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Status Badge */}
-            <motion.div variants={fadeUpVariants} custom={0} className="mb-6">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-void-800/80 border border-steel-800/50 text-sm">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+      {/* HERO */}
+      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+        <div className="container-custom relative py-12">
+          <div className="max-w-4xl">
+            <p className="hero-in mb-6" style={heroDelay(0)}>
+              <span className="inline-flex items-start sm:items-center gap-2 px-3 py-1.5 rounded-2xl sm:rounded-full bg-void-800/80 border border-accent-400/20 text-sm">
+                <span className="relative flex h-2 w-2 mt-1.5 sm:mt-0 flex-shrink-0" aria-hidden="true">
+                  <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
-                <span className="text-steel-400">Building in public</span>
+                <span className="text-steel-300">{profile.availability}</span>
               </span>
-            </motion.div>
+            </p>
 
-            {/* Main Heading */}
-            <motion.h1
-              variants={fadeUpVariants}
-              custom={0.1}
-              className="font-display text-display-lg md:text-display-xl lg:text-display-2xl text-steel-50 mb-6"
+            <h1
+              className="hero-in font-display text-display-lg md:text-display-xl lg:text-display-2xl text-steel-50 mb-6"
+              style={heroDelay(100)}
             >
-              <span className="text-accent-400">Yash</span> Arvind
-            </motion.h1>
+              <span className="text-accent-400">{profile.firstName}</span> {profile.lastName}
+            </h1>
 
-            {/* Tagline — Typewriter */}
-            <motion.p variants={fadeUpVariants} custom={0.2} className="text-xl md:text-2xl text-steel-400 mb-4 max-w-2xl leading-relaxed">
-              <TypewriterText phrases={heroSubtitles} className="text-steel-200" />
-            </motion.p>
+            <p
+              className="hero-in text-xl md:text-2xl text-steel-200 mb-6 max-w-2xl leading-relaxed"
+              style={heroDelay(200)}
+            >
+              {profile.headline}
+            </p>
 
-            {/* Animated Stat Bar */}
-            <motion.div variants={fadeUpVariants} custom={0.25}>
-              <AnimatedStatBar />
-            </motion.div>
+            <div className="hero-in space-y-2 mb-10 max-w-2xl" style={heroDelay(300)}>
+              {profile.summary.map((sentence) => (
+                <p key={sentence} className="text-lg text-steel-400 leading-relaxed">
+                  {sentence}
+                </p>
+              ))}
+            </div>
 
-            {/* Description */}
-            <motion.p variants={fadeUpVariants} custom={0.3} className="text-lg text-steel-500 mb-8 mt-6 max-w-2xl leading-relaxed">
-              Data Science & Economics at UW-Madison. Managing a six-figure portfolio
-              while building automated hedge fund infrastructure. Fintech-first, AI-native.
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div variants={fadeUpVariants} custom={0.4} className="flex flex-wrap gap-4">
-              <Button href="/projects" icon={<ArrowRight size={16} />}>View Ventures</Button>
-              <Button href="/trajectory" variant="secondary">Experience</Button>
-              <a
-                href="/Yash_Arvind_Resume.pdf"
+            <div className="hero-in flex flex-wrap gap-4" style={heroDelay(400)}>
+              <Button href="/work" icon={<ArrowRight size={16} aria-hidden="true" />}>
+                View work
+              </Button>
+              <Button
+                href={profile.resumePath}
                 download
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-steel-700 text-steel-200 hover:border-accent-400 hover:text-accent-400 transition-all"
+                variant="secondary"
+                icon={<Download size={16} aria-hidden="true" />}
+                iconPosition="left"
               >
-                <Download size={16} />
                 Resume
-              </a>
-            </motion.div>
+              </Button>
+              <Button href="/contact" variant="outline">
+                Contact
+              </Button>
+            </div>
 
-            {/* Zendesk Incoming Callout */}
-            <motion.div variants={fadeUpVariants} custom={0.5} className="mt-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-void-800/60 border border-accent-400/20 text-sm">
-                <span>☀️</span>
-                <span className="text-steel-300">
-                  Incoming — <span className="text-accent-400 font-medium">Zendesk</span> · Business Operations & Revenue Optimization · Summer 2025
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Quick Stats Row */}
-            <motion.div variants={fadeUpVariants} custom={0.6} className="mt-12 pt-8 border-t border-steel-800/50">
-              <div className="flex flex-wrap gap-x-12 gap-y-4">
-                <div>
-                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">Education</p>
-                  <p className="text-steel-200 mt-1">B.S. Data Science & Economics</p>
+            <dl
+              className="hero-in mt-14 pt-8 border-t border-steel-800/50 flex flex-wrap gap-x-12 gap-y-4"
+              style={heroDelay(500)}
+            >
+              {[
+                { term: 'Education', detail: `${education.degree} · ${education.school}` },
+                { term: 'Focus', detail: profile.focus },
+                { term: 'Location', detail: `${profile.location} · Open to relocation` },
+              ].map(({ term, detail }) => (
+                <div key={term}>
+                  <dt className="font-mono text-xs text-steel-500 uppercase tracking-wider">{term}</dt>
+                  <dd className="text-steel-200 mt-1">{detail}</dd>
                 </div>
-                <div>
-                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">Focus</p>
-                  <p className="text-steel-200 mt-1">Quantitative Finance · Agentic AI</p>
-                </div>
-                <div>
-                  <p className="font-mono text-xs text-steel-500 uppercase tracking-wider">Location</p>
-                  <p className="text-steel-200 mt-1">United States</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.5 }}
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-steel-700 flex items-start justify-center p-2">
-            <motion.div
-              className="w-1.5 h-1.5 bg-steel-500 rounded-full"
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
+              ))}
+            </dl>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* KEY STATS SECTION */}
-      <Section className="bg-void-900/50">
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {keyStats.map((stat, index) => (
-            <motion.div key={stat.label} variants={fadeUpVariants} custom={index * 0.1}>
-              <StatCard
-                value={stat.value}
-                label={stat.label}
-                description={stat.description}
-                highlight={stat.highlight}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-      </Section>
+      {/* PROOF STRIP */}
+      <section aria-label="Results at a glance" className="pb-16 md:pb-24">
+        <div className="container-custom">
+          <ProofStrip stats={proofStrip} />
+        </div>
+      </section>
 
-      {/* ACTIVE VENTURES */}
+      {/* FEATURED WORK */}
       <Section
-        heading="Active Ventures"
-        subheading="Building since 2025 — AI systems for finance and campus networking"
+        id="featured-work"
+        heading="Featured Work"
+        subheading="Internal products at Zendesk and the companies I co-founded. Each case study starts with the problem."
+        className="bg-void-900/30"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* TAM */}
-          <motion.div
-            className="group p-6 rounded-xl bg-void-800/30 border border-accent-400/20 hover:border-accent-400/40 transition-all relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-400/50 to-transparent" />
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-accent-400/10 rounded-lg group-hover:bg-accent-400/20 transition-colors">
-                <Bot className="w-6 h-6 text-accent-400" />
-              </div>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-mono rounded-full border bg-green-500/10 text-green-400 border-green-500/20">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-                </span>
-                Active
-              </span>
-              <span className="px-2 py-0.5 text-xs rounded-full border bg-amber-400/10 text-amber-400 border-amber-400/25">🥈 MadData 2026</span>
-            </div>
-            <h3 className="font-display text-xl text-steel-50 mb-1">TAM</h3>
-            <p className="text-sm text-accent-400 mb-3">AI Financial Due Diligence Platform</p>
-            <p className="text-steel-400 text-sm leading-relaxed mb-4">
-              Agentic AI platform automating financial due diligence for PE, IB, and Corp Dev.
-              Claude 4.5 Sonnet + Isolation Forest ML. Self-correcting extraction workflow.
-              Early interest from <span className="text-accent-400">American Family Insurance</span> and <span className="text-accent-400">EY</span>.
-            </p>
-            <Link href="/projects" className="text-sm text-accent-400 hover:text-accent-300 transition-colors inline-flex items-center gap-1">
-              See full breakdown <ArrowRight size={14} />
-            </Link>
-          </motion.div>
-
-          {/* Flux */}
-          <motion.div
-            className="group p-6 rounded-xl bg-void-800/30 border border-accent-400/20 hover:border-accent-400/40 transition-all relative overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-          >
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-400/50 to-transparent" />
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-3 bg-accent-400/10 rounded-lg group-hover:bg-accent-400/20 transition-colors">
-                <Smartphone className="w-6 h-6 text-accent-400" />
-              </div>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-xs font-mono rounded-full border bg-green-500/10 text-green-400 border-green-500/20">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500" />
-                </span>
-                Live on App Store
-              </span>
-              <span className="px-2 py-0.5 text-xs rounded-full border bg-emerald-400/10 text-emerald-400 border-emerald-400/25">4.8 ⭐</span>
-            </div>
-            <h3 className="font-display text-xl text-steel-50 mb-1">Flux</h3>
-            <p className="text-sm text-accent-400 mb-3">Student Co-Founder Matching — iOS Native</p>
-            <p className="text-steel-400 text-sm leading-relaxed mb-4">
-              Professional networking app live on the App Store with a 4.8-star rating.
-              Leading a team of 6. Swipe-based matching for student entrepreneurs to find co-founders.
-            </p>
-            <Link href="/projects" className="text-sm text-accent-400 hover:text-accent-300 transition-colors inline-flex items-center gap-1">
-              See reviews & details <ArrowRight size={14} />
-            </Link>
-          </motion.div>
+          {featured.map((study, i) => (
+            <ScrollReveal key={study.slug} staggerIndex={i}>
+              <CaseStudyCard study={study} featured />
+            </ScrollReveal>
+          ))}
         </div>
 
-        {/* Recent Hackathon Highlights */}
-        <motion.div
-          className="mt-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-        >
-          <p className="font-mono text-xs text-steel-500 uppercase tracking-wider mb-4">Recent Hackathon Projects (2026)</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              { icon: PhoneCall, name: 'AuraHealth', desc: '🏆 Google Award — CheeseHacks', tag: 'Healthcare AI' },
-              { icon: Eye, name: 'EarningsLens', desc: '⚡ CursorHacks 2026', tag: 'Deception Detection' },
-              { icon: Mic, name: 'HelloNeighbour', desc: '⚡ ClaudeHacks 2026', tag: 'Voice Social' },
-            ].map(({ icon: Icon, name, desc, tag }) => (
-              <div key={name} className="p-4 rounded-lg bg-void-800/20 border border-steel-800/30 hover:border-steel-700/50 transition-colors">
-                <div className="flex items-center gap-3 mb-2">
-                  <Icon className="w-5 h-5 text-accent-400" />
-                  <h4 className="font-display text-base text-steel-50">{name}</h4>
-                </div>
-                <p className="text-xs text-accent-400 mb-1">{desc}</p>
-                <p className="text-xs text-steel-500">{tag}</p>
-              </div>
+        <ScrollReveal className="mt-12">
+          <h3 className="font-mono text-xs text-steel-500 uppercase tracking-wider mb-4">
+            Hackathons & other builds (2026)
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {secondaryHackathons.map((hackathon) => (
+              <HackathonCard key={hackathon.name} hackathon={hackathon} />
             ))}
+            {mirofish && <CaseStudyCard study={mirofish} size="compact" />}
           </div>
-        </motion.div>
+        </ScrollReveal>
 
-        <motion.div
-          className="mt-8 flex justify-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <Button href="/projects" variant="ghost" icon={<ArrowRight size={16} />}>
-            View All Ventures & Projects
+        <div className="mt-10 flex justify-center">
+          <Button href="/work" variant="ghost" icon={<ArrowRight size={16} aria-hidden="true" />}>
+            All work
           </Button>
-        </motion.div>
+        </div>
       </Section>
 
-      {/* EDUCATION HIGHLIGHT */}
+      {/* STAT CARDS */}
+      <Section>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+          {homeStatCards.map((stat, i) => (
+            <ScrollReveal key={stat.label} staggerIndex={i}>
+              <StatCard {...stat} />
+            </ScrollReveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* EDUCATION */}
       <Section className="bg-void-900/50">
-        <motion.div
-          className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-void-800/80 to-void-900/80 border border-steel-800/50 overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-accent-400/5 rounded-full blur-[80px]" />
-          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
-            <div className="p-4 bg-accent-400/10 rounded-xl">
-              <GraduationCap className="w-8 h-8 text-accent-400" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-display text-2xl text-steel-50 mb-2">University of Wisconsin–Madison</h3>
-              <p className="text-steel-300 mb-1">B.S. in Data Science & Economics</p>
-              <p className="text-steel-500 text-sm">Junior (Sep 2024 – Dec 2027) · Dean&apos;s List · 3.8 GPA</p>
+        <ScrollReveal>
+          <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-void-800/80 to-void-900/80 border border-steel-800/50 overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-400/5 rounded-full blur-[80px]" />
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
+              <div className="p-4 bg-accent-400/10 rounded-xl" aria-hidden="true">
+                <GraduationCap className="w-8 h-8 text-accent-400" />
+              </div>
+              <div className="flex-1">
+                <h2 className="font-display text-2xl text-steel-50 mb-2">{education.school}</h2>
+                <p className="text-steel-300 mb-1">{education.degree}</p>
+                <p className="text-steel-500 text-sm">
+                  {education.period} · GPA {education.gpa}
+                </p>
+              </div>
             </div>
           </div>
-        </motion.div>
+        </ScrollReveal>
       </Section>
 
-      {/* CTA SECTION */}
+      {/* CTA */}
       <Section className="text-center">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <ScrollReveal>
           <h2 className="font-display text-display-sm md:text-display-md text-steel-50 mb-4">
             Let&apos;s Connect
           </h2>
           <p className="text-steel-400 text-lg mb-8 max-w-xl mx-auto">
-            Open to opportunities in fintech, quantitative finance, and AI systems.
+            Open to PM / APM, BizOps, and AI product roles in San Francisco, New York, and Washington, DC.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/contact" icon={<ArrowRight size={16} />}>Get in Touch</Button>
-          </div>
-        </motion.div>
+          <Button href="/contact" icon={<ArrowRight size={16} aria-hidden="true" />}>
+            Get in Touch
+          </Button>
+        </ScrollReveal>
       </Section>
     </>
   );

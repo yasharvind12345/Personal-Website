@@ -1,11 +1,11 @@
 import type { Hackathon, Recognition } from './types';
 
-/** 2026 hackathon projects. TAM's full write-up lives in caseStudies. */
+/** Hackathon projects. TAM's full write-up lives in caseStudies. */
 export const hackathons: Hackathon[] = [
   {
     name: 'AuraHealth',
     tagline: 'AI patient follow-up agent',
-    award: '🏆 Google Award',
+    award: 'Google Award',
     event: 'CheeseHacks 2026',
     won: true,
     description:
@@ -16,7 +16,7 @@ export const hackathons: Hackathon[] = [
   {
     name: 'TAM',
     tagline: 'AI financial due diligence',
-    award: '🥈 2nd Place',
+    award: '2nd Place',
     event: 'MadData 2026',
     won: true,
     description:
@@ -25,14 +25,14 @@ export const hackathons: Hackathon[] = [
     href: '/work/tam',
   },
   {
-    name: 'EarningsLens',
-    tagline: 'Earnings-call deception detection',
-    award: '🥇 1st Place',
-    event: 'CursorHacks 2026',
+    name: 'EarningLens',
+    tagline: 'Real-time earnings-call fact-checker',
+    award: '1st Place',
+    event: 'Cursor Hackathon 2025',
     won: true,
     description:
-      'Claude with forced tool use and an 11-signal deception taxonomy, cross-referenced against SEC filings via ChromaDB. Scores credibility per speaker and pulls live Finnhub data.',
-    tags: ['Claude', 'ChromaDB', 'SEC filings', 'Finnhub'],
+      'Ingests live earnings-call transcripts via the SEC EDGAR API and runs sentiment and NER extraction so users can fact-check executive guidance within 3 seconds. Claude with forced tool use and an 11-signal deception taxonomy, cross-referenced against SEC filings via ChromaDB.',
+    tags: ['Claude', 'SEC EDGAR', 'NER', 'ChromaDB', 'Finnhub'],
     githubUrl: 'https://github.com/L-Gupta/cursorHacks26',
   },
   {
@@ -49,9 +49,9 @@ export const hackathons: Hackathon[] = [
 ];
 
 export const recognition: Recognition[] = [
-  { title: '🏆 Google Award, CheeseHacks', detail: 'AuraHealth', year: '2026' },
-  { title: '🥇 1st Place, CursorHacks', detail: 'EarningsLens', year: '2026' },
-  { title: '🥈 2nd Place, MadData', detail: 'TAM', year: '2026' },
+  { title: 'Google Award, CheeseHacks', detail: 'AuraHealth', year: '2026' },
+  { title: '1st Place, Cursor Hackathon', detail: 'EarningLens', year: '2025' },
+  { title: '2nd Place, MadData', detail: 'TAM', year: '2026' },
   {
     title: 'Summer AI Lab (SAIL), UW-Madison',
     detail:

@@ -90,7 +90,7 @@ export default function HomePage() {
             >
               {[
                 { term: 'Education', detail: `${education.degree} · ${education.school}` },
-                { term: 'Focus', detail: profile.focus },
+                { term: 'Focus', detail: 'Product · AI · Finance' },
                 { term: 'Location', detail: `${profile.location} · Open to relocation` },
               ].map(({ term, detail }) => (
                 <div key={term}>

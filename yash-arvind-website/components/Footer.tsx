@@ -1,124 +1,74 @@
-/**
- * =============================================================================
- * FOOTER COMPONENT
- * =============================================================================
- *
- * This component renders the website footer that appears on every page.
- *
- * FEATURES:
- * - Copyright notice
- * - Quick navigation links
- * - Social media links
- * - Contact information
- *
- * HOW TO CUSTOMIZE:
- * - Links, socials, and location come from content/profile.ts
- */
-
-import Link from 'next/link';
-import { Linkedin, Mail, ArrowUpRight, Instagram, Github } from 'lucide-react';
+import { Link } from 'next-view-transitions';
 import { navLinks, profile, education } from '@/content/profile';
+import { CopyEmail } from './CopyEmail';
 
-const socialLinks = [
-  { ...profile.socials.linkedin, icon: Linkedin, external: true },
-  { ...profile.socials.github, icon: Github, external: true },
-  { ...profile.socials.instagram, icon: Instagram, external: true },
-  { label: 'Email', href: `mailto:${profile.email}`, icon: Mail, external: false },
-];
+const socials = [profile.socials.linkedin, profile.socials.github, profile.socials.instagram];
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t border-steel-800/50 bg-void-950">
-      {/* Decorative gradient line at the top */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-400/20 to-transparent" />
+    <footer id="contact" data-nav-theme="ink" className="theme-ink bg-paper text-ink">
+      <div className="page-x mx-auto max-w-page pb-10 pt-24 md:pt-32">
+        <p className="meta mb-6">Contact</p>
+        <p className="display max-w-5xl text-display-lg">
+          Let’s build <span className="font-serif font-normal italic tracking-normal">something</span>
+          <span className="text-accent">.</span>
+        </p>
+        <p className="mt-8 max-w-prose text-lg text-muted">{profile.cta}</p>
 
-      <div className="container-custom py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-          {/* Column 1: Brand & Description */}
-          <div>
-            <Link
-              href="/"
-              className="inline-block font-display text-2xl text-steel-50 hover:text-accent-400 transition-colors mb-4 rounded-md"
-            >
-              <span className="text-accent-400">Y</span>ash Arvind
-            </Link>
+        <div className="mt-10">
+          <CopyEmail className="link-draw display text-display-sm hover:text-accent" />
+          <p className="meta mt-3">Click to copy · replies within {profile.responseTime}</p>
+        </div>
 
-            <p className="text-steel-500 text-sm leading-relaxed max-w-xs">{profile.headline}</p>
-
-            <div className="flex items-center gap-2 mt-6">
-              <span className="relative flex h-2 w-2" aria-hidden="true">
-                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="text-xs text-steel-500 font-mono">
-                Open to PM / APM, BizOps, and AI product roles
-              </span>
-            </div>
-          </div>
-
-          {/* Column 2: Quick Links */}
-          <div>
-            <h2 className="font-mono text-xs uppercase tracking-wider text-steel-500 mb-4">
-              Navigation
-            </h2>
-            <nav className="space-y-3" aria-label="Footer">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block w-fit text-steel-400 hover:text-steel-100 transition-colors text-sm rounded"
-                >
-                  {link.label}
+        <div className="grid-page mt-24 gap-y-10 border-t border-rule pt-8">
+          <div className="col-span-2 md:col-span-3">
+            <p className="meta mb-3">Pages</p>
+            <ul className="space-y-1.5 text-sm">
+              <li>
+                <Link href="/" className="link-draw hover:text-accent">
+                  Home
                 </Link>
+              </li>
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="link-draw hover:text-accent">
+                    {l.label}
+                  </Link>
+                </li>
               ))}
-            </nav>
+              <li>
+                <a href={profile.resumePath} target="_blank" rel="noopener noreferrer" className="link-draw hover:text-accent">
+                  Résumé ↗
+                </a>
+              </li>
+            </ul>
           </div>
-
-          {/* Column 3: Connect/Social */}
-          <div>
-            <h2 className="font-mono text-xs uppercase tracking-wider text-steel-500 mb-4">
-              Connect
-            </h2>
-
-            <div className="space-y-3">
-              {socialLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="flex w-fit items-center gap-3 text-steel-400 hover:text-accent-400 transition-colors group rounded"
-                  >
-                    <Icon size={16} aria-hidden="true" />
-                    <span className="text-sm">{link.label}</span>
-                    <ArrowUpRight
-                      size={12}
-                      aria-hidden="true"
-                      className="opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all"
-                    />
+          <div className="col-span-2 md:col-span-3">
+            <p className="meta mb-3">Elsewhere</p>
+            <ul className="space-y-1.5 text-sm">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="link-draw hover:text-accent">
+                    {s.label} ↗
                   </a>
-                );
-              })}
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-steel-800/50">
-              <p className="text-xs text-steel-600 font-mono">{profile.location}</p>
-              <p className="text-xs text-steel-600 font-mono mt-1">{education.school}</p>
-            </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-4 md:col-span-6 md:text-right">
+            <p className="meta mb-3">Based in</p>
+            <p className="text-sm">
+              {profile.location} · {education.school}
+            </p>
+            <p className="mt-1 text-sm text-muted">{profile.relocation}</p>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright */}
-        <div className="mt-16 pt-8 border-t border-steel-800/30">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-xs text-steel-600">
-              © {currentYear} Yash Arvind. All rights reserved.
-            </p>
-            <p className="text-xs text-steel-600 font-mono">Built with Next.js + TypeScript</p>
-          </div>
+        <div className="meta mt-16 flex flex-col justify-between gap-2 sm:flex-row">
+          <span>© {year} Yash Arvind</span>
+          <span>Designed and built in Madison, WI</span>
         </div>
       </div>
     </footer>

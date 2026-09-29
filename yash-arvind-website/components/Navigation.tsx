@@ -1,286 +1,169 @@
-/**
- * =============================================================================
- * NAVIGATION COMPONENT
- * =============================================================================
- * 
- * This component renders the main navigation bar at the top of every page.
- * 
- * FEATURES:
- * - Fixed header that stays visible while scrolling
- * - Responsive mobile menu (hamburger)
- * - Smooth scroll to sections
- * - Active state highlighting
- * - Backdrop blur effect for modern look
- * 
- * HOW TO MODIFY:
- * - Edit `navLinks` in content/profile.ts to add/remove navigation items
- * - Adjust colors in the className attributes
- * - Modify animations in the mobile menu
- */
+'use client';
 
-'use client'; // This directive marks the component as client-side (required for useState, useEffect)
-
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Link } from 'next-view-transitions';
 import { navLinks, profile } from '@/content/profile';
+import { CopyEmail } from './CopyEmail';
 
-/**
- * ---------------------------------------------------------------------------
- * NAVIGATION COMPONENT
- * ---------------------------------------------------------------------------
- */
-
-function isActiveLink(pathname: string, href: string) {
-  return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+function isActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
+/**
+ * Fixed header. Hides on scroll down, returns on scroll up, and inverts
+ * while it sits over any section marked data-nav-theme="ink".
+ */
 export function Navigation() {
-  // State to track if mobile menu is open
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  // State to track if page has been scrolled (for header background)
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  // Get current pathname to highlight active link
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [overInk, setOverInk] = useState(false);
 
-  /**
-   * Effect: Track scroll position
-   * When user scrolls down, add background to header
-   */
+  useEffect(() => setOpen(false), [pathname]);
+
   useEffect(() => {
-    const handleScroll = () => {
-      // If scrolled more than 20px, consider it "scrolled"
-      setIsScrolled(window.scrollY > 20);
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.documentElement.style.overflow = '';
     };
+  }, [open]);
 
-    // Add scroll listener
-    window.addEventListener('scroll', handleScroll);
-    
-    // Clean up listener when component unmounts
-    return () => window.removeEventListener('scroll', handleScroll);
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 8);
+      if (Math.abs(y - last) > 6) {
+        setHidden(y > last && y > 240);
+        last = y;
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /**
-   * Effect: Close mobile menu when route changes
-   */
+  // Watch ink sections crossing the header band at the top of the viewport.
   useEffect(() => {
-    setIsMenuOpen(false);
+    const headerH = headerRef.current?.offsetHeight ?? 64;
+    const inside = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) inside.add(entry.target);
+          else inside.delete(entry.target);
+        }
+        setOverInk(inside.size > 0);
+      },
+      { rootMargin: `0px 0px -${Math.max(window.innerHeight - headerH / 2, 0)}px 0px` }
+    );
+    // Wait a frame so the new page's sections are in the DOM.
+    const id = requestAnimationFrame(() => {
+      document.querySelectorAll('[data-nav-theme="ink"]').forEach((el) => observer.observe(el));
+    });
+    return () => {
+      cancelAnimationFrame(id);
+      observer.disconnect();
+      setOverInk(false);
+    };
   }, [pathname]);
 
-  /**
-   * Effect: Prevent body scroll when mobile menu is open
-   */
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    
-    // Clean up
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMenuOpen]);
+  const ink = overInk && !open;
 
   return (
     <>
-      {/* 
-        Main Header Element
-        - fixed: Stays at top while scrolling
-        - backdrop-blur: Frosted glass effect
-        - transition: Smooth animation when scrolled state changes
-      */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-void-950/80 backdrop-blur-xl border-b border-steel-800/50'
-            : 'bg-transparent'
-        }`}
+        ref={headerRef}
+        style={{ viewTransitionName: 'site-header' }}
+        className={[
+          'fixed inset-x-0 top-0 z-50 transition-[transform,background-color,color,border-color] duration-500 ease-out-expo',
+          ink ? 'theme-ink' : '',
+          hidden && !open ? '-translate-y-full' : 'translate-y-0',
+          scrolled || open ? 'border-b border-rule bg-paper' : 'border-b border-transparent bg-paper/0',
+        ].join(' ')}
       >
-        <nav className="container-custom" aria-label="Main">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* 
-              Logo/Name Link
-              Clicking this always goes to the homepage
-            */}
-            <Link
-              href="/"
-              className="relative z-10 font-display text-xl md:text-2xl hover:text-accent-400 transition-colors rounded-md"
-              aria-label="Yash Arvind, home"
-            >
-              {/* First name with accent color on first letter */}
-              <span className="text-accent-400">Y</span><span className="text-steel-50">ash</span>
-              <span className="text-steel-50 font-normal"> Arvind</span>
-            </Link>
+        <nav aria-label="Main" className="page-x mx-auto flex h-16 max-w-page items-center justify-between text-ink">
+          <Link href="/" className="group flex items-baseline gap-2" aria-label="Yash Arvind, home">
+            <span className="display text-[0.95rem] uppercase tracking-tight">Yash Arvind</span>
+            <span className="meta hidden transition-colors group-hover:text-accent sm:inline">
+              Product builder
+            </span>
+          </Link>
 
-            {/* 
-              Desktop Navigation Links
-              Hidden on mobile (md:flex shows it on medium screens and up)
-            */}
-            <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) => {
-                // Check if this link is the current page
-                const isActive = isActiveLink(pathname, link.href);
-                
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    aria-current={isActive ? 'page' : undefined}
-                    className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-lg ${
-                      isActive
-                        ? 'text-accent-400'
-                        : 'text-steel-400 hover:text-steel-100 hover:bg-steel-800/30'
-                    }`}
-                  >
-                    {link.label}
-                    
-                    {/* Active indicator dot */}
-                    {isActive && (
-                      <motion.span
-                        layoutId="activeNav"
-                        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-accent-400 rounded-full"
-                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                      />
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* 
-              Mobile Menu Toggle Button
-              Only visible on mobile (md:hidden hides it on larger screens)
-            */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative z-10 md:hidden p-2 text-steel-100 hover:text-accent-400 transition-colors"
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isMenuOpen}
+          <div className="hidden items-center gap-7 md:flex">
+            {navLinks.map((link) => {
+              const active = isActive(pathname, link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={`link-draw font-mono text-xs uppercase tracking-wider ${
+                    active ? 'text-accent' : 'hover:text-accent'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <a
+              href={profile.resumePath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-draw font-mono text-xs uppercase tracking-wider hover:text-accent"
             >
-              {/* Animate between hamburger and X icons */}
-              <AnimatePresence mode="wait" initial={false}>
-                {isMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X size={24} />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ opacity: 0, rotate: 90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: -90 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu size={24} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </button>
+              Résumé ↗
+            </a>
+            <CopyEmail
+              label="Email"
+              className="border border-ink px-3 py-1.5 font-mono text-xs uppercase tracking-wider transition-colors hover:bg-ink hover:text-paper"
+            />
           </div>
+
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            className="font-mono text-xs uppercase tracking-wider md:hidden"
+          >
+            {open ? 'Close' : 'Menu'}
+          </button>
         </nav>
       </header>
 
-      {/* 
-        Mobile Menu Overlay
-        Full-screen menu that slides in from the right
-      */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            {/* 
-              Backdrop (dark overlay behind the menu)
-              Clicking this closes the menu
-            */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-void-950/80 backdrop-blur-sm z-40 md:hidden"
-              onClick={() => setIsMenuOpen(false)}
-            />
-
-            {/* 
-              Mobile Menu Content
-              Slides in from the right side
-            */}
-            <motion.nav
-              aria-label="Mobile"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-xs bg-void-900 border-l border-steel-800 z-40 md:hidden"
+      <div
+        id="mobile-menu"
+        hidden={!open}
+        className="page-x fixed inset-0 z-40 flex flex-col justify-between bg-paper pb-10 pt-24 md:hidden"
+      >
+        <nav aria-label="Mobile" className="flex flex-col">
+          {[{ href: '/', label: 'Home' }, ...navLinks].map((link, i) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={pathname === link.href ? 'page' : undefined}
+              style={{ animationDelay: `${60 + i * 50}ms` }}
+              className="display hairline flex items-baseline justify-between py-4 text-display-md motion-safe:animate-[menu-in_0.7s_var(--ease-out-expo)_both]"
             >
-              <div className="flex flex-col h-full pt-24 pb-8 px-6">
-                {/* Navigation Links */}
-                <div className="flex-1 space-y-2">
-                  {navLinks.map((link, index) => {
-                    const isActive = isActiveLink(pathname, link.href);
-                    
-                    return (
-                      <motion.div
-                        key={link.href}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                      >
-                        <Link
-                          href={link.href}
-                          aria-current={isActive ? 'page' : undefined}
-                          className={`block px-4 py-3 text-lg font-medium rounded-lg transition-colors ${
-                            isActive
-                              ? 'bg-accent-400/10 text-accent-400'
-                              : 'text-steel-300 hover:bg-steel-800/50 hover:text-steel-100'
-                          }`}
-                        >
-                          {link.label}
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </div>
+              {link.label}
+              <span className="meta">0{i + 1}</span>
+            </Link>
+          ))}
+        </nav>
+        <div className="flex flex-col gap-3 font-mono text-sm">
+          <a href={profile.resumePath} target="_blank" rel="noopener noreferrer" className="underline">
+            Résumé (PDF) ↗
+          </a>
+          <CopyEmail className="underline" />
+        </div>
+      </div>
 
-                {/* 
-                  Bottom Section with Social/Contact Info
-                */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="pt-6 border-t border-steel-800"
-                >
-                  <p className="text-sm text-steel-500 mb-2">Get in touch</p>
-                  <a
-                    href={`mailto:${profile.email}`}
-                    className="text-steel-300 hover:text-accent-400 transition-colors"
-                  >
-                    {profile.email}
-                  </a>
-                </motion.div>
-              </div>
-            </motion.nav>
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* 
-        Spacer element
-        Prevents content from going under the fixed header
-      */}
-      <div className="h-16 md:h-20" />
+      {/* Keeps content clear of the fixed header. */}
+      <div aria-hidden="true" className="h-16" />
     </>
   );
 }

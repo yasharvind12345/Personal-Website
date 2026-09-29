@@ -1,51 +1,51 @@
 import type { SkillGroup } from './types';
 
-/** Skills grouped for a product audience, product first. */
+/** Skills, grouped as on the résumé, product first. */
 export const skills: SkillGroup[] = [
   {
     category: 'Product',
     skills: [
-      '0→1 product development',
+      'Product discovery',
       'Requirements definition',
-      'Scope triage & prioritization',
-      'Customer discovery',
+      'Prioritization & scope trade-offs',
+      'Roadmapping',
+      'Cross-functional collaboration',
       'Stakeholder management up to VP/SVP',
-      'Exec communication',
-      'GTM',
+      'GTM strategy',
     ],
   },
   {
-    category: 'Finance',
-    skills: [
-      'Financial due diligence',
-      'DCF valuation',
-      'Red-flag analysis',
-      'Revenue operations / Quote-to-Cash',
-      'Portfolio management',
-    ],
-  },
-  {
-    category: 'Data & Analytics',
-    skills: ['SQL', 'Snowflake', 'Python', 'R', 'Tableau', 'Power BI', 'Excel financial modeling'],
-  },
-  {
-    category: 'AI',
+    category: 'AI & ML',
     skills: [
       'Claude API',
       'LangChain / LangGraph',
       'RAG',
-      'ChromaDB',
-      'Pinecone',
-      'Agentic workflows / MCP',
-      'Evals',
+      'Agent orchestration',
+      'Tool use',
+      'Prompt & eval design',
+      'NLP / NER',
+      'FinBERT',
+      'spaCy',
+      'PyTorch',
+      'scikit-learn',
     ],
   },
   {
-    category: 'Engineering',
-    skills: ['FastAPI', 'Next.js / React', 'TypeScript', 'Swift', 'n8n', 'Git'],
+    category: 'Engineering & Data',
+    skills: ['Python', 'SQL', 'R', 'FastAPI', 'REST APIs', 'PostgreSQL', 'ChromaDB', 'Snowflake', 'Redis / Celery', 'Docker', 'Git'],
   },
   {
-    category: 'Business Tools',
-    skills: ['Salesforce (CPQ + CRM)', 'Zuora', 'Jira', 'Confluence'],
+    category: 'Systems & Analytics',
+    skills: [
+      'Jira',
+      'Confluence',
+      'Salesforce CRM / CPQ',
+      'Zuora',
+      'Tableau',
+      'Power BI',
+      'Advanced Excel',
+      'Financial modeling',
+      'DCF valuation',
+    ],
   },
 ];

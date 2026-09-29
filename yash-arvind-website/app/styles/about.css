@@ -1,0 +1,133 @@
+/* (04) About. Plain CSS on the design tokens; see DESIGN.md. */
+
+.about-bio {
+  font-size: clamp(1.625rem, 3.3vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 500;
+  text-wrap: balance;
+}
+
+/* ---- GitHub graph ------------------------------------------------------ */
+
+.gh-graph {
+  --gap: clamp(1.5px, 0.22vw, 3px);
+  position: relative;
+  max-width: 50rem;
+}
+
+.gh-months,
+.gh-row {
+  display: grid;
+  grid-template-columns: repeat(53, minmax(0, 1fr));
+  column-gap: var(--gap);
+}
+.gh-months {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: clamp(0.5625rem, 0.9vw, 0.6875rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(var(--muted));
+}
+.gh-months span {
+  grid-row: 1;
+  white-space: nowrap;
+}
+
+.gh-grid {
+  display: grid;
+  row-gap: var(--gap);
+  touch-action: pan-y;
+}
+
+.gh-cell {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 1px;
+  background: rgb(var(--paper-deep));
+  outline-offset: 1px;
+}
+.gh-cell--empty {
+  background: transparent;
+}
+.gh-cell[data-level='1'] {
+  background: rgb(var(--ink) / 0.24);
+}
+.gh-cell[data-level='2'] {
+  background: rgb(var(--ink) / 0.45);
+}
+.gh-cell[data-level='3'] {
+  background: rgb(var(--ink) / 0.68);
+}
+.gh-cell[data-level='4'] {
+  background: rgb(var(--ink) / 0.92);
+}
+/* The one accent mark: the latest day. */
+.gh-cell[data-latest] {
+  background: rgb(var(--accent));
+}
+.gh-cell[data-latest][data-level='0'] {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgb(var(--accent));
+}
+.gh-cell[data-active] {
+  outline: 1px solid rgb(var(--ink));
+}
+.gh-cell:focus-visible {
+  outline: 1px solid rgb(var(--accent));
+}
+
+/* Tooltip: an ink label with a small tick pointing at the cell. */
+.gh-tip {
+  --tick: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.45rem 0.6rem;
+  background: rgb(var(--ink));
+  color: rgb(var(--paper));
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.gh-tip[data-open] {
+  opacity: 1;
+}
+.gh-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: var(--tick);
+  width: 7px;
+  height: 7px;
+  background: inherit;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.gh-tip-date {
+  color: rgb(var(--paper) / 0.6);
+}
+
+.about-gh-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 1.75rem;
+  row-gap: 0.4rem;
+  max-width: 50rem;
+  margin-top: 1.1rem;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.1rem;
+  color: rgb(var(--muted));
+}

@@ -7,6 +7,7 @@ import { HOVER_OK, MOTION_OK } from '@/components/motion/gsap';
 import type { CaseStudy } from '@/content/types';
 import { workMedia } from '@/content/media';
 import { WorkCover } from './WorkCover';
+import { CoverImage } from './CoverImage';
 import { COVER_ASPECT, morphName, outcomeLine, pad2, preloadHero } from './shared';
 
 /**
@@ -64,14 +65,7 @@ export function NextProject({ study, index, total }: { study: CaseStudy; index: 
         >
           <div className="h-full w-full">
             {media ? (
-              <Image
-                src={media.src}
-                alt=""
-                width={media.width}
-                height={media.height}
-                sizes="(min-width: 768px) 40vw, 100vw"
-                className="h-full w-full object-cover"
-              />
+              <CoverImage slug={study.slug} media={media} alt="" sizes="(min-width: 768px) 40vw, 100vw" />
             ) : (
               <WorkCover study={study} />
             )}

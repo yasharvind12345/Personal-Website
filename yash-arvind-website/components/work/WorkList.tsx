@@ -8,6 +8,7 @@ import { gsap, useGSAP, HOVER_OK, MOTION_OK } from '@/components/motion/gsap';
 import { getCaseStudy } from '@/content/caseStudies';
 import { workMedia } from '@/content/media';
 import { WorkCover } from './WorkCover';
+import { CoverImage } from './CoverImage';
 import { COVER_ASPECT, morphName, outcomeLine, pad2, preloadHero, yearLabel } from './shared';
 import '@/app/styles/work.css';
 
@@ -268,15 +269,7 @@ export function WorkList({ slugs }: { slugs: string[] }) {
                 >
                   <div className="h-full w-full">
                     {media ? (
-                      <Image
-                        src={media.src}
-                        alt=""
-                        width={media.width}
-                        height={media.height}
-                        sizes="28vw"
-                        loading="eager"
-                        className="h-full w-full object-cover"
-                      />
+                      <CoverImage slug={study.slug} media={media} alt="" sizes="28vw" eager />
                     ) : (
                       <WorkCover study={study} />
                     )}

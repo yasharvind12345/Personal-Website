@@ -5,8 +5,7 @@
  * Sources:
  * - flux/*: iPhone screenshots from Flux's App Store listing (1242×2688 masters, resized).
  * - tam/dashboard.jpg, tam/intake.jpg: frames from /videos/tam-demo.mp4 (browser chrome cropped).
- * - tam/architecture.jpg, tam/workflow.jpg: the diagrams from the TAM repo (same files as
- *   /images/tam-architecture.png and /images/tam-workflow.png, which are JPEGs with a .png name).
+ * - tam/architecture.jpg, tam/workflow.jpg: the diagrams from the TAM repo.
  * - plates/*.svg: typographic plates for work with no shareable screenshots (illustrative data).
  */
 
@@ -122,3 +121,8 @@ export const stripImages: (WorkImage & { caption: string; href?: string })[] = [
   { ...img.tamIntake, caption: 'TAM · Deal intake · 2026', href: '/work/tam' },
   { ...img.fluxProfile, caption: 'Flux · Résumé import · 2025', href: '/work/flux' },
 ];
+
+/** Phone covers render as a spread of screens instead of one cropped screenshot. */
+export const phoneSets: Record<string, WorkImage[]> = {
+  flux: [img.fluxChat, img.fluxDiscover, img.fluxMatch],
+};

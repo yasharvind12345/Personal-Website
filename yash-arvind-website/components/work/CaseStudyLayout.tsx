@@ -8,6 +8,7 @@ import { VideoPlayer } from '@/components/ui/VideoPlayer';
 import { CaseStudyToc } from './CaseStudyToc';
 import { NextProject } from './NextProject';
 import { WorkCover } from './WorkCover';
+import { CoverImage } from './CoverImage';
 import { COVER_ASPECT, HERO_SIZES, morphName, pad2 } from './shared';
 import '@/app/styles/work.css';
 
@@ -210,15 +211,7 @@ export function CaseStudyLayout({ study, index, total, nextStudy }: CaseStudyLay
           style={{ aspectRatio: COVER_ASPECT, viewTransitionName: morphName(study.slug) } as CSSProperties}
         >
           {media ? (
-            <Image
-              src={media.src}
-              alt={media.alt}
-              width={media.width}
-              height={media.height}
-              sizes={HERO_SIZES}
-              priority
-              className="h-full w-full object-cover"
-            />
+            <CoverImage slug={study.slug} media={media} sizes={HERO_SIZES} priority />
           ) : (
             <WorkCover study={study} />
           )}

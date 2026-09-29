@@ -153,14 +153,14 @@ export const caseStudies: CaseStudy[] = [
     },
     images: [
       {
-        src: '/images/tam-architecture.png',
+        src: '/images/tam/architecture.jpg',
         alt: 'TAM pipeline diagram: document ingestion, AI extraction engine, financial analysis engine, anomaly detection (ML), and automated report generation',
         caption: 'System architecture',
         width: 640,
         height: 640,
       },
       {
-        src: '/images/tam-workflow.png',
+        src: '/images/tam/workflow.jpg',
         alt: 'TAM agentic extraction loop: initial data scan, statistical validation, autonomous self-refinement, and verified output',
         caption: 'Agentic extraction workflow',
         width: 640,

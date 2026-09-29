@@ -31,7 +31,6 @@ export const experience: Experience[] = [
           'Retrieval-based checks flag conflicting content across Help Center, Google Drive, and Unleash, with Claude drafting the corrections.',
       },
     ],
-    note: 'Also introduced Cortexa to Zendesk Engineering and Security/Enterprise AI teams.',
     tags: ['Revenue Operations', 'Quote-to-Cash', 'Snowflake', 'Salesforce CPQ', 'Zuora', 'Jira', 'Confluence'],
   },
   {

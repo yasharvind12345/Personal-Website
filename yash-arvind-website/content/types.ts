@@ -72,6 +72,8 @@ export interface CaseStudy {
   team?: { members: string[]; advisors: string[] };
   links: ExternalLink[];
   video?: { src: string; poster?: string; title: string };
+  /** YouTube demo, loaded only when the visitor presses play. */
+  youtube?: { id: string; title: string };
   images?: MediaImage[];
   reviews?: AppReview[];
 }

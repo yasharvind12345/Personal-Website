@@ -25,6 +25,6 @@ export const beyond: BeyondItem[] = [
   {
     label: 'Startups',
     title: 'UW–Madison founder community',
-    body: 'Co-founded TAM, Flux, and Cortexa, and mentor early-stage founders in the university’s entrepreneurship community.',
+    body: 'Co-founded TAM and Flux, and mentor early-stage founders in the university’s entrepreneurship community.',
   },
 ];

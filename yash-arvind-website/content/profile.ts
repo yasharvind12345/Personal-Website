@@ -14,23 +14,10 @@ export const profile = {
   headline: 'Technical product builder who turns messy financial and AI workflows into shipped products.',
   summary: [
     'Technical product builder who turns ambiguous financial, billing, and AI workflows into shipped products with measurable outcomes.',
-    'At Zendesk I owned vision, discovery, requirements, and rollout for a reconciliation product that saves 9,000+ analyst hours and $2–⁠3M a year. Founder of three ventures taken from 0 to 1.',
+    'At Zendesk I owned vision, discovery, requirements, and rollout for a reconciliation product that saves 9,000+ analyst hours and $2–⁠3M a year. Co-founder of TAM and Flux.',
   ],
-  /** One-line proofs under the hero, each linking to its case study. */
-  proofs: [
-    { label: 'Zendesk', text: '$2–⁠3M/yr and 9,000+ analyst hours saved', href: '/work/zendesk-dib' },
-    { label: 'TAM', text: 'AI due diligence, report in under 8s', href: '/work/tam' },
-    { label: 'Flux', text: 'Live on the App Store, 350 users', href: '/work/flux' },
-  ],
-  roles: ['PM / APM', 'BizOps', 'AI product'],
-  graduation: 'May 2027',
-  availability: 'Graduating May 2027 · Open to PM / APM, BizOps, and AI product roles',
-  cta: 'Hiring for a PM / APM, BizOps, or AI product role, or building something where AI could make your team faster? I’d love to hear from you.',
   location: 'Madison, WI',
   timezone: 'America/Chicago',
-  relocationCities: ['Mountain View, CA', 'San Bruno, CA', 'San Jose, CA', 'New York, NY'],
-  relocation: 'Open to relocation: Mountain View · San Bruno · San Jose, CA · New York, NY',
-  responseTime: '24–48 hours',
   email: 'yasharvind12345@gmail.com',
   resumePath: '/Yash_Arvind_Resume.pdf',
   socials: {
@@ -70,7 +57,7 @@ export const education = {
 export const seo = {
   title: 'Yash Arvind | Product Builder',
   description:
-    'Technical product builder. Shipped an AI-assisted reconciliation product at Zendesk saving $2–3M a year; co-founder of TAM, Flux, and Cortexa.',
+    'Technical product builder. Shipped an AI-assisted reconciliation product at Zendesk saving $2–3M a year; co-founder of TAM and Flux.',
   keywords: [
     'Yash Arvind',
     'product manager',
@@ -89,9 +76,9 @@ export const seo = {
   ],
 };
 
-/** Main nav. Résumé and email are rendered separately by Navigation. */
-export const navLinks = [
-  { href: '/work', label: 'Work' },
-  { href: '/about', label: 'About' },
-  { href: '/now', label: 'Now' },
+/** One-page sections, in order. Navigation scroll-spies these ids. */
+export const sections = [
+  { id: 'work', label: 'Work' },
+  { id: 'log', label: 'Log' },
+  { id: 'about', label: 'About' },
 ];

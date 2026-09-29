@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Archivo, Newsreader, IBM_Plex_Mono } from 'next/font/google';
-import { ViewTransitions } from 'next-view-transitions';
 import './globals.css';
 
 import { Navigation } from '@/components/Navigation';
@@ -65,32 +64,30 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ViewTransitions>
-      <html
-        lang="en"
-        className={`${archivo.variable} ${newsreader.variable} ${plexMono.variable}`}
-        suppressHydrationWarning
-      >
-        <head>
-          {/* Lets CSS hide pre-animation states only when JS is running (see globals.css). */}
-          <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-        </head>
-        <body className="flex min-h-screen flex-col">
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
-          >
-            Skip to main content
-          </a>
-          <MotionProvider>
-            <Navigation />
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-            <Footer />
-          </MotionProvider>
-        </body>
-      </html>
-    </ViewTransitions>
+    <html
+      lang="en"
+      className={`${archivo.variable} ${newsreader.variable} ${plexMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Lets CSS hide pre-animation states only when JS is running (see globals.css). */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
+      <body className="flex min-h-screen flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+        >
+          Skip to main content
+        </a>
+        <MotionProvider>
+          <Navigation />
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
+      </body>
+    </html>
   );
 }

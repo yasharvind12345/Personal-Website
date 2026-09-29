@@ -1,7 +1,7 @@
 import type { CaseStudy } from './types';
 
 /**
- * Case studies rendered at /work/[slug].
+ * Case studies, opened in place from the work reel on the home page.
  * Each follows Problem → What I did → Key decisions → Impact → What's next.
  * Sections with no confirmed facts are left empty and are not rendered.
  * Source of truth: public/Yash_Arvind_Resume.pdf. Targets are phrased as targets.
@@ -151,22 +151,6 @@ export const caseStudies: CaseStudy[] = [
       src: '/videos/tam-demo.mp4',
       title: 'TAM: full product demo',
     },
-    images: [
-      {
-        src: '/images/tam/architecture.jpg',
-        alt: 'TAM pipeline diagram: document ingestion, AI extraction engine, financial analysis engine, anomaly detection (ML), and automated report generation',
-        caption: 'System architecture',
-        width: 640,
-        height: 640,
-      },
-      {
-        src: '/images/tam/workflow.jpg',
-        alt: 'TAM agentic extraction loop: initial data scan, statistical validation, autonomous self-refinement, and verified output',
-        caption: 'Agentic extraction workflow',
-        width: 640,
-        height: 640,
-      },
-    ],
   },
   {
     slug: 'flux',
@@ -225,54 +209,91 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
   {
-    slug: 'cortexa',
-    title: 'Cortexa',
-    subtitle: 'Hallucination detection for enterprise LLMs',
-    role: 'Co-Founder',
-    period: '2025 – Present',
-    tagline: 'A hallucination-detection layer that makes production LLM apps cheaper and more reliable.',
-    outcome: 'Targeting 60%+ fewer RAG errors at under 12ms overhead',
+    slug: 'ghostkeys',
+    title: 'Ghostkeys',
+    subtitle: 'Your MacBook has hidden keys',
+    period: 'Sep 2026 · Build Fest',
+    tagline: 'Tap the palm rest, speaker grille, or case edge and a shortcut runs.',
+    outcome: 'Taps on the case become keyboard shortcuts, read from sensors already in the Mac',
     summary:
-      'Product strategy for an enterprise LLM hallucination-detection layer built on token-level entropy and retrieval-consistency checks. It targets 60%+ error reduction in RAG pipelines and ~30% lower token costs, validated with Nvidia and AmFam.',
+      'A macOS app that turns blank parts of a MacBook into buttons. It reads the motion, lid-angle, and light sensors already inside Apple silicon Macs, learns what a tap on each zone feels like, and runs whatever shortcut you bind to it.',
     metrics: [
-      { value: '60%+', label: 'Target RAG error reduction' },
-      { value: '~30%', label: 'Target token-cost reduction' },
-      { value: '< 12ms', label: 'Overhead, by design' },
+      { value: '~800 Hz', label: 'Motion sensor sampling' },
+      { value: '242', label: 'Preset actions' },
+      { value: '0', label: 'Extra hardware' },
     ],
     problem: [
-      'Teams running LLM apps in production need them to be cheaper and more reliable.',
-      'Enterprise teams need to catch hallucinations in their RAG pipelines without rebuilding the retrieval stacks they already run.',
+      'Laptops have plenty of surface that does nothing: palm rests, speaker grilles, the strip above the keyboard. Meanwhile power users juggle more shortcuts than they have keys.',
     ],
     whatIDid: {
-      intro: 'I own product strategy for Cortexa.',
+      intro: 'Built at Build Fest 2026 as a team.',
       points: [
-        'Hallucination detection using token-level entropy and retrieval-consistency checks.',
-        'Designed to drop into existing LangChain and LlamaIndex retrieval stacks at under 12ms overhead.',
-        'Debugging of AI agent and model behavior through telemetry.',
-        'Validated the approach with Nvidia and AmFam.',
+        'A Swift background service reads the motion sensor about 800 times a second and detects the shock of a fingertip travelling through the aluminum.',
+        'A per-user classifier learns which zone each tap came from, and throws out typing, trackpad use, and the laptop being moved.',
+        'Taps group into gestures (tap, double, triple, rhythm, sequence, tilt, cover) that run keys, media, window, macro, or app-specific actions.',
+        'Calibration takes about 20 taps per zone and reports per-zone accuracy, a confusion table, and which zones to merge.',
+        'An Electron and React app for zones, bindings, live view, and sensors, plus a CLI, SDK, and Raycast extension.',
       ],
     },
     decisions: [
       {
-        title: 'A drop-in layer, not a new stack',
-        body: 'Cortexa plugs into the LangChain and LlamaIndex retrieval stacks teams already run, with an overhead budget under 12ms, so adopting it does not mean re-architecting.',
+        title: 'Only sensors the Mac already has',
+        body: 'No accessories, no drivers. If it needs extra hardware, nobody installs it.',
+      },
+      {
+        title: 'Learn the user, not a global model',
+        body: 'Every MacBook and every pair of hands rings differently, so calibration trains a small per-user model and retrains only when the evidence is clear.',
+      },
+      {
+        title: 'A safety gate before every action',
+        body: 'Pause state, approval, and rate limits sit between a detected gesture and anything that runs, so a bump on the desk can never fire a script.',
       },
     ],
-    impact: [
-      'Validated with Nvidia and AmFam.',
-      'Introduced to Zendesk Engineering and Security/Enterprise AI teams.',
+    impact: [],
+    next: [],
+    stack: ['Swift', 'Core Motion sensors', 'Electron', 'React', 'TypeScript', 'Remotion'],
+    links: [
+      { label: 'GitHub', href: 'https://github.com/Soham109/ghostkeys' },
+      { label: 'Website', href: 'https://ghostkeys-nine.vercel.app' },
     ],
-    next: [
-      'Targeting 60%+ error reduction in RAG pipelines.',
-      'Targeting ~30% lower token costs.',
+    youtube: { id: 'dLmZYDh_uzE', title: 'Ghostkeys demo, Build Fest 2026' },
+  },
+  {
+    slug: 'aurahealth',
+    title: 'AuraHealth',
+    subtitle: 'AI patient follow-up agent',
+    period: '2026',
+    award: 'Google Award, CheeseHacks 2026',
+    tagline: 'An AI agent that calls patients after a visit and flags anything urgent.',
+    outcome: 'Google Award at CheeseHacks: an AI agent that phones patients after a visit',
+    summary:
+      'Doctors upload a consultation and pick a follow-up date. AuraHealth phones the patient, runs a health check grounded in that consultation, triages urgency, and texts the doctor when something needs attention.',
+    metrics: [
+      { value: 'Google', label: 'Award, CheeseHacks 2026' },
+      { value: '3-level', label: 'Urgency triage' },
+      { value: 'Real-time', label: 'Two-way voice' },
     ],
-    stack: ['LangChain', 'LlamaIndex'],
-    links: [],
+    problem: [
+      'After a consultation, doctors lose track of how patients are doing. Simple check-ins need another appointment, which means delayed care, busier clinics, and missed complications.',
+    ],
+    whatIDid: {
+      points: [
+        'Doctors upload a consultation PDF; it is parsed, embedded, and stored in Pinecone so the call is grounded in what was actually prescribed.',
+        'Cloud Scheduler triggers due follow-ups and Twilio places the call, with audio streaming both ways over a WebSocket.',
+        'Google speech-to-text transcribes the patient, Gemini 2.5 Flash responds with consultation context, and text-to-speech speaks the reply.',
+        'After the call, a triage pass classifies urgency as low, medium, or high; high urgency sends the doctor an SMS and flags the case on the dashboard.',
+      ],
+    },
+    decisions: [],
+    impact: ['Won the Google Award at CheeseHacks 2026.'],
+    next: [],
+    stack: ['FastAPI', 'Twilio Voice + SMS', 'Gemini 2.5 Flash', 'Google STT/TTS', 'Pinecone', 'Cloud Run', 'Next.js'],
+    links: [{ label: 'GitHub', href: 'https://github.com/L-Gupta/cheeseHacks26' }],
   },
 ];
 
 /** Case studies featured on the home page, in order. */
-export const featuredSlugs = ['zendesk-dib', 'tam', 'flux', 'cortexa'];
+export const featuredSlugs = ['zendesk-dib', 'tam', 'ghostkeys', 'flux', 'aurahealth'];
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((study) => study.slug === slug);

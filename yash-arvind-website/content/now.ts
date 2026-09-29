@@ -1,39 +1,21 @@
 /**
- * What Yash is doing right now. Shown in short on the home page and in full at /now.
+ * What Yash is up to right now. Shown as a quiet status line on the home page.
  * DRAFT: Yash to edit. Update `updated` whenever this changes.
  */
 
 export interface NowItem {
   label: string;
   text: string;
-  href?: string;
+  /** Case-study slug to open, if any. */
+  slug?: string;
 }
 
 export const now = {
   updated: 'September 2026',
-  location: 'Madison, WI',
   items: [
-    {
-      label: 'Looking for',
-      text: 'New-grad PM / APM, BizOps, and AI product roles starting mid-2027. Open to relocating to the Bay Area or New York.',
-    },
-    {
-      label: 'Building',
-      text: 'TAM, turning discovery calls with diligence practitioners into the next release.',
-      href: '/work/tam',
-    },
-    {
-      label: 'Validating',
-      text: 'Cortexa, a hallucination-detection layer for RAG pipelines, with early design partners.',
-      href: '/work/cortexa',
-    },
-    {
-      label: 'Studying',
-      text: 'Final year of Data Science & Economics at UW–Madison.',
-    },
-    {
-      label: 'Running',
-      text: 'An automated AI trading system on a $100K+ portfolio.',
-    },
+    { label: 'Building', text: 'TAM, from discovery calls with diligence practitioners', slug: 'tam' },
+    { label: 'Just shipped', text: 'Ghostkeys at Build Fest', slug: 'ghostkeys' },
+    { label: 'Studying', text: 'Final year of Data Science & Economics at UW–Madison' },
+    { label: 'Running', text: 'An automated trading system on my own portfolio' },
   ] as NowItem[],
 };

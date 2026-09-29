@@ -8,14 +8,17 @@ const nextConfig = {
 
   // Routes from earlier versions of the site, kept so old links still land somewhere useful.
   async redirects() {
+    // Everything lives on the home page now; old routes jump to their section.
+    const toAbout = ['/about', '/now', '/experience', '/beyond', '/trajectory'];
     return [
-      { source: '/experience', destination: '/about', permanent: true },
-      { source: '/beyond', destination: '/about', permanent: true },
-      { source: '/trajectory', destination: '/about', permanent: true },
-      { source: '/projects', destination: '/work', permanent: true },
+      ...toAbout.map((source) => ({ source, destination: '/#about', permanent: true })),
+      { source: '/work', destination: '/#work', permanent: true },
+      { source: '/projects', destination: '/#work', permanent: true },
       { source: '/contact', destination: '/#contact', permanent: true },
-      // MiroFish now lives inside the Zendesk DIB case study.
-      { source: '/work/mirofish', destination: '/work/zendesk-dib', permanent: true },
+      { source: '/work/cortexa', destination: '/#work', permanent: true },
+      // MiroFish lives inside the Zendesk DIB case study.
+      { source: '/work/mirofish', destination: '/#work/zendesk-dib', permanent: true },
+      { source: '/work/:slug', destination: '/#work/:slug', permanent: true },
     ];
   },
 

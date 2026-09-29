@@ -21,12 +21,17 @@ well-set annual report or magazine, not a template.
 - Dates right-aligned in mono. Numbers are tabular.
 
 ## Motion (components/motion)
-- Lenis smooth scroll + GSAP ScrollTrigger share one ticker (`MotionProvider`).
+- Native scrolling. No smooth-scroll libraries or scroll hijacking: trackpads
+  already have momentum. GSAP ScrollTrigger reads native scroll.
+- One page. Sections are `<section id>`s; case studies open in place
+  (`components/study`, URL hash `#work/<slug>`).
 - `SplitReveal` for H1/H2 line reveals only. Never fade-up every section.
-- Page transitions are CSS View Transitions (globals.css). Use `Link` from
-  `next-view-transitions` for internal links.
 - Every effect goes through `gsap.matchMedia()` with `MOTION_OK` (and `HOVER_OK`
   for cursor effects) and must have a static fallback.
+
+## Tone
+Confident and specific, never job-hunting. No "open to roles", "hire me",
+relocation lists, or availability badges. The résumé is a quiet link.
 
 ## Banned
 Gradient blobs or glows, `backdrop-blur`, glassmorphism, particles, cursor glow,

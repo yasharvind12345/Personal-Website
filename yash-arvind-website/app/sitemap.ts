@@ -3,7 +3,7 @@ import { siteUrl } from '@/content/profile';
 import { caseStudies } from '@/content/caseStudies';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['', '/work', '/experience', '/beyond', '/contact'];
+  const routes = ['', '/work', '/about', '/now'];
 
   return [
     ...routes.map((route) => ({

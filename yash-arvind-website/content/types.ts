@@ -55,6 +55,10 @@ export interface CaseStudy {
   award?: string;
   /** One line for cards. */
   tagline: string;
+  /** One-line result with a number, shown in the work list. Falls back to the first metric. */
+  outcome?: string;
+  /** Functions or stakeholders worked with, when there is no named team. */
+  collaborators?: string[];
   /** Two sentences max; also used as the meta description. */
   summary: string;
   metrics: Metric[];
@@ -67,7 +71,7 @@ export interface CaseStudy {
   stack: string[];
   team?: { members: string[]; advisors: string[] };
   links: ExternalLink[];
-  video?: { src: string; poster: string; title: string };
+  video?: { src: string; poster?: string; title: string };
   images?: MediaImage[];
   reviews?: AppReview[];
 }

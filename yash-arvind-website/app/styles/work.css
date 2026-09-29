@@ -1,0 +1,67 @@
+/* Work section styles. Imported by components/work; tokens come from globals.css. */
+
+/* WorkList: on a fine pointer, rows you're not on step back. */
+@media (hover: hover) and (pointer: fine) {
+  .work-list .work-row {
+    transition: opacity 0.6s var(--ease-out-expo);
+  }
+  .work-list:has(.work-row:hover) .work-row:not(:hover) {
+    opacity: 0.22;
+  }
+}
+.work-list:has(a:focus-visible) .work-row:not(:has(a:focus-visible)) {
+  opacity: 0.22;
+}
+.work-row a:focus-visible {
+  outline-offset: 0;
+}
+
+/* Next-project image: revealed from the bottom edge on hover/focus (fine pointers only). */
+@media (hover: hover) and (pointer: fine) {
+  .next-media {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 0.9s var(--ease-out-expo);
+  }
+  .next-link:hover .next-media,
+  .next-link:focus-visible .next-media {
+    clip-path: inset(0 0 0 0);
+  }
+  .next-media > * {
+    transform: scale(1.15);
+    transition: transform 1.2s var(--ease-out-expo);
+  }
+  .next-link:hover .next-media > *,
+  .next-link:focus-visible .next-media > * {
+    transform: none;
+  }
+}
+
+/* Video seek bar: the range input is invisible, so show focus on its track. */
+.video-seek:has(input:focus-visible) {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   Shared-element morph (list preview / next-project image → case-study hero).
+   Both carry view-transition-name work-<slug> and this class.
+   --------------------------------------------------------------------------- */
+.work-morph {
+  view-transition-class: work-media;
+}
+::view-transition-group(*.work-media) {
+  animation-duration: 0.9s;
+  animation-timing-function: var(--ease-in-out-quart);
+}
+::view-transition-old(*.work-media),
+::view-transition-new(*.work-media) {
+  height: 100%;
+  object-fit: cover;
+}
+/* A hero with no partner (arriving via nav, or leaving) moves with the page. */
+::view-transition-old(*.work-media):only-child {
+  animation: 0.55s var(--ease-in-out-quart) both vt-recede;
+}
+::view-transition-new(*.work-media):only-child {
+  animation: 0.75s var(--ease-in-out-quart) both vt-wipe-up;
+}

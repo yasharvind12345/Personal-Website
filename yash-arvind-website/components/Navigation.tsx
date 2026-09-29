@@ -138,7 +138,7 @@ export function Navigation() {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="page-x fixed inset-0 z-40 flex flex-col justify-between bg-paper pb-10 pt-24 md:hidden"
+        className="page-x fixed inset-0 z-40 flex flex-col justify-between bg-paper pb-10 pt-24 md:hidden [&[hidden]]:hidden"
       >
         <nav aria-label="Mobile" className="flex flex-col">
           {[{ href: '/', label: 'Home' }, ...navLinks].map((link, i) => (

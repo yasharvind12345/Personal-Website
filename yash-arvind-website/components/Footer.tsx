@@ -18,7 +18,7 @@ export function Footer() {
         <p className="mt-8 max-w-prose text-lg text-muted">{profile.cta}</p>
 
         <div className="mt-10">
-          <CopyEmail className="link-draw display text-display-sm hover:text-accent" />
+          <CopyEmail className="link-draw display break-all text-[clamp(1.1rem,4.6vw,2.25rem)] leading-tight hover:text-accent" />
           <p className="meta mt-3">Click to copy · replies within {profile.responseTime}</p>
         </div>
 

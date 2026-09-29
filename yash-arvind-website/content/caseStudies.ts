@@ -4,6 +4,7 @@ import type { CaseStudy } from './types';
  * Case studies rendered at /work/[slug].
  * Each follows Problem → What I did → Key decisions → Impact → What's next.
  * Sections with no confirmed facts are left empty and are not rendered.
+ * Source of truth: public/Yash_Arvind_Resume.pdf. Targets are phrased as targets.
  */
 export const caseStudies: CaseStudy[] = [
   {
@@ -12,63 +13,72 @@ export const caseStudies: CaseStudy[] = [
     subtitle: 'Quote-to-Cash reconciliation',
     org: 'Zendesk',
     role: 'AI Product Intern, Business Operations',
-    period: 'Summer 2026',
+    period: 'Jun 2026 – Aug 2026',
     tagline: 'Reconciling what Zendesk sold (Salesforce CPQ) with what it billed (Zuora).',
+    outcome: '$2–⁠3M and 9,000+ analyst hours saved a year',
     summary:
-      'An AI-assisted reconciliation engine on Snowflake that catches revenue leakage and overbilling between Salesforce CPQ and Zuora. It saves 9,000+ hours and $2–\u20603M a year in production.',
+      'An AI-assisted reconciliation product that turned a $20M discrepancy between Salesforce CPQ and Zuora into auditable matching logic, closing a five-year data-integrity gap. In production, it saves 9,000+ analyst hours and $2–⁠3M a year.',
     metrics: [
-      { value: '$2–3M', label: 'Saved annually' },
-      { value: '9,000+', label: 'Hours saved per year' },
-      { value: '$200K+', label: 'Undetected leakage surfaced' },
-      { value: '93%+', label: 'Classification accuracy' },
+      { value: '$20M', label: 'Discrepancy made auditable' },
+      { value: '$2–⁠3M', label: 'Saved annually' },
+      { value: '9,000+', label: 'Analyst hours saved a year' },
+      { value: '93%+', label: 'Accuracy on 100K+ records' },
     ],
     problem: [
-      'Salesforce CPQ records what was sold. Zuora records what was billed. Over the life of a contract the two drifted apart, and that gap had gone unaddressed for about five years.',
-      'The drift caused revenue leakage, overbilling, and contract-math errors. Finance only caught them by hand, after the fact.',
+      'Salesforce CPQ records what was sold. Zuora records what was billed. Over the life of a contract the two drifted apart, and the gap had gone unaddressed for about five years.',
+      'The drift added up to a $20M cross-system discrepancy: revenue leakage, overbilling, and contract-math errors that Finance only caught by hand, after the fact.',
     ],
     whatIDid: {
       intro:
-        'I built an AI-assisted reconciliation engine on Snowflake. Its core is deterministic SQL and intentionally does not rely on an LLM.',
+        'I drove the product from problem framing to production, working across Finance, RevOps, and Engineering, with VP and SVP stakeholders setting scope.',
       points: [
-        'Compares CPQ and Zuora at the deal level.',
-        'Classifies mismatches as pricing, proration, discounting, or contract-math errors.',
-        'Outputs a leakage and overbilling report plus an exec-summary dashboard.',
-        'Includes an audit log, error handling, and Slack incident alerting.',
-        'Publishes result tables and marts to production.',
+        'Translated contract structures (proration, tiered pricing, discounting, ramps, and ELAs) into calculation logic, system requirements, and API specifications.',
+        'Built the matching layer in deterministic Snowflake SQL, comparing CPQ and Zuora at the deal level.',
+        'Classified mismatches as pricing, proration, discounting, or contract-math errors.',
+        'Shipped a leakage and overbilling report plus an exec-summary dashboard, with an audit log, error handling, and Slack incident alerting.',
+        'Built a MiroFish agent-simulation environment for UAT, spawning millions of AI agents with varied characteristics to model real-world conditions and human behavior.',
+        'Published result tables and marts to production, and tracked requirements and releases in Jira and Confluence.',
       ],
     },
     decisions: [
+      {
+        title: 'Deterministic core, AI around it',
+        body: 'The matching layer is deterministic Snowflake SQL, so every flagged dollar can be traced and audited. AI is reserved for the layers around it: classifying mismatches and simulating users. Validated on 100K+ records at 93%+ accuracy.',
+      },
+      {
+        title: 'Tested against a simulated world',
+        body: 'User-acceptance testing ran in a MiroFish agent-simulation environment I built. It spawns millions of AI agents with varied characteristics to model real-world conditions and human behavior, which kept AI in the test harness and out of the matching core.',
+      },
+      {
+        title: 'Shipped the general case first',
+        body: 'Ramp and ELA deals kept breaking the general logic. Working with VP and SVP stakeholders on scope, I shipped a working model for every other deal type first and phased ramp and ELA contracts into a follow-on release.',
+      },
+      {
+        title: 'Got the dollar math right',
+        body: 'Zuora has no single "effective price" because of tiered pricing, so I worked with subject-matter guidance to turn proration, tiers, discounts, ramps, and ELAs into correct dollar calculations.',
+      },
       {
         title: 'Earned production access one step at a time',
         body: 'Instead of asking for everything upfront, I earned access incrementally: read-only discovery, then a personal database, then a dedicated schema, then a least-privilege service account with key-pair auth, then a dedicated warehouse.',
       },
       {
-        title: 'Shipped the general case first',
-        body: 'Ramp and ELA deals kept breaking the general logic. I shipped a working model for every other deal type first, then came back and fixed ramp and ELA in a later pass.',
-      },
-      {
         title: 'Staged the rollout',
-        body: 'Local testing, then shadow validation on live data, then read-only production checks, then the full pipeline.',
-      },
-      {
-        title: 'Got the dollar math right',
-        body: 'Zuora has no single "effective price" because of tiered pricing, so I worked with subject-matter guidance to get the dollar calculations right.',
-      },
-      {
-        title: 'Took it up the review chain',
-        body: 'Reviewed by my manager, then VP Finance Transformation, then presented at an SVP Revenue Operations leadership sync.',
+        body: 'Local testing, then shadow validation on live data, then read-only production checks, then the full pipeline. Reviewed by my manager, then VP Finance Transformation, then presented at an SVP Revenue Operations leadership sync.',
       },
     ],
     impact: [
-      '9,000+ hours and $2–\u20603M saved annually, realized in production.',
-      'Validated on 100K+ records at 93%+ classification accuracy.',
+      'Turned a $20M cross-system discrepancy into auditable matching logic, closing a five-year data-integrity gap.',
+      '9,000+ analyst hours and $2–⁠3M saved annually, realized in production.',
+      'Validated on 100K+ records at 93%+ accuracy.',
       'Surfaced $200K+ in previously undetected revenue leakage.',
     ],
     next: [
+      'Ramp and ELA contracts, phased into a follow-on release.',
       'Expand toward fuller automation of resolution.',
       'Drive AI adoption across RevOps.',
     ],
-    stack: ['Snowflake', 'SQL', 'Salesforce CPQ', 'Zuora'],
+    stack: ['Snowflake', 'SQL', 'Salesforce CPQ', 'Zuora', 'MiroFish', 'Jira', 'Confluence'],
+    collaborators: ['Finance', 'RevOps', 'Engineering', 'VP & SVP stakeholders'],
     links: [],
   },
   {
@@ -77,34 +87,43 @@ export const caseStudies: CaseStudy[] = [
     subtitle: 'Transaction Analysis Machine',
     role: 'Co-Founder & CEO',
     period: '2025 – Present',
-    award: '🥈 2nd Place, MadData 2026',
-    tagline: 'AI financial due diligence for PE, M&A, and corporate development.',
+    award: '2nd Place, MadData 2026',
+    tagline: 'Agentic financial due diligence for PE, M&A, and corporate development.',
+    outcome: 'Due-diligence reports in under 8 seconds per company',
     summary:
-      'Financial due diligence takes weeks of manual work. TAM is an AI due-diligence platform that generates a per-company report in under 8 seconds.',
+      'Financial due diligence takes weeks of manual work. TAM is an agentic due-diligence platform that parses filings, flags anomalies, and generates a per-company report in under 8 seconds.',
     metrics: [
-      { value: '94 / 100', label: 'Avg. red flags surfaced' },
       { value: '< 8 sec', label: 'Per-company report' },
+      { value: '94 / 100', label: 'Avg. red flags surfaced' },
       { value: '2nd', label: 'MadData 2026' },
     ],
     problem: [
       'Financial due diligence for private equity, M&A, and corporate development is weeks of manual grunt work. I did it by hand at EY.',
     ],
     whatIDid: {
-      intro: 'TAM is an AI financial due-diligence platform. It covers:',
+      intro: 'I set the product vision and roadmap for an agentic due-diligence platform.',
       points: [
-        'Quality of Earnings: reported vs. adjusted EBITDA',
-        'Net Working Capital peg',
-        'Cash Conversion Cycle',
-        '5-year DCF / NPV',
-        'A self-correcting agentic extraction loop with statistical validation',
-        'RAG Q&A over deal documents',
-        'Automated PDF and Excel reports',
+        'LangGraph orchestration over a ChromaDB RAG layer and the Claude API.',
+        'A LangChain + FinBERT pipeline that parses SEC filings and contracts for covenants, risk clauses, and filing sentiment.',
+        'Isolation Forest anomaly detection layered over financial statements to flag irregularities.',
+        'Financial analysis: Quality of Earnings (reported vs. adjusted EBITDA), Net Working Capital peg, Cash Conversion Cycle, and a 5-year DCF / NPV.',
+        'A self-correcting agentic extraction loop with statistical validation, plus RAG Q&A over deal documents.',
+        'Automated PDF and Excel reports in under 8 seconds per company, on a FastAPI/Celery, PostgreSQL, and React stack.',
       ],
     },
-    decisions: [],
+    decisions: [
+      {
+        title: 'Discovery with the people who do the work',
+        body: 'I run discovery with due-diligence practitioners and Managing Directors at EY and PwC, and turn their feedback into prioritized requirements and a go-to-market plan.',
+      },
+      {
+        title: 'Validate the agent, don’t trust it',
+        body: 'Extraction runs as a self-correcting loop: an initial data scan, statistical validation, autonomous self-refinement, then verified output. Isolation Forest anomaly detection runs over the financial statements alongside it.',
+      },
+    ],
     impact: [
       'Isolation Forest anomaly detection surfaces an average of 94 of 100 red flags across 100 deals.',
-      'Generates a per-company report in under 8 seconds.',
+      'Generates a per-company PDF/Excel report in under 8 seconds.',
       '2nd Place at MadData 2026.',
     ],
     next: [],
@@ -112,6 +131,7 @@ export const caseStudies: CaseStudy[] = [
       'Next.js / React',
       'TypeScript',
       'FastAPI',
+      'Celery',
       'Python',
       'Claude API',
       'LangChain + LangGraph',
@@ -129,7 +149,6 @@ export const caseStudies: CaseStudy[] = [
     links: [{ label: 'GitHub', href: 'https://github.com/diyakayy/maddata2026' }],
     video: {
       src: '/videos/tam-demo.mp4',
-      poster: '/images/tam-dashboard.png',
       title: 'TAM: full product demo',
     },
     images: [
@@ -156,8 +175,9 @@ export const caseStudies: CaseStudy[] = [
     role: 'Co-Founder',
     period: '2025 – Present',
     tagline: 'iOS co-founder matching for student entrepreneurs.',
+    outcome: 'Live on the App Store, scaled to 350 users',
     summary:
-      'An iOS app that helps student entrepreneurs find co-founders. Live on the App Store with 350 users and a 4.8★ rating.',
+      'An iOS app that helps student entrepreneurs find co-founders. Shipped to the App Store and scaled to 350 users, with a 4.8★ rating.',
     metrics: [
       { value: '350', label: 'Users' },
       { value: '4.8★', label: 'App Store rating' },
@@ -166,6 +186,7 @@ export const caseStudies: CaseStudy[] = [
     problem: ['Student entrepreneurs need a way to find co-founders.'],
     whatIDid: {
       points: [
+        'Shipped a live iOS co-founder matching app to the App Store, scaling to 350 users.',
         'Designed and built the MVP in Swift, including swipe-based matching.',
         'Lead a cross-functional team of 6 across design, development, and marketing.',
         'Wrote the business plan: market sizing, projections, and go-to-market.',
@@ -206,56 +227,51 @@ export const caseStudies: CaseStudy[] = [
   {
     slug: 'cortexa',
     title: 'Cortexa',
+    subtitle: 'Hallucination detection for enterprise LLMs',
     role: 'Co-Founder',
     period: '2025 – Present',
-    tagline: 'Making production LLM apps cheaper and more reliable.',
+    tagline: 'A hallucination-detection layer that makes production LLM apps cheaper and more reliable.',
+    outcome: 'Targeting 60%+ fewer RAG errors at under 12ms overhead',
     summary:
-      'Tooling that makes production LLM apps cheaper and more reliable, with hallucination detection and telemetry-based debugging of agent behavior. Cuts token costs by ~30%.',
-    metrics: [{ value: '~30%', label: 'Lower token costs' }],
+      'Product strategy for an enterprise LLM hallucination-detection layer built on token-level entropy and retrieval-consistency checks. It targets 60%+ error reduction in RAG pipelines and ~30% lower token costs, validated with Nvidia and AmFam.',
+    metrics: [
+      { value: '60%+', label: 'Target RAG error reduction' },
+      { value: '~30%', label: 'Target token-cost reduction' },
+      { value: '< 12ms', label: 'Overhead, by design' },
+    ],
     problem: [
       'Teams running LLM apps in production need them to be cheaper and more reliable.',
+      'Enterprise teams need to catch hallucinations in their RAG pipelines without rebuilding the retrieval stacks they already run.',
     ],
     whatIDid: {
+      intro: 'I own product strategy for Cortexa.',
       points: [
         'Hallucination detection using token-level entropy and retrieval-consistency checks.',
+        'Designed to drop into existing LangChain and LlamaIndex retrieval stacks at under 12ms overhead.',
         'Debugging of AI agent and model behavior through telemetry.',
-        'Designed to plug into existing LangChain and LlamaIndex retrieval stacks.',
+        'Validated the approach with Nvidia and AmFam.',
       ],
     },
-    decisions: [],
+    decisions: [
+      {
+        title: 'A drop-in layer, not a new stack',
+        body: 'Cortexa plugs into the LangChain and LlamaIndex retrieval stacks teams already run, with an overhead budget under 12ms, so adopting it does not mean re-architecting.',
+      },
+    ],
     impact: [
-      'Cuts token costs by ~30%.',
+      'Validated with Nvidia and AmFam.',
       'Introduced to Zendesk Engineering and Security/Enterprise AI teams.',
     ],
-    next: [],
-    stack: ['LangChain', 'LlamaIndex'],
-    links: [],
-  },
-  {
-    slug: 'mirofish',
-    title: 'MiroFish',
-    tagline: 'Agent simulation for user-acceptance testing.',
-    summary:
-      'An agent-simulation environment for extensive user-acceptance testing. It spawns millions of AI agents with varied characteristics to model real-world conditions and human behavior.',
-    metrics: [{ value: 'Millions', label: 'Simulated AI agents' }],
-    problem: [
-      'User-acceptance testing needs to reflect real-world conditions and human behavior.',
+    next: [
+      'Targeting 60%+ error reduction in RAG pipelines.',
+      'Targeting ~30% lower token costs.',
     ],
-    whatIDid: {
-      points: [
-        'Built an agent-simulation environment that spawns millions of AI agents with varied characteristics.',
-        'The agents model real-world conditions and human behavior for extensive user-acceptance testing.',
-      ],
-    },
-    decisions: [],
-    impact: [],
-    next: [],
-    stack: [],
+    stack: ['LangChain', 'LlamaIndex'],
     links: [],
   },
 ];
 
-/** Case studies featured as primary cards on the home page, in order. */
+/** Case studies featured on the home page, in order. */
 export const featuredSlugs = ['zendesk-dib', 'tam', 'flux', 'cortexa'];
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {

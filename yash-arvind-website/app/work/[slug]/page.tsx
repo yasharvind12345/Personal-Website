@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { CaseStudyLayout } from '@/components';
+import { CaseStudyLayout } from '@/components/work/CaseStudyLayout';
 import { caseStudies, getCaseStudy } from '@/content/caseStudies';
 import { pageMetadata } from '@/lib/metadata';
 
@@ -31,8 +31,8 @@ export default function CaseStudyPage({ params }: Props) {
   const index = caseStudies.findIndex((study) => study.slug === params.slug);
   if (index === -1) notFound();
 
-  const study = caseStudies[index];
-  const nextStudy = caseStudies[(index + 1) % caseStudies.length];
+  const total = caseStudies.length;
+  const nextStudy = total > 1 ? caseStudies[(index + 1) % total] : undefined;
 
-  return <CaseStudyLayout study={study} nextStudy={nextStudy} />;
+  return <CaseStudyLayout study={caseStudies[index]} index={index} total={total} nextStudy={nextStudy} />;
 }

@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { Play, Pause, Maximize2 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 interface VideoPlayerProps {
   src: string;
@@ -10,89 +9,126 @@ interface VideoPlayerProps {
   className?: string;
 }
 
+const clock = (t: number) => {
+  if (!Number.isFinite(t)) return '0:00';
+  const s = Math.floor(t);
+  return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+};
+
+/**
+ * Plain editorial video: the frame, then a hairline control bar in mono
+ * (play, time, seek, fullscreen). Every control is a labelled native element.
+ */
 export function VideoPlayer({ src, poster, title, className = '' }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [started, setStarted] = useState(false);
+  const [time, setTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
-  const togglePlay = () => {
+  const toggle = () => {
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
-      video.play();
-      setHasStarted(true);
+      void video.play();
     } else {
       video.pause();
     }
   };
 
-  const handleFullscreen = () => {
-    videoRef.current?.requestFullscreen?.();
+  const seek = (value: number) => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.currentTime = value;
+    setTime(value);
   };
 
+  // Metadata can load before hydration, so read it once on mount as well.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && video.readyState >= 1) setDuration(video.duration);
+  }, []);
+
+  const progress = duration ? time / duration : 0;
+
   return (
-    <div
-      className={`relative group rounded-xl overflow-hidden bg-void-950 border border-steel-800/50 ${className}`}
-    >
-      <video
-        ref={videoRef}
-        src={src}
-        poster={poster}
-        aria-label={title}
-        className="w-full aspect-video object-cover"
-        onEnded={() => {
-          setIsPlaying(false);
-          setHasStarted(false);
-        }}
-        onPause={() => setIsPlaying(false)}
-        onPlay={() => setIsPlaying(true)}
-        preload="metadata"
-        playsInline
-      />
-
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-          !isPlaying
-            ? 'opacity-100'
-            : 'opacity-0 group-hover:opacity-100 focus-within:opacity-100'
-        }`}
-      >
-        {!isPlaying && (
-          <div className="absolute inset-0 bg-gradient-to-t from-void-950/80 via-void-950/30 to-transparent pointer-events-none" />
+    <figure className={className}>
+      <div className="relative aspect-video overflow-hidden bg-ink">
+        <video
+          ref={videoRef}
+          // No poster: jump a frame in so the video shows its own opening shot.
+          src={poster ? src : `${src}#t=0.1`}
+          poster={poster}
+          aria-label={title}
+          className="h-full w-full object-cover"
+          preload="metadata"
+          playsInline
+          onClick={toggle}
+          onPlay={() => {
+            setPlaying(true);
+            setStarted(true);
+          }}
+          onPause={() => setPlaying(false)}
+          onEnded={() => setPlaying(false)}
+          onDurationChange={(e) => setDuration(e.currentTarget.duration)}
+          onTimeUpdate={(e) => setTime(e.currentTarget.currentTime)}
+        />
+        {!started && (
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={`Play ${title}`}
+            className="group absolute inset-0 flex items-end justify-start focus-visible:outline-offset-[-4px]"
+          >
+            <span className="flex items-center gap-3 bg-ink px-5 py-4 font-mono text-xs uppercase tracking-wider text-paper transition-colors duration-200 group-hover:bg-accent">
+              Play demo
+              {duration > 0 && <span className="text-paper/60">{clock(duration)}</span>}
+            </span>
+          </button>
         )}
+      </div>
 
-        {/* Full-area play/pause control */}
+      <div className="flex items-center gap-4 border-b border-rule py-3 font-mono text-xs uppercase tracking-wider md:gap-6">
         <button
           type="button"
-          onClick={togglePlay}
-          aria-label={isPlaying ? `Pause ${title}` : `Play ${title}`}
-          className="absolute inset-0 z-10 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent-400"
+          onClick={toggle}
+          aria-label={playing ? `Pause ${title}` : `Play ${title}`}
+          className="w-12 text-left hover:text-accent"
         >
-          <span className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-accent-400/90 hover:bg-accent-400 transition-all shadow-[0_0_30px_rgba(251,191,36,0.3)] hover:shadow-[0_0_40px_rgba(251,191,36,0.5)] motion-safe:hover:scale-105">
-            {isPlaying ? (
-              <Pause className="w-6 h-6 sm:w-8 sm:h-8 text-void-950" aria-hidden="true" />
-            ) : (
-              <Play className="w-6 h-6 sm:w-8 sm:h-8 text-void-950 ml-1" aria-hidden="true" />
-            )}
-          </span>
+          {playing ? 'Pause' : 'Play'}
         </button>
-
-        {!hasStarted && (
-          <div className="absolute bottom-4 left-4 right-16 z-10 pointer-events-none">
-            <p className="font-mono text-xs text-accent-400 uppercase tracking-wider mb-1">Demo video</p>
-            <p className="font-display text-lg sm:text-xl text-steel-50">{title}</p>
-          </div>
-        )}
-
+        <span className="num shrink-0 text-muted" aria-hidden="true">
+          {clock(time)} / {clock(duration)}
+        </span>
+        <div className="video-seek relative h-5 flex-1">
+          <span aria-hidden="true" className="absolute inset-x-0 top-1/2 h-px bg-rule" />
+          <span
+            aria-hidden="true"
+            className="absolute left-0 top-1/2 h-px w-full origin-left bg-ink"
+            style={{ transform: `scaleX(${progress})` }}
+          />
+          <input
+            type="range"
+            min={0}
+            max={duration || 0}
+            step={0.1}
+            value={time}
+            onChange={(e) => seek(Number(e.target.value))}
+            aria-label={`Seek ${title}`}
+            aria-valuetext={`${clock(time)} of ${clock(duration)}`}
+            className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+          />
+        </div>
         <button
           type="button"
-          className="absolute bottom-4 right-4 z-20 p-2 rounded-lg bg-void-900/80 text-steel-400 hover:text-steel-50 transition-colors focus-visible:ring-2 focus-visible:ring-accent-400"
-          onClick={handleFullscreen}
+          onClick={() => videoRef.current?.requestFullscreen?.()}
           aria-label={`Watch ${title} fullscreen`}
+          className="hover:text-accent"
         >
-          <Maximize2 size={16} aria-hidden="true" />
+          Full screen
         </button>
       </div>
-    </div>
+      <figcaption className="meta mt-3">{title}</figcaption>
+    </figure>
   );
 }

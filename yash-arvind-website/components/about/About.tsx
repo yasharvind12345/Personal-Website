@@ -50,8 +50,8 @@ export async function About() {
           changed.
         </p>
         <p className="col-span-4 max-w-prose text-lg leading-relaxed text-muted md:col-span-6 md:col-start-4">
-          Based in {profile.location.replace(', WI', ', Wisconsin')}. I did financial due diligence by hand at EY,
-          then co-founded TAM to automate it.
+          Based in {profile.location.replace(', WI', ', Wisconsin')}. Before co-founding TAM, an AI due-diligence
+          platform, I did financial due diligence on a live M&amp;A deal at EY.
         </p>
       </div>
 

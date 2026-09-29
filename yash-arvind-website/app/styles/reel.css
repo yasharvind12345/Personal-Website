@@ -1,0 +1,354 @@
+/* ---------------------------------------------------------------------------
+   Work reel (components/reel/WorkReel.tsx, engine in reelEngine.ts).
+   The 3D reel is based on RotatingOnScrollAnimations by Codrops, MIT License,
+   https://github.com/codrops/RotatingOnScrollAnimations
+
+   Layouts:
+   - Static (default: no JS, reduced motion, or a very short window): a list of
+     project blocks, cover beside the text on desktop and above it on mobile.
+   - Mobile motion (< 768px): the same blocks; covers settle in as they enter.
+   - Reel (JS + motion + >= 768px wide and 560px tall): a sticky 100vh view
+     with the index on the left and the frames stacked on the right. `.js` is
+     set on <html> before paint, so the layout never swaps after hydration.
+   --------------------------------------------------------------------------- */
+
+.reel {
+  position: relative;
+  overflow-x: hidden;
+  overflow-x: clip; /* clip, unlike hidden, keeps the sticky view working */
+}
+
+/* ----- Static list ------------------------------------------------------- */
+
+.reel-aside {
+  display: none;
+}
+
+.reel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.reel-item {
+  border-top: 1px solid rgb(var(--rule));
+  padding: 1.25rem 0 2.75rem;
+}
+.reel-item:first-child {
+  border-top: 0;
+  padding-top: 2rem;
+}
+
+.reel-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: inherit;
+  text-decoration: none;
+}
+.reel-frame:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 6px;
+}
+
+.reel-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: rgb(var(--paper-deep));
+  outline: 1px solid rgb(var(--ink) / 0.08);
+  outline-offset: -1px;
+}
+.reel-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  color: transparent; /* never show alt text over the frame if an image fails */
+}
+
+.reel-cap {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  align-items: baseline;
+}
+.reel-cap__index {
+  font-size: 0.75rem;
+  color: rgb(var(--accent));
+}
+.reel-cap__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.reel-cap__title {
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.reel-cap__outcome {
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: rgb(var(--ink) / 0.78);
+}
+.reel-cap__open {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .reel-item {
+    padding: 2rem 0;
+  }
+  .reel-frame {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: start;
+  }
+  .reel-cap {
+    grid-row: 1;
+    grid-column: 1;
+    height: 100%;
+    grid-template-rows: auto 1fr;
+  }
+  .reel-cap__open {
+    display: block;
+    grid-column: 2;
+    align-self: end;
+    color: rgb(var(--ink));
+  }
+  .reel-media {
+    grid-column: 2;
+  }
+  .reel-frame:hover .reel-cap__title,
+  .reel-frame:focus-visible .reel-cap__title {
+    color: rgb(var(--accent));
+  }
+}
+
+.reel-foot {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+  .reel-foot {
+    padding-bottom: 7rem;
+  }
+}
+
+/* Cursor label: only shown by the reel's hover code (fine pointer). */
+.reel-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  padding: 0.35rem 0.6rem;
+  background: rgb(var(--ink));
+  color: rgb(var(--paper));
+  outline: 1px solid rgb(var(--paper)); /* keeps the tag legible over light frames */
+  pointer-events: none;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* ----- Mobile motion ------------------------------------------------------ */
+
+@media (max-width: 767.98px) and (prefers-reduced-motion: no-preference) {
+  .js .reel-frame {
+    perspective: 900px;
+  }
+  .js .reel-media {
+    backface-visibility: hidden;
+  }
+}
+
+/* ----- Reel (desktop, motion allowed) ------------------------------------ */
+
+@media (min-width: 768px) and (min-height: 560px) and (prefers-reduced-motion: no-preference) {
+  .js .reel-track {
+    --step: 85vh;
+    height: calc(100vh + (var(--n, 5) - 1) * var(--step));
+  }
+
+  .js .reel-view {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  /* Left: counter, progress, index. */
+  .js .reel-aside {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: calc(var(--nav-h) + 1.75rem) 0 clamp(1.5rem, 4vh, 2.75rem);
+  }
+
+  .js .reel-list {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    perspective: 1500px;
+    perspective-origin: 50% 50%;
+  }
+  .js .reel-item {
+    grid-area: 1 / 1;
+    width: min(94%, 56vh * 1.6);
+    padding: 0;
+    border: 0;
+    backface-visibility: hidden;
+    transform-origin: 50% 50%;
+    /* Where the engine starts (frame 01 at the centre), so nothing jumps on load. */
+    transform: translate3d(0, calc(var(--i) * 60vh), 0);
+  }
+  .js .reel-item:not(:first-child) {
+    opacity: 0.4;
+  }
+  .js .reel-frame {
+    display: block;
+  }
+  .js .reel-cap {
+    display: none;
+  }
+  .js .reel-media {
+    cursor: pointer;
+  }
+
+  .js .reel-foot {
+    padding-top: 0;
+  }
+}
+
+.reel-counter {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.reel-counter__now {
+  display: inline-flex;
+  font-size: clamp(4rem, 14vh, 9.5rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+.reel-counter__now > span:first-child {
+  color: rgb(var(--muted));
+}
+.reel-counter__mask {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+}
+.reel-counter__roll {
+  display: flex;
+  flex-direction: column;
+}
+.reel-counter__roll > span {
+  display: block;
+  height: 1em;
+}
+.reel-counter__of {
+  padding-top: 0.9em;
+  font-size: 0.8125rem;
+  color: rgb(var(--muted));
+}
+
+.reel-progress {
+  position: relative;
+  height: 1px;
+  margin: clamp(0.75rem, 2.5vh, 1.5rem) 0 0;
+  background: rgb(var(--rule));
+}
+.reel-progress__fill {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--accent));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+.reel-progress__tick {
+  position: absolute;
+  top: -3px;
+  width: 1px;
+  height: 7px;
+  background: rgb(var(--muted));
+}
+.reel-progress__tick:last-child {
+  margin-left: -1px;
+}
+
+.reel-index {
+  list-style: none;
+  margin: auto 0 0;
+  padding: 0;
+}
+.reel-index li + li .reel-row {
+  border-top: 1px solid rgb(var(--rule));
+}
+.reel-row {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  align-items: baseline;
+  padding: clamp(0.6rem, 1.6vh, 1rem) 0;
+  color: rgb(var(--ink));
+  text-decoration: none;
+  opacity: 0.34;
+  transition: opacity 0.5s var(--ease-out-expo);
+}
+.reel-row:hover {
+  opacity: 0.7;
+}
+.reel-row[data-active] {
+  opacity: 1;
+}
+.reel-row:focus-visible {
+  outline-offset: 2px;
+}
+.reel-row__index {
+  font-size: 0.75rem;
+  color: rgb(var(--muted));
+  transition: color 0.3s;
+}
+.reel-row[data-active] .reel-row__index {
+  color: rgb(var(--accent));
+}
+.reel-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+.reel-row__head {
+  display: flex;
+  flex-wrap: wrap; /* the date drops below the title in a narrow column */
+  align-items: baseline;
+  justify-content: space-between;
+  column-gap: 1rem;
+  row-gap: 0.2rem;
+}
+.reel-row__title {
+  font-size: clamp(1.2rem, min(2.1vw, 3.4vh), 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.reel-row__period {
+  flex: none;
+  color: rgb(var(--muted));
+}
+.reel-row__outcome {
+  font-size: clamp(0.8125rem, 1.8vh, 0.9375rem);
+  line-height: 1.35;
+  color: rgb(var(--ink) / 0.78);
+}
+.reel-row__credit {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

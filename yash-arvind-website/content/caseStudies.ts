@@ -165,16 +165,17 @@ export const caseStudies: CaseStudy[] = [
     metrics: [
       { value: '350', label: 'Users' },
       { value: '4.8★', label: 'App Store rating' },
-      { value: '6', label: 'Person team' },
+      { value: '6', label: 'People on the team' },
     ],
-    problem: ['Student entrepreneurs need a way to find co-founders.'],
+    // The summary already states the problem; one line read thin as its own section.
+    problem: [],
     whatIDid: {
       points: [
         'Shipped a live iOS co-founder matching app to the App Store, scaling to 350 users.',
         'Designed and built the MVP in Swift, including swipe-based matching.',
-        'Lead a cross-functional team of 6 across design, development, and marketing.',
+        'Leading a cross-functional team of 6 across design, development, and marketing.',
         'Wrote the business plan: market sizing, projections, and go-to-market.',
-        'v2.1.0 added Google Drive resume uploads.',
+        'Version 2.1.0 added Google Drive résumé uploads.',
       ],
     },
     decisions: [],

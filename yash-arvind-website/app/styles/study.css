@@ -1,0 +1,74 @@
+/* In-page case study sheet (components/study). Tokens come from globals.css. */
+
+/* The sheet is its own native scroll container: no smoothing, no wheel handling. */
+.study-sheet {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  --bar-h: 3.5rem;
+}
+.study-sheet:focus {
+  outline: none;
+}
+@media (min-width: 768px) {
+  .study-sheet {
+    --bar-h: 4rem;
+  }
+}
+
+/* Title lines are split and masked while they reveal; keep descenders inside the mask. */
+.study-title .split-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+/* Section targets clear the sticky bar when jumped to from the contents list. */
+.study-section {
+  scroll-margin-top: calc(var(--bar-h) + 1.5rem);
+}
+
+/* Bar title: fades in once the page title has scrolled under the bar. */
+.study-bar-title {
+  opacity: 0;
+  transform: translateY(0.4rem);
+  transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo);
+}
+.study-sheet[data-past-title] .study-bar-title {
+  opacity: 1;
+  transform: none;
+}
+
+/* Next study: the cover rises into its frame on hover or focus (fine pointers). */
+@media (hover: hover) and (pointer: fine) {
+  .study-next-media {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 0.9s var(--ease-out-expo);
+  }
+  .study-next:hover .study-next-media,
+  .study-next:focus-visible .study-next-media {
+    clip-path: inset(0 0 0 0);
+  }
+  .study-next-media > * {
+    transform: scale(1.12);
+    transition: transform 1.2s var(--ease-out-expo);
+  }
+  .study-next:hover .study-next-media > *,
+  .study-next:focus-visible .study-next-media > * {
+    transform: none;
+  }
+}
+@media not all and (hover: hover) and (pointer: fine) {
+  .study-next-media {
+    display: none;
+  }
+}
+
+.study-next-arrow {
+  display: inline-block;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+.study-next:hover .study-next-arrow,
+.study-next:focus-visible .study-next-arrow {
+  transform: translateX(0.25em);
+}

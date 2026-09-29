@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="t d">
+<title id="t">Cortexa: token-level entropy over a generated sentence</title>
+<desc id="d">A generated sentence, "Our refund policy allows returns within 30 days, extended to 90 days for enterprise plans.", with a per-token entropy chart above it. Two tokens, "90" and "enterprise", rise above the 2.5-nat threshold and are flagged as likely hallucinations. Illustrative output.</desc>
+<style>
+  .m { font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-feature-settings: 'tnum'; }
+  .s { font-family: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-stretch: 118%; }
+  .cap { text-transform: uppercase; letter-spacing: 1.6px; }
+</style>
+<rect width="1600" height="1000" fill="#F4F1EA"/>
+<text class="m cap" x="80" y="92" font-size="15" fill="#5E5B54">Cortexa · Hallucination detection</text>
+<text class="m cap" x="1520" y="92" font-size="15" fill="#5E5B54" text-anchor="end">Fig. 02 · Token-level entropy</text>
+<line x1="80" y1="118.5" x2="1520" y2="118.5" stroke="#111110" stroke-width="1"/>
+<line x1="146" y1="620.5" x2="1520" y2="620.5" stroke="#111110" stroke-width="1"/>
+<text class="m" x="80" y="625" font-size="13" fill="#5E5B54">0.0</text>
+<line x1="146" y1="530.5" x2="1520" y2="530.5" stroke="#D9D4C7" stroke-width="1"/>
+<text class="m" x="80" y="535" font-size="13" fill="#5E5B54">1.0</text>
+<line x1="146" y1="440.5" x2="1520" y2="440.5" stroke="#D9D4C7" stroke-width="1"/>
+<text class="m" x="80" y="445" font-size="13" fill="#5E5B54">2.0</text>
+<line x1="146" y1="350.5" x2="1520" y2="350.5" stroke="#D9D4C7" stroke-width="1"/>
+<text class="m" x="80" y="355" font-size="13" fill="#5E5B54">3.0</text>
+<line x1="146" y1="260.5" x2="1520" y2="260.5" stroke="#D9D4C7" stroke-width="1"/>
+<text class="m" x="80" y="265" font-size="13" fill="#5E5B54">4.0</text>
+<text class="m cap" x="80" y="234" font-size="12.5" fill="#5E5B54">Entropy, nats</text>
+<line x1="146" y1="395" x2="1520" y2="395" stroke="#FF4F00" stroke-width="1.25" stroke-dasharray="6 6"/>
+<text class="m cap" x="146" y="383" font-size="12.5" fill="#FF4F00">Flag threshold <tspan style="text-transform:none">τ = 2.5</tspan></text>
+<line x1="192.5" y1="620" x2="192.5" y2="582.2" stroke="#111110" stroke-width="1.25"/>
+<circle cx="192.5" cy="582.2" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="171" y1="634" x2="171" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="170" y="686" font-size="25" fill="#111110">Our</text>
+<line x1="275" y1="620" x2="275" y2="540.8" stroke="#111110" stroke-width="1.25"/>
+<circle cx="275" cy="540.8" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="231" y1="634" x2="231" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="230" y="686" font-size="25" fill="#111110">refund</text>
+<line x1="380" y1="620" x2="380" y2="592.1" stroke="#111110" stroke-width="1.25"/>
+<circle cx="380" cy="592.1" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="336" y1="634" x2="336" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="335" y="686" font-size="25" fill="#111110">policy</text>
+<line x1="485" y1="620" x2="485" y2="553.4" stroke="#111110" stroke-width="1.25"/>
+<circle cx="485" cy="553.4" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="441" y1="634" x2="441" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="440" y="686" font-size="25" fill="#111110">allows</text>
+<line x1="597.5" y1="620" x2="597.5" y2="573.2" stroke="#111110" stroke-width="1.25"/>
+<circle cx="597.5" cy="573.2" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="546" y1="634" x2="546" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="545" y="686" font-size="25" fill="#111110">returns</text>
+<line x1="710" y1="620" x2="710" y2="565.1" stroke="#111110" stroke-width="1.25"/>
+<circle cx="710" cy="565.1" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="666" y1="634" x2="666" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="665" y="686" font-size="25" fill="#111110">within</text>
+<line x1="785" y1="620" x2="785" y2="495.8" stroke="#111110" stroke-width="1.25"/>
+<circle cx="785" cy="495.8" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="771" y1="634" x2="771" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="770" y="686" font-size="25" fill="#111110">30</text>
+<line x1="845" y1="620" x2="845" y2="600.2" stroke="#111110" stroke-width="1.25"/>
+<circle cx="845" cy="600.2" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="816" y1="634" x2="816" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="815" y="686" font-size="25" fill="#111110">days</text>
+<line x1="882.5" y1="620" x2="882.5" y2="609.2" stroke="#111110" stroke-width="1.25"/>
+<circle cx="882.5" cy="609.2" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="876" y1="634" x2="876" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="875" y="686" font-size="25" fill="#111110">,</text>
+<line x1="965" y1="620" x2="965" y2="474.2" stroke="#111110" stroke-width="1.25"/>
+<circle cx="965" cy="474.2" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="906" y1="634" x2="906" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="905" y="686" font-size="25" fill="#111110">extended</text>
+<line x1="1055" y1="620" x2="1055" y2="598.4" stroke="#111110" stroke-width="1.25"/>
+<circle cx="1055" cy="598.4" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="1041" y1="634" x2="1041" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="1040" y="686" font-size="25" fill="#111110">to</text>
+<line x1="1100" y1="620" x2="1100" y2="274.40000000000003" stroke="#FF4F00" stroke-width="2"/>
+<circle cx="1100" cy="274.40000000000003" r="6" fill="#FF4F00" stroke="#FF4F00" stroke-width="1.5"/>
+<line x1="1086" y1="634" x2="1086" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="1100" y="256.40000000000003" font-size="15" fill="#FF4F00" text-anchor="middle">3.84</text>
+<rect x="1085" y="702" width="30" height="3" fill="#FF4F00"/>
+<text class="m" x="1085" y="686" font-size="25" fill="#FF4F00">90</text>
+<line x1="1160" y1="620" x2="1160" y2="589.4" stroke="#111110" stroke-width="1.25"/>
+<circle cx="1160" cy="589.4" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="1131" y1="634" x2="1131" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="1130" y="686" font-size="25" fill="#111110">days</text>
+<line x1="1227.5" y1="620" x2="1227.5" y2="583.1" stroke="#111110" stroke-width="1.25"/>
+<circle cx="1227.5" cy="583.1" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="1206" y1="634" x2="1206" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="1205" y="686" font-size="25" fill="#111110">for</text>
+<line x1="1340" y1="620" x2="1340" y2="339.2" stroke="#FF4F00" stroke-width="2"/>
+<circle cx="1340" cy="339.2" r="6" fill="#FF4F00" stroke="#FF4F00" stroke-width="1.5"/>
+<line x1="1266" y1="634" x2="1266" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="1340" y="321.2" font-size="15" fill="#FF4F00" text-anchor="middle">3.12</text>
+<rect x="1265" y="702" width="150" height="3" fill="#FF4F00"/>
+<text class="m" x="1265" y="686" font-size="25" fill="#FF4F00">enterprise</text>
+<line x1="1467.5" y1="620" x2="1467.5" y2="542.6" stroke="#111110" stroke-width="1.25"/>
+<circle cx="1467.5" cy="542.6" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="1431" y1="634" x2="1431" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="1430" y="686" font-size="25" fill="#111110">plans</text>
+<line x1="1512.5" y1="620" x2="1512.5" y2="611" stroke="#111110" stroke-width="1.25"/>
+<circle cx="1512.5" cy="611" r="4" fill="#F4F1EA" stroke="#111110" stroke-width="1.5"/>
+<line x1="1506" y1="634" x2="1506" y2="642" stroke="#5E5B54" stroke-width="1"/>
+<text class="m" x="1505" y="686" font-size="25" fill="#111110">.</text>
+<line x1="80" y1="776.5" x2="1520" y2="776.5" stroke="#111110" stroke-width="1"/>
+<text class="m cap" x="80" y="824" font-size="15" fill="#5E5B54">Flagged</text>
+<text class="s" x="76" y="926" font-size="112" font-weight="600" letter-spacing="-4" fill="#111110">2<tspan fill="#5E5B54" font-size="56" letter-spacing="-1" dx="22">/ 17 tokens</tspan></text>
+<text class="m cap" x="700" y="824" font-size="15" fill="#5E5B54">Retrieval consistency</text>
+<text class="m" x="700" y="868" font-size="17" fill="#111110">“90 days” not found in source docs</text>
+<text class="m" x="700" y="900" font-size="17" fill="#111110">“enterprise plans” not found in source docs</text>
+<text class="m" x="700" y="932" font-size="17" fill="#5E5B54">→ answer held for review</text>
+<text class="m" x="1520" y="972" font-size="12" fill="#5E5B54" text-anchor="end">Illustrative output.</text>
+</svg>

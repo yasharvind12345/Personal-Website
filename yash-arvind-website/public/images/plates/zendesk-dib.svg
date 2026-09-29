@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="t d">
+<title id="t">Data Integrity Bot: Salesforce CPQ to Zuora reconciliation</title>
+<desc id="d">Two columns of contract lines, Salesforce CPQ (sold) and Zuora (billed), matched row by row. Four mismatches are flagged and classified as pricing, proration, discount, and contract-math errors. Saved annually in production: $2 to 3M per year. Illustrative rows, not customer data.</desc>
+<style>
+  .m { font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-feature-settings: 'tnum'; }
+  .s { font-family: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-stretch: 118%; }
+  .cap { text-transform: uppercase; letter-spacing: 1.6px; }
+</style>
+<rect width="1600" height="1000" fill="#F4F1EA"/>
+<text class="m cap" x="80" y="92" font-size="15" fill="#5E5B54">Data Integrity Bot · Quote-to-cash reconciliation</text>
+<text class="m cap" x="1520" y="92" font-size="15" fill="#5E5B54" text-anchor="end">Zendesk · Fig. 01</text>
+<line x1="80" y1="118.5" x2="1520" y2="118.5" stroke="#111110" stroke-width="1"/>
+<text class="s" x="80" y="186" font-size="28" font-weight="600" letter-spacing="-0.6" fill="#111110">Salesforce CPQ</text>
+<text class="m cap" x="660" y="186" font-size="12.5" fill="#5E5B54" text-anchor="end">What was sold</text>
+<text class="s" x="940" y="186" font-size="28" font-weight="600" letter-spacing="-0.6" fill="#111110">Zuora</text>
+<text class="m cap" x="1520" y="186" font-size="12.5" fill="#5E5B54" text-anchor="end">What was billed</text>
+<text class="m cap" x="800" y="186" font-size="12.5" fill="#5E5B54" text-anchor="middle">Class</text>
+<line x1="80" y1="213.5" x2="660" y2="213.5" stroke="#111110" stroke-width="1.5"/>
+<line x1="940" y1="213.5" x2="1520" y2="213.5" stroke="#111110" stroke-width="1.5"/>
+<text class="m" x="90" y="245" font-size="16" fill="#5E5B54">Q-10482</text>
+<text class="m" x="196" y="245" font-size="16" fill="#111110">Suite Professional</text>
+<text class="m" x="520" y="245" font-size="16" fill="#5E5B54" text-anchor="end">120</text>
+<text class="m" x="650" y="245" font-size="16" fill="#111110" text-anchor="end">$79,200</text>
+<text class="m" x="950" y="245" font-size="16" fill="#5E5B54">INV-88213</text>
+<text class="m" x="1066" y="245" font-size="16" fill="#111110">Suite Professional</text>
+<text class="m" x="1380" y="245" font-size="16" fill="#5E5B54" text-anchor="end">120</text>
+<text class="m" x="1510" y="245" font-size="16" fill="#111110" text-anchor="end">$79,200</text>
+<line x1="80" y1="263.5" x2="660" y2="263.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="263.5" x2="1520" y2="263.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="239" x2="926" y2="239" stroke="#5E5B54" stroke-width="1"/>
+<circle cx="674" cy="239" r="2.5" fill="#111110"/><circle cx="926" cy="239" r="2.5" fill="#111110"/>
+<rect x="80" y="264" width="1440" height="50" fill="#EAE6DC"/>
+<text class="m" x="90" y="295" font-size="16" fill="#5E5B54">Q-10517</text>
+<text class="m" x="196" y="295" font-size="16" fill="#111110">Support Enterprise</text>
+<text class="m" x="520" y="295" font-size="16" fill="#5E5B54" text-anchor="end">45</text>
+<text class="m" x="650" y="295" font-size="16" fill="#111110" text-anchor="end">$62,100</text>
+<text class="m" x="950" y="295" font-size="16" fill="#5E5B54">INV-88240</text>
+<text class="m" x="1066" y="295" font-size="16" fill="#111110">Support Enterprise</text>
+<text class="m" x="1380" y="295" font-size="16" fill="#5E5B54" text-anchor="end">45</text>
+<text class="m" x="1510" y="295" font-size="16" fill="#FF4F00" text-anchor="end">$53,460</text>
+<line x1="80" y1="313.5" x2="660" y2="313.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="313.5" x2="1520" y2="313.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="289" x2="730" y2="289" stroke="#FF4F00" stroke-width="1.5"/>
+<line x1="870" y1="289" x2="926" y2="289" stroke="#FF4F00" stroke-width="1.5"/>
+<circle cx="674" cy="289" r="2.5" fill="#FF4F00"/><circle cx="926" cy="289" r="2.5" fill="#FF4F00"/>
+<rect x="730.75" y="276" width="138.5" height="26" fill="#F4F1EA" stroke="#FF4F00" stroke-width="1.5"/>
+<text class="m cap" x="800" y="293.5" font-size="12" letter-spacing="1.2" fill="#FF4F00" text-anchor="middle">Pricing</text>
+<text class="m" x="90" y="345" font-size="16" fill="#5E5B54">Q-10533</text>
+<text class="m" x="196" y="345" font-size="16" fill="#111110">Talk Partner Ed.</text>
+<text class="m" x="520" y="345" font-size="16" fill="#5E5B54" text-anchor="end">12</text>
+<text class="m" x="650" y="345" font-size="16" fill="#111110" text-anchor="end">$2,736</text>
+<text class="m" x="950" y="345" font-size="16" fill="#5E5B54">INV-88251</text>
+<text class="m" x="1066" y="345" font-size="16" fill="#111110">Talk Partner Ed.</text>
+<text class="m" x="1380" y="345" font-size="16" fill="#5E5B54" text-anchor="end">12</text>
+<text class="m" x="1510" y="345" font-size="16" fill="#111110" text-anchor="end">$2,736</text>
+<line x1="80" y1="363.5" x2="660" y2="363.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="363.5" x2="1520" y2="363.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="339" x2="926" y2="339" stroke="#5E5B54" stroke-width="1"/>
+<circle cx="674" cy="339" r="2.5" fill="#111110"/><circle cx="926" cy="339" r="2.5" fill="#111110"/>
+<rect x="80" y="364" width="1440" height="50" fill="#EAE6DC"/>
+<text class="m" x="90" y="395" font-size="16" fill="#5E5B54">Q-10561</text>
+<text class="m" x="196" y="395" font-size="16" fill="#111110">Suite Growth</text>
+<text class="m" x="520" y="395" font-size="16" fill="#5E5B54" text-anchor="end">300</text>
+<text class="m" x="650" y="395" font-size="16" fill="#111110" text-anchor="end">$187,250</text>
+<text class="m" x="950" y="395" font-size="16" fill="#5E5B54">INV-88266</text>
+<text class="m" x="1066" y="395" font-size="16" fill="#111110">Suite Growth</text>
+<text class="m" x="1380" y="395" font-size="16" fill="#5E5B54" text-anchor="end">300</text>
+<text class="m" x="1510" y="395" font-size="16" fill="#FF4F00" text-anchor="end">$320,400</text>
+<line x1="80" y1="413.5" x2="660" y2="413.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="413.5" x2="1520" y2="413.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="389" x2="730" y2="389" stroke="#FF4F00" stroke-width="1.5"/>
+<line x1="870" y1="389" x2="926" y2="389" stroke="#FF4F00" stroke-width="1.5"/>
+<circle cx="674" cy="389" r="2.5" fill="#FF4F00"/><circle cx="926" cy="389" r="2.5" fill="#FF4F00"/>
+<rect x="730.75" y="376" width="138.5" height="26" fill="#F4F1EA" stroke="#FF4F00" stroke-width="1.5"/>
+<text class="m cap" x="800" y="393.5" font-size="12" letter-spacing="1.2" fill="#FF4F00" text-anchor="middle">Proration</text>
+<text class="m" x="90" y="445" font-size="16" fill="#5E5B54">Q-10588</text>
+<text class="m" x="196" y="445" font-size="16" fill="#111110">Guide Professional</text>
+<text class="m" x="520" y="445" font-size="16" fill="#5E5B54" text-anchor="end">60</text>
+<text class="m" x="650" y="445" font-size="16" fill="#111110" text-anchor="end">$36,000</text>
+<text class="m" x="950" y="445" font-size="16" fill="#5E5B54">INV-88279</text>
+<text class="m" x="1066" y="445" font-size="16" fill="#111110">Guide Professional</text>
+<text class="m" x="1380" y="445" font-size="16" fill="#5E5B54" text-anchor="end">60</text>
+<text class="m" x="1510" y="445" font-size="16" fill="#111110" text-anchor="end">$36,000</text>
+<line x1="80" y1="463.5" x2="660" y2="463.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="463.5" x2="1520" y2="463.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="439" x2="926" y2="439" stroke="#5E5B54" stroke-width="1"/>
+<circle cx="674" cy="439" r="2.5" fill="#111110"/><circle cx="926" cy="439" r="2.5" fill="#111110"/>
+<rect x="80" y="464" width="1440" height="50" fill="#EAE6DC"/>
+<text class="m" x="90" y="495" font-size="16" fill="#5E5B54">Q-10602</text>
+<text class="m" x="196" y="495" font-size="16" fill="#111110">Sell Team</text>
+<text class="m" x="520" y="495" font-size="16" fill="#5E5B54" text-anchor="end">25</text>
+<text class="m" x="650" y="495" font-size="16" fill="#111110" text-anchor="end">$4,275</text>
+<text class="m" x="950" y="495" font-size="16" fill="#5E5B54">INV-88297</text>
+<text class="m" x="1066" y="495" font-size="16" fill="#111110">Sell Team</text>
+<text class="m" x="1380" y="495" font-size="16" fill="#5E5B54" text-anchor="end">25</text>
+<text class="m" x="1510" y="495" font-size="16" fill="#FF4F00" text-anchor="end">$5,700</text>
+<line x1="80" y1="513.5" x2="660" y2="513.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="513.5" x2="1520" y2="513.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="489" x2="730" y2="489" stroke="#FF4F00" stroke-width="1.5"/>
+<line x1="870" y1="489" x2="926" y2="489" stroke="#FF4F00" stroke-width="1.5"/>
+<circle cx="674" cy="489" r="2.5" fill="#FF4F00"/><circle cx="926" cy="489" r="2.5" fill="#FF4F00"/>
+<rect x="730.75" y="476" width="138.5" height="26" fill="#F4F1EA" stroke="#FF4F00" stroke-width="1.5"/>
+<text class="m cap" x="800" y="493.5" font-size="12" letter-spacing="1.2" fill="#FF4F00" text-anchor="middle">Discount</text>
+<text class="m" x="90" y="545" font-size="16" fill="#5E5B54">Q-10619</text>
+<text class="m" x="196" y="545" font-size="16" fill="#111110">Suite Enterprise</text>
+<text class="m" x="520" y="545" font-size="16" fill="#5E5B54" text-anchor="end">80</text>
+<text class="m" x="650" y="545" font-size="16" fill="#111110" text-anchor="end">$162,240</text>
+<text class="m" x="950" y="545" font-size="16" fill="#5E5B54">INV-88305</text>
+<text class="m" x="1066" y="545" font-size="16" fill="#111110">Suite Enterprise</text>
+<text class="m" x="1380" y="545" font-size="16" fill="#5E5B54" text-anchor="end">80</text>
+<text class="m" x="1510" y="545" font-size="16" fill="#111110" text-anchor="end">$162,240</text>
+<line x1="80" y1="563.5" x2="660" y2="563.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="563.5" x2="1520" y2="563.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="539" x2="926" y2="539" stroke="#5E5B54" stroke-width="1"/>
+<circle cx="674" cy="539" r="2.5" fill="#111110"/><circle cx="926" cy="539" r="2.5" fill="#111110"/>
+<rect x="80" y="564" width="1440" height="50" fill="#EAE6DC"/>
+<text class="m" x="90" y="595" font-size="16" fill="#5E5B54">Q-10644</text>
+<text class="m" x="196" y="595" font-size="16" fill="#111110">Suite Pro, ramp Y2</text>
+<text class="m" x="520" y="595" font-size="16" fill="#5E5B54" text-anchor="end">200</text>
+<text class="m" x="650" y="595" font-size="16" fill="#111110" text-anchor="end">$118,800</text>
+<text class="m" x="950" y="595" font-size="16" fill="#5E5B54">INV-88318</text>
+<text class="m" x="1066" y="595" font-size="16" fill="#111110">Suite Pro, ramp Y2</text>
+<text class="m" x="1380" y="595" font-size="16" fill="#5E5B54" text-anchor="end">200</text>
+<text class="m" x="1510" y="595" font-size="16" fill="#FF4F00" text-anchor="end">$132,000</text>
+<line x1="80" y1="613.5" x2="660" y2="613.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="613.5" x2="1520" y2="613.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="589" x2="730" y2="589" stroke="#FF4F00" stroke-width="1.5"/>
+<line x1="870" y1="589" x2="926" y2="589" stroke="#FF4F00" stroke-width="1.5"/>
+<circle cx="674" cy="589" r="2.5" fill="#FF4F00"/><circle cx="926" cy="589" r="2.5" fill="#FF4F00"/>
+<rect x="730.75" y="576" width="138.5" height="26" fill="#F4F1EA" stroke="#FF4F00" stroke-width="1.5"/>
+<text class="m cap" x="800" y="593.5" font-size="12" letter-spacing="1.2" fill="#FF4F00" text-anchor="middle">Contract math</text>
+<text class="m" x="90" y="645" font-size="16" fill="#5E5B54">Q-10671</text>
+<text class="m" x="196" y="645" font-size="16" fill="#111110">Explore Professional</text>
+<text class="m" x="520" y="645" font-size="16" fill="#5E5B54" text-anchor="end">10</text>
+<text class="m" x="650" y="645" font-size="16" fill="#111110" text-anchor="end">$10,800</text>
+<text class="m" x="950" y="645" font-size="16" fill="#5E5B54">INV-88330</text>
+<text class="m" x="1066" y="645" font-size="16" fill="#111110">Explore Professional</text>
+<text class="m" x="1380" y="645" font-size="16" fill="#5E5B54" text-anchor="end">10</text>
+<text class="m" x="1510" y="645" font-size="16" fill="#111110" text-anchor="end">$10,800</text>
+<line x1="80" y1="663.5" x2="660" y2="663.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="940" y1="663.5" x2="1520" y2="663.5" stroke="#D9D4C7" stroke-width="1"/>
+<line x1="674" y1="639" x2="926" y2="639" stroke="#5E5B54" stroke-width="1"/>
+<circle cx="674" cy="639" r="2.5" fill="#111110"/><circle cx="926" cy="639" r="2.5" fill="#111110"/>
+<line x1="80" y1="716.5" x2="1520" y2="716.5" stroke="#111110" stroke-width="1"/>
+<text class="m cap" x="80" y="764" font-size="15" fill="#5E5B54">Saved annually, in production</text>
+<text class="s" x="72" y="936" font-size="196" font-weight="600" letter-spacing="-8" fill="#111110">$2–3M<tspan font-size="64" letter-spacing="-1" dx="14" fill="#5E5B54">/yr</tspan></text>
+<text class="m cap" x="1000" y="764" font-size="15" fill="#5E5B54">Mismatch classes</text>
+<rect x="1000" y="802" width="10" height="10" fill="#FF4F00"/>
+<text class="m cap" x="1024" y="812" font-size="14" letter-spacing="1.2" fill="#111110">Pricing</text>
+<text class="m" x="1200" y="812" font-size="14" fill="#5E5B54">list vs. billed unit price</text>
+<line x1="1000" y1="826.5" x2="1520" y2="826.5" stroke="#D9D4C7" stroke-width="1"/>
+<rect x="1000" y="840" width="10" height="10" fill="#FF4F00"/>
+<text class="m cap" x="1024" y="850" font-size="14" letter-spacing="1.2" fill="#111110">Proration</text>
+<text class="m" x="1200" y="850" font-size="14" fill="#5E5B54">partial-term math</text>
+<line x1="1000" y1="864.5" x2="1520" y2="864.5" stroke="#D9D4C7" stroke-width="1"/>
+<rect x="1000" y="878" width="10" height="10" fill="#FF4F00"/>
+<text class="m cap" x="1024" y="888" font-size="14" letter-spacing="1.2" fill="#111110">Discount</text>
+<text class="m" x="1200" y="888" font-size="14" fill="#5E5B54">not carried to billing</text>
+<line x1="1000" y1="902.5" x2="1520" y2="902.5" stroke="#D9D4C7" stroke-width="1"/>
+<rect x="1000" y="916" width="10" height="10" fill="#FF4F00"/>
+<text class="m cap" x="1024" y="926" font-size="14" letter-spacing="1.2" fill="#111110">Contract math</text>
+<text class="m" x="1200" y="926" font-size="14" fill="#5E5B54">ramps, ELAs, co-terms</text>
+<line x1="1000" y1="940.5" x2="1520" y2="940.5" stroke="#D9D4C7" stroke-width="1"/>
+<text class="m" x="1520" y="972" font-size="12" fill="#5E5B54" text-anchor="end">Illustrative rows, not customer data.</text>
+</svg>

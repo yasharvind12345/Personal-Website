@@ -190,7 +190,7 @@ export function WorkReel() {
                     interceptClick(e, p.slug, () => e.currentTarget.querySelector<HTMLElement>('.reel-media'))
                   }
                 >
-                  <span className="reel-media" data-kind={p.cover.kind}>
+                  <span className="reel-media" data-kind={p.cover.kind} data-study-frame={p.slug}>
                     <Image
                       src={p.cover.src}
                       alt={p.cover.alt}

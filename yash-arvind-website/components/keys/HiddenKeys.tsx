@@ -206,8 +206,9 @@ export function HiddenKeys() {
 
       const def = keymap.get(k);
       if (!def || e.repeat) return;
-      // With a case study open, the page behind is covered: skip the scroll keys.
-      if (def.action.type === 'scroll' && studyRef.current) return;
+      // With a case study open, the page behind is covered (and inert): skip the
+      // scroll keys and the panel, which lives in that page.
+      if ((def.action.type === 'scroll' || def.action.type === 'toggle') && studyRef.current) return;
       e.preventDefault();
       press(def);
     };

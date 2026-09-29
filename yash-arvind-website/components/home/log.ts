@@ -3,6 +3,9 @@ import { hackathons, recognition } from '@/content/hackathons';
 import { ventures } from '@/content/ventures';
 import { caseStudies } from '@/content/caseStudies';
 
+/** 'Real-time …' → 'real-time …', but leave acronyms like 'AI' alone. */
+const lowerFirst = (s: string) => (/^[A-Z][a-z]/.test(s) ? s[0].toLowerCase() + s.slice(1) : s);
+
 export interface LogEntry {
   kind: 'Role' | 'Venture' | 'Award' | 'Hackathon' | 'Program' | 'Project';
   /** Award result, set in the accent before `title`. */
@@ -78,7 +81,7 @@ export function trackRecord(): LogEntry[] {
       kind: h.won ? 'Award' : 'Hackathon',
       result: h.won ? h.award : undefined,
       title: stripYear(h.event),
-      detail: `${h.name}, ${h.tagline.charAt(0).toLowerCase()}${h.tagline.slice(1)}`,
+      detail: `${h.name}, ${lowerFirst(h.tagline)}`,
       date: y.label,
       href: h.href ?? h.githubUrl,
       external: !h.href && Boolean(h.githubUrl),
@@ -108,7 +111,7 @@ export function trackRecord(): LogEntry[] {
     entries.push({
       kind: 'Project',
       title: v.name,
-      detail: v.metric ? `${v.tagline}. ${v.metric.value} ${v.metric.label.toLowerCase()}` : v.tagline,
+      detail: v.metric ? `${v.tagline}. ${v.metric.value} ${lowerFirst(v.metric.label)}` : v.tagline,
       date: ongoing ? 'Now' : '—',
       start: -Infinity,
       end: ongoing ? Infinity : -Infinity,

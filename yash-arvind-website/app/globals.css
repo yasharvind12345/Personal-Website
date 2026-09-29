@@ -141,6 +141,12 @@
   }
 }
 
+/* Display line-heights are tight; let each line's reveal mask include descenders. */
+[data-split] .split-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
 /* Generic reveal used sparingly (not on every section). */
 .js [data-reveal] {
   opacity: 0;

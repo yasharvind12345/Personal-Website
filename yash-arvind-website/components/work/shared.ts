@@ -29,7 +29,7 @@ export function yearLabel(period?: string) {
 export function outcomeLine(study: CaseStudy) {
   if (study.outcome) return study.outcome;
   const m = study.metrics[0];
-  return m ? `${m.value} ${m.label.toLowerCase()}` : study.tagline;
+  return m ? `${m.value} ${/^[A-Z][a-z]/.test(m.label) ? m.label[0].toLowerCase() + m.label.slice(1) : m.label}` : study.tagline;
 }
 
 /** Warm the cache with the hero's image so the morph lands on a decoded frame. */

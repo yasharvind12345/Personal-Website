@@ -4,7 +4,11 @@
  *
  * Sources:
  * - flux/*: iPhone screenshots from Flux's App Store listing (1242×2688 masters, resized).
- * - tam/dashboard.jpg, tam/intake.jpg: frames from /videos/tam-demo.mp4 (browser chrome cropped).
+ * - tam/dashboard.jpg, tam/intake.jpg, tam/cover.jpg: frames from /videos/tam-demo.mp4
+ *   (browser chrome cropped). /images/tam-dashboard.png is NOT the dashboard (it is a team
+ *   video-call screenshot); do not use it.
+ * - flux/cover.jpg: three of the listing screenshots set on paper-deep, 16:10.
+ * - workMedia covers are all 16:10 (the WorkList preview and case-study hero crop to 16:10).
  * - tam/architecture.jpg, tam/workflow.jpg: the diagrams from the TAM repo (same files as
  *   /images/tam-architecture.png and /images/tam-workflow.png, which are JPEGs with a .png name).
  * - plates/*.svg: typographic plates for work with no shareable screenshots (illustrative data).
@@ -41,6 +45,13 @@ const img = {
     height: 1030,
     kind: 'screenshot',
   },
+  tamCover: {
+    src: '/images/tam/cover.jpg',
+    alt: 'TAM analyst workspace, executive overview: LTM revenue $77.6M, reported EBITDA $16.5M, adjusted EBITDA $17.1M, NWC peg, deal-risk score 4.8 of 10, and revenue and EBITDA bridge charts',
+    width: 1600,
+    height: 1000,
+    kind: 'screenshot',
+  },
   tamIntake: {
     src: '/images/tam/intake.jpg',
     alt: 'TAM intake workspace: company details form, deal documents uploading, and a walkthrough of document intelligence, the financial build engine, and analyst-grade insights',
@@ -61,6 +72,13 @@ const img = {
     width: 640,
     height: 640,
     kind: 'diagram',
+  },
+  fluxCover: {
+    src: '/images/flux/cover.jpg',
+    alt: 'Three Flux iOS screens side by side: a co-founder profile card on Discover, a chat between matched students, and a profile generated from an uploaded résumé',
+    width: 1600,
+    height: 1000,
+    kind: 'screenshot',
   },
   fluxDiscover: {
     src: '/images/flux/discover.jpg',
@@ -102,11 +120,11 @@ const img = {
 /** Every image, for pages that want to pick their own (e.g. a case-study gallery). */
 export const images = img;
 
-/** Cover image per case-study slug: the WorkList hover preview and the case-study hero (shared morph). */
+/** Cover image per case-study slug (all 16:10): the WorkList hover preview and the case-study hero (shared morph). */
 export const workMedia: Record<string, WorkImage> = {
   'zendesk-dib': img.dibPlate,
-  tam: img.tamDashboard,
-  flux: img.fluxDiscover,
+  tam: img.tamCover,
+  flux: img.fluxCover,
   cortexa: img.cortexaPlate,
 };
 
@@ -116,7 +134,6 @@ export const stripImages: (WorkImage & { caption: string; href?: string })[] = [
   { ...img.fluxDiscover, caption: 'Flux · iOS · 2025', href: '/work/flux' },
   { ...img.dibPlate, caption: 'Data Integrity Bot · Zendesk · 2026', href: '/work/zendesk-dib' },
   { ...img.fluxChat, caption: 'Flux · Messages · 2025', href: '/work/flux' },
-  { ...img.tamWorkflow, caption: 'TAM · Extraction loop · 2026', href: '/work/tam' },
   { ...img.cortexaPlate, caption: 'Cortexa · Entropy check · 2025', href: '/work/cortexa' },
   { ...img.fluxMatch, caption: 'Flux · Match alerts · 2025', href: '/work/flux' },
   { ...img.tamIntake, caption: 'TAM · Deal intake · 2026', href: '/work/tam' },

@@ -1,5 +1,6 @@
 import { profile, education } from '@/content/profile';
 import { CopyEmail } from './CopyEmail';
+import { KeysHint } from './keys/KeysHint';
 
 const links = [
   profile.socials.github,
@@ -41,9 +42,9 @@ export function Footer() {
           <span>
             © {year} Yash Arvind · {profile.location} · {education.school}
           </span>
-          <span>
+          <KeysHint>
             This site has hidden keys. Press <kbd className="text-ink">?</kbd>
-          </span>
+          </KeysHint>
         </div>
       </div>
     </footer>

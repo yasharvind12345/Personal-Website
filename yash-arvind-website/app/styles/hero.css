@@ -1,0 +1,168 @@
+/* Hero (components/hero). */
+
+/*
+ * Statement size is derived from the longest line so it always fits:
+ * --hero-k is that line's width in em at the resting stretch (measured), plus
+ * a little air. Lines never wrap; the width field keeps each line's total width
+ * constant, so nothing can push past the gutter.
+ */
+.hero-title {
+  --hero-k: 4.25; /* phones: "products" (4.10em) is the longest unit */
+  --hero-lines: 4.5; /* 5 lines x 0.9 */
+  --hero-reserve: 16rem; /* phones: keep it big; the rest can sit below the fold */
+  font-size: min(
+    calc((min(100vw, 90rem) - 2 * var(--gutter)) / var(--hero-k)),
+    calc((100svh - var(--hero-reserve)) / var(--hero-lines))
+  );
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+  font-stretch: 108%; /* WDTH_REST in widthField.ts */
+}
+@media (min-width: 768px) {
+  .hero-title {
+    --hero-k: 7.8; /* "products people" (7.52em) */
+    --hero-lines: 2.7;
+    --hero-reserve: 28rem;
+  }
+}
+
+.hero-unit {
+  display: block;
+  white-space: nowrap;
+  /* Room for the italic descender inside the reveal mask. */
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+}
+.hero-unit-in {
+  display: block;
+}
+/* Reveal mask: clip only the bottom edge (clip-path keeps baselines intact). */
+.hero-title:not([data-settled]) .hero-unit {
+  clip-path: inset(-1em -1em 0 -1em);
+}
+
+/* Phones: every unit on its own line. Wider: the middle pair shares one. */
+.hero-pair {
+  display: contents;
+}
+@media (min-width: 768px) {
+  .hero-pair {
+    display: block;
+    white-space: nowrap;
+  }
+  .hero-pair > .hero-unit {
+    display: inline-block;
+  }
+}
+
+/* Newsreader sits small beside expanded Archivo; nudge it up to match. */
+.hero-em {
+  font-size: 1.1em;
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  padding-right: 0.04em;
+}
+
+[data-l] {
+  font-kerning: normal;
+}
+
+/* Wait for JS before revealing, with the same failsafe as [data-split]. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-title:not([data-ready]) .hero-unit-in {
+    visibility: hidden;
+    animation: split-failsafe 0s 2.5s forwards;
+  }
+  .js [data-hero-reveal]:not([data-hero-ready]) [data-hero-item] {
+    opacity: 0;
+    animation: hero-failsafe 0s 2.5s forwards;
+  }
+  .js [data-hero-reveal]:not([data-hero-ready]) [data-hero-rule] {
+    visibility: hidden;
+    animation: split-failsafe 0s 2.5s forwards;
+  }
+}
+@keyframes hero-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Now ticker: all items share one grid cell; the active one rolls up into view. */
+.now-roll {
+  display: grid;
+  overflow: hidden;
+}
+.now-item {
+  grid-area: 1 / 1;
+  transition:
+    transform 0.8s var(--ease-out-expo),
+    opacity 0.5s var(--ease-out-expo);
+}
+.now-item[data-state='in'] {
+  transform: none;
+}
+.now-item[data-state='out'] {
+  transform: translateY(-110%);
+  opacity: 0;
+}
+.now-item[data-state='wait'] {
+  transform: translateY(110%);
+  visibility: hidden;
+  transition: none;
+}
+
+.now-track {
+  height: 1px;
+  background: rgb(var(--rule));
+  overflow: hidden;
+}
+.now-bar {
+  display: block;
+  height: 100%;
+  background: rgb(var(--accent));
+  transform-origin: 0 50%;
+  animation: now-bar 3.6s linear both;
+}
+@keyframes now-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Scroll cue: a short rule with a tick that keeps dropping toward the work. */
+.hero-cue-line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 2rem;
+  background: rgb(var(--rule));
+  overflow: hidden;
+}
+.hero-cue-line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 45%;
+  background: currentColor;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cue-line::after {
+    animation: hero-cue 2.2s var(--ease-in-out-quart) infinite;
+  }
+}
+@keyframes hero-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%,
+  100% {
+    transform: translateY(230%);
+  }
+}

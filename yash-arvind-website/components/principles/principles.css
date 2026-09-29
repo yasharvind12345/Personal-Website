@@ -1,0 +1,155 @@
+/* "How I build" index (PrincipleIndex.tsx). Phones: accordion. md+: titles left,
+   the open principle on the right, sliding to sit beside its title. */
+
+.pr-btn {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) 1.25rem;
+  align-items: baseline;
+  column-gap: 0.75rem;
+  width: 100%;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgb(var(--rule));
+  text-align: left;
+  color: rgb(var(--ink));
+  transition: color 0.5s var(--ease-out-expo);
+}
+.pr-btn[data-dim] {
+  /* Recede, but stay at 3:1 or better for large text. */
+  color: rgb(var(--ink) / 0.5);
+}
+.pr-btn:hover,
+.pr-btn:focus-visible {
+  color: rgb(var(--ink));
+}
+
+.pr-num {
+  font-size: 0.8125rem;
+  color: rgb(var(--muted));
+  transition: color 0.4s;
+}
+.pr-btn[data-open] .pr-num {
+  color: rgb(var(--accent));
+}
+
+.pr-title {
+  font-size: clamp(1.45rem, 2.9vw, 2.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.028em;
+  transition: transform 0.7s var(--ease-out-expo);
+}
+
+/* Plus that turns into a minus. Phones only. */
+.pr-sign {
+  position: relative;
+  align-self: center;
+  width: 0.8rem;
+  height: 0.8rem;
+}
+.pr-sign::before,
+.pr-sign::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: currentColor;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+.pr-sign::after {
+  transform: rotate(90deg);
+}
+.pr-btn[data-open] .pr-sign::after {
+  transform: rotate(0deg);
+}
+
+/* Panel: height via grid rows, content via a mask that opens from the top. */
+.pr-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.7s var(--ease-out-expo);
+}
+.pr-panel[data-open] {
+  grid-template-rows: 1fr;
+}
+.pr-clip {
+  min-height: 0;
+  overflow: hidden;
+}
+.pr-in {
+  padding: 0.25rem 0 2rem 3rem;
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(0.75rem);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    clip-path 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo),
+    opacity 0.3s,
+    visibility 0s 0.8s;
+}
+.pr-panel[data-open] .pr-in {
+  clip-path: inset(0 0 -1rem 0);
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    clip-path 0.9s var(--ease-out-expo) 0.08s,
+    transform 0.9s var(--ease-out-expo) 0.08s,
+    opacity 0.4s 0.08s,
+    visibility 0s;
+}
+.pr-panel[data-open] .pr-in {
+  border-bottom: 1px solid rgb(var(--rule));
+}
+.pr-count {
+  display: none;
+}
+@media (max-width: 767px) {
+  .pr-btn[data-open] {
+    border-bottom-color: transparent;
+  }
+}
+
+@media (min-width: 768px) {
+  .pr-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(0.75rem, 1.6vw, 1.5rem);
+  }
+  .pr-head {
+    grid-column: 1 / span 7;
+    grid-row: var(--row);
+  }
+  .pr-btn {
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    padding: 1.6rem 0;
+  }
+  .pr-sign {
+    display: none;
+  }
+  .pr-btn[data-open] .pr-title {
+    transform: translateX(0.5rem);
+  }
+  .pr-panel {
+    grid-column: 9 / span 4;
+    grid-row: 1 / span var(--n);
+    align-self: start;
+    grid-template-rows: 1fr;
+    padding-top: 1.9rem;
+    transform: translateY(var(--pr-y, 0px));
+    transition: transform 0.9s var(--ease-out-expo);
+  }
+  .pr-panel:not([data-open]) {
+    pointer-events: none;
+  }
+  .pr-in,
+  .pr-panel[data-open] .pr-in {
+    padding: 0;
+    border-bottom: 0;
+  }
+  .pr-count {
+    display: block;
+  }
+}

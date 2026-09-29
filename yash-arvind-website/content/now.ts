@@ -1,5 +1,5 @@
 /**
- * What Yash is up to right now. Shown as a quiet status line on the home page.
+ * What Yash is up to right now. Rolls through one line at a time in the hero.
  * DRAFT: Yash to edit. Update `updated` whenever this changes.
  */
 

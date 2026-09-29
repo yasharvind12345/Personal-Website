@@ -1,0 +1,54 @@
+/* Hidden keys overlay (components/keys). Keycaps are bordered squares with a
+   deeper bottom edge for travel; pressing one closes that gap. No shadows. */
+
+.keycap {
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0.3rem 0.4rem;
+  border: 1px solid rgb(var(--muted) / 0.55);
+  border-bottom-width: 4px;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgb(var(--ink));
+  background: rgb(var(--paper));
+  transition:
+    transform 0.12s var(--ease-out-expo),
+    border-color 0.12s,
+    border-bottom-width 0.12s,
+    color 0.12s;
+}
+.keycap[data-wide] {
+  width: 3.25rem;
+}
+
+.keycap-row:hover .keycap,
+.keycap-row:focus-visible .keycap {
+  border-color: rgb(var(--ink) / 0.8);
+}
+
+.keycap[data-pressed],
+.keycap-row:active .keycap {
+  transform: translateY(3px);
+  border-bottom-width: 1px;
+  border-color: rgb(var(--accent));
+  color: rgb(var(--accent));
+}
+
+.keycap-row:focus-visible {
+  outline-offset: 4px;
+}
+
+.keys-toast {
+  animation: keys-toast-in 0.45s var(--ease-out-expo) both;
+}
+@keyframes keys-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+}
